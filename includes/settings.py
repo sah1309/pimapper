@@ -1,3 +1,12 @@
+#!/usr/bin/python
+
+import commands
+import time
+
+currentIP = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:]
+timestamp = int(time.time())
+
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
