@@ -1,4 +1,4 @@
-randompi
+pimapper
 ========
 
 Raspberry Pi Network Mapper
