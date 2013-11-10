@@ -11,7 +11,7 @@ python-nmap
 mysql-server
 pip
 peewee (pip install peewee)
-
+python netaddr
 
 pip Install:
 

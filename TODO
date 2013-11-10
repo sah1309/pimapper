@@ -1,0 +1,7 @@
+- Allow for multiple hosts with same hostname
+	- Join host + mac query to match
+- record historical IP addresses when hostname changes IP
+- Display summary of changes made follwing scan
+- Move scan code into own class
+- OS discovery
+- Config file for DB passwords
