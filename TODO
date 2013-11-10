@@ -5,3 +5,12 @@
 - Move scan code into own class
 - OS discovery
 - Config file for DB passwords
+- Simple Port Scan
+- Email Alerts
+
+- Menu
+	- List Current Hosts
+	- Simple Port Scan
+	- Warnings (MAC change etc) & Dismiss Warnings
+	- Subnet Watch (New hosts)
+
