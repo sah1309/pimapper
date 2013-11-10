@@ -18,3 +18,24 @@ class host_history(peewee.Model):
 
     class Meta:
         database = db
+
+class mac(peewee.Model):
+    hostname = peewee.CharField()
+    macAddr = peewee.CharField()
+    scanTime = peewee.CharField()
+
+    class Meta:
+        database = db
+
+try:
+        host_current.create_table()
+except:
+        pass
+try:
+        host_history.create_table()
+except:
+        pass
+try:
+        mac.create_table()
+except:
+        pass
