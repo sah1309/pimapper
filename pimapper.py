@@ -12,7 +12,7 @@ primaryIf = 'en1'
 
 netinfo = network()
 
-currentIP = '172.16.10.0'
+currentIP = '192.168.200.0'
 #currentIP = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:]
 currentCIDR = '24'
 #currentCIDR = IPChecks.getBits(IPChecks.get_netmask(primaryIf))
@@ -39,12 +39,15 @@ def callback_result(host_ip, scan_result):
 
         #Get MAC address for host and check if exists in DB
         #current.get(current.macAddress)
-        for query_return in current.select(current.macAddress == netinfo.getmac(host_ip)):
-                if query_return.macAddress != netinfo.getmac(host_ip):
+        for current_return in current.select(current.macAddress == netinfo.getmac(host_ip)):
+                if current_return.macAddress != netinfo.getmac(host_ip):
                     write_mac_db(netinfo.getmac(host_ip), now)
+                    write_hostip_db(netinfo.getmac(host_ip), host_ip)
                     break
                 else:
-                    pass
+                    write_hostip_db(netinfo.getmac(host_ip), host_ip)
+
+
 
 
 
