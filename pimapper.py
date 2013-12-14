@@ -152,7 +152,7 @@ def callback_result(host, scan_result):
                     services.create(hostID=host_id, portID=port_id, scanTime=timestamp)
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
-    print bcolors.OKBLUE + 'Scanning ' + hostIP + '....' + bcolors.ENDC
+    print bcolors.OKBLUE + 'Scanning ' + i.hostIP + '....' + bcolors.ENDC
     service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=callback_result)
     while service_scanner.still_scanning():
         time.sleep(0.5)
