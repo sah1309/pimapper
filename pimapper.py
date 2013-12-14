@@ -3,6 +3,7 @@
 import nmap
 import socket
 import sys
+import commands
 from netaddr import IPNetwork
 from includes.settings import bcolors
 from includes.database import *
@@ -11,10 +12,10 @@ import time
 
 primaryIf='eth0'
 IPChecks = network()
-currentIP = "172.16.10.0"
-currentCIDR = "24"
-#currentIP = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:]
-#currentCIDR = IPChecks.getBits(IPChecks.get_netmask(primaryIf))
+#currentIP = "172.16.10.0"
+#currentCIDR = "24"
+currentIP = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:]
+currentCIDR = IPChecks.getBits(IPChecks.get_netmask(primaryIf))
 currentPreRange = currentIP + "/" + str(currentCIDR)
 ip2 = IPNetwork(currentPreRange)
 currentRange = str(ip2.network) + "/" + str(currentCIDR)
