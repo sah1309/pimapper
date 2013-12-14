@@ -121,11 +121,11 @@ discover = nmap.PortScannerAsync()
 discover.scan(hosts=scanRange, arguments='-sP', callback=discovery_scan)
 
 while discover.still_scanning():
-        time.sleep(0.5)
+        time.sleep(1)
         sys.stdout.write("-")
         sys.stdout.flush()
 
-
+print
 print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 
 #Build target list for port scan
@@ -139,7 +139,6 @@ def callback_result(host, scan_result):
     if host in scan_result['scan']:
         if 'tcp' in scan_result['scan'][host]:
             portresults = scan_result['scan'][host]['tcp']
-            print scan_result['scan'][host]['tcp']
             for service in portresults:
                 print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
                 port_id = ports.get(ports.port == service).id
