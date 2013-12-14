@@ -118,7 +118,7 @@ def discovery_scan(host, scan_result):
 print bcolors.HEADER + 'Starting pimapper discovery scan' + bcolors.ENDC
 
 discover = nmap.PortScannerAsync()
-portresults = discover.scan(hosts=scanRange, arguments='-sP', callback=discovery_scan)
+discover.scan(hosts=scanRange, arguments='-sP', callback=discovery_scan)
 
 while discover.still_scanning():
         time.sleep(0.5)
@@ -145,7 +145,7 @@ def callback_result(host, scan_result):
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
 
     print bcolors.OKBLUE + 'Scanning ' + i.hostIP + '....' + bcolors.ENDC
-    service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=callback_result)
+    portresults = service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=callback_result)
     while service_scanner.still_scanning():
         time.sleep(0.5)
         sys.stdout.write("-")
