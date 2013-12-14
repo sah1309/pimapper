@@ -20,7 +20,7 @@ currentPreRange = currentIP + "/" + str(currentCIDR)
 ip2 = IPNetwork(currentPreRange)
 currentRange = str(ip2.network) + "/" + str(currentCIDR)
 timestamp = int(time.time())
-print bcolors.HEADER
+print bcolors.OKGREEN
 print "   _____ _                       __  __              "
 print "  / ____| |                     |  \/  |             "
 print " | (___ | |_ ___  _ __ _ __ ___ | \  / | __ _ _ __   "
