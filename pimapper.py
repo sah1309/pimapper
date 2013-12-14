@@ -137,7 +137,14 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
         print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
         port_id = ports.get(ports.port == service).id
         host_id = host_current.get(host_current.hostIP == i.hostIP and host_current.scanTime == timestamp).id
-        services.create(hostID=host_id, portID=port_id, scanTime=timestamp)
+        try:
+            services.get(services.hostID == host_id and services.portID == port_id)
+            servicesUpdate = services.update(scanTime=timestamp).where(services.hostID == host_id, services.portID == port_id)
+            servicesUpdate.execute()
+        except DoesNotExist:
+            services.create(hostID=host_id, portID=port_id, scanTime=timestamp)
+
+
 
     print bcolors.HEADER + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
     hostOS = IPChecks.os_match(i.hostIP, 'lan')
