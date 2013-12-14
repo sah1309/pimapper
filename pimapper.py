@@ -65,7 +65,7 @@ def discovery_scan(host, scan_result):
         else:        
 
                 #Check if hostname has been found
-                if (scan_result['scan'][host]['hostname'] == "") or (scan_result['scan'][host]['hostname'] == "UNKNOWN"):
+                if scan_result['scan'][host]['hostname'] == "":
                     try:
                         #Try secondary means of getting hostname
                         hostnameNice = socket.gethostbyaddr(host)
