@@ -154,7 +154,7 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
     print bcolors.OKBLUE + 'Scanning ' + i.hostIP + '....' + bcolors.ENDC
     service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=callback_result)
     while service_scanner.still_scanning():
-        time.sleep(0.5)
+        time.sleep(1)
         sys.stdout.write("-")
         sys.stdout.flush()
 
