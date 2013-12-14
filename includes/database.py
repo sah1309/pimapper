@@ -3,6 +3,14 @@ from peewee import Model, MySQLDatabase
 
 db = MySQLDatabase('pimapper', user='root',passwd='pa55word')
 
+class port_scan(peewee.Model):
+    hostID = peewee.IntegerField()
+    portID = peewee.IntegerField()
+    scanTime = peewee.CharField()
+
+    class Meta:
+        database = db
+
 class ports(peewee.Model):
     service = peewee.CharField()
     port = peewee.CharField()
@@ -57,5 +65,9 @@ except:
         pass
 try:
         mac_address.create_table()
+except:
+        pass
+try:
+        port_scan.create_table()
 except:
         pass

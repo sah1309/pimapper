@@ -132,7 +132,10 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
     port_scan.scan(i.hostIP, '22-443')
 
     for service in port_scan[i.hostIP].all_tcp():
-            print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
+        print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
+        port_id = port.get(ports.port == service).id
+        host_id = host_current.get(host_current.hostIP == i.hostIP and host_current.scanTime == scanTime).id
+        port_scan.create(hostID=host_id, portID=port_id, scanTime=timestamp)
 
     print bcolors.HEADER + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
     hostOS = IPChecks.os_match(i.hostIP, 'lan')
