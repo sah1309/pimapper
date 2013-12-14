@@ -130,7 +130,7 @@ print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 
 #Build target list for port scan
 #lt = []
-#for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
+#
 #    lt.append(i.hostIP)
 #live_targets = ' '.join(lt)
 
@@ -151,19 +151,19 @@ def callback_result(host, scan_result):
                 except:
                     services.create(hostID=host_id, portID=port_id, scanTime=timestamp)
 
+for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
+    print bcolors.OKBLUE + 'Scanning ' + hostIP + '....' + bcolors.ENDC
+    service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=callback_result)
+    while service_scanner.still_scanning():
+        time.sleep(0.5)
+        sys.stdout.write("-")
+        sys.stdout.flush()
 
-print bcolors.OKBLUE + 'Scanning ' + i.hostIP + '....' + bcolors.ENDC
-service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=callback_result)
-while service_scanner.still_scanning():
-    time.sleep(0.5)
-    sys.stdout.write("-")
-    sys.stdout.flush()
-
-print bcolors.HEADER + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
-hostOS = IPChecks.os_match(i.hostIP, 'lan')
-if hostOS[1] == 0:
-    print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + bcolors.ENDC
-elif hostOS[0] == 'Unknown':
-    print bcolors.OKGREEN + 'Unable to identify OS for ' + i.hostname + bcolors.ENDC
-else:
-    print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1] + bcolors.ENDC
+#    print bcolors.HEADER + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
+#    hostOS = IPChecks.os_match(i.hostIP, 'lan')
+#    if hostOS[1] == 0:
+#        print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + bcolors.ENDC
+#    elif hostOS[0] == 'Unknown':
+#        print bcolors.OKGREEN + 'Unable to identify OS for ' + i.hostname + bcolors.ENDC
+#    else:
+#        print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1] + bcolors.ENDC
