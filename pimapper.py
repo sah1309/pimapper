@@ -157,7 +157,7 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
         sys.stdout.write("-")
         sys.stdout.flush()
 
-    for service in portresults[0]:
+    for service, portdata in portresults:
         print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
         port_id = ports.get(ports.port == service).id
         host_id = host_current.get(host_current.hostIP == i.hostIP and host_current.scanTime == timestamp).id
