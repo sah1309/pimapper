@@ -10,6 +10,7 @@ from includes.database import *
 from includes.network import network
 import time
 
+global portresults
 primaryIf='eth0'
 IPChecks = network()
 #currentIP = "172.16.10.0"
