@@ -12,6 +12,11 @@ class ports(peewee.Model):
     class Meta:
         database = db
 
+class mac_address(peewee.Model):
+    hostname = peewee.CharField()
+    macAddr = peewee.CharField()
+    scanTime = peewee.CharField()
+
 class host_current(peewee.Model):
     hostname = peewee.CharField()
     hostIP = peewee.CharField()

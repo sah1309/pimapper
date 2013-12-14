@@ -96,19 +96,19 @@ def discovery_scan(host, scan_result):
 
                 
                 if macEnable == True:
-                                macAddress=IPChecks.getMac(host)
-                                if macAddress:
-                                                for m in mac.select().where(mac.hostname == hostnameNice):
-                                                        if m.macAddr == macAddress:
-                                                                addMac = False
-                                                                pass
-                                                if addMac == True:
-                                                        mac.create(
-                                                                hostname=hostnameNice,
-                                                                macAddr=macAddress,
-                                                                scanTime=timestamp,
-                                                        )
-                                                        print bcolors.OKGREEN + 'MAC address stored ' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + macAddress + ' )'
+                    macAddress=IPChecks.getMac(host)
+                    if macAddress:
+                        for m in mac_address.select().where(mac_address.hostname == hostnameNice):
+                            if m.macAddr == macAddress:
+                                addMac = False
+                                pass
+                        if addMac == True:
+                            mac.create(
+                                hostname=hostnameNice,
+                                macAddr=macAddress,
+                                scanTime=timestamp,
+                            )
+                            print bcolors.OKGREEN + 'MAC address stored ' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + macAddress + ' )'
 
 
 
