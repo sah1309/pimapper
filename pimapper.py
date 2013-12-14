@@ -121,7 +121,7 @@ discover = nmap.PortScannerAsync()
 discover.scan(hosts=scanRange, arguments='-sP', callback=discovery_scan)
 
 while discover.still_scanning():
-        time.sleep(1)
+        time.sleep(0.5)
         sys.stdout.write("-")
         sys.stdout.flush()
 
@@ -140,8 +140,7 @@ def callback_result(host, scan_result):
         if 'tcp' in scan_result['scan'][host]:
             portresults = scan_result['scan'][host]['tcp']
             for service in portresults:
-                print
-                print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
+                print bcolors.OKGREEN + 'Found open port: ' + str(service) + ' (' + ports.get(ports.port == service).description + ')' + bcolors.ENDC
                 port_id = ports.get(ports.port == service).id
                 host_id = host_current.get(host_current.hostIP == host and host_current.scanTime == timestamp).id
                 try:
@@ -152,10 +151,11 @@ def callback_result(host, scan_result):
                     services.create(hostID=host_id, portID=port_id, scanTime=timestamp)
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
+    print
     print bcolors.OKBLUE + 'Scanning ' + i.hostIP + '....' + bcolors.ENDC
     service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=callback_result)
     while service_scanner.still_scanning():
-        time.sleep(1)
+        time.sleep(0.3)
         sys.stdout.write("-")
         sys.stdout.flush()
 
