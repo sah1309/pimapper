@@ -137,12 +137,18 @@ print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 portresults = []
 service_scanner = nmap.PortScannerAsync()
 def callback_result(host, scan_result):
-    print host
-    print
-    if host in scan_result['scan']:
-        if 'tcp' in scan_result['scan'][host]:
-            print scan_result['scan'][host]['tcp']
-            portresults.append(scan_result['scan'][host]['tcp'])
+
+    try:
+        scan_result['scan'][host]['status']['state'] == 'up'
+    except:
+        pass
+    else:
+        if host in scan_result['scan']:
+            if 'tcp' in scan_result['scan'][host]:
+                print scan_result['scan'][host]['tcp']
+                portresults.append(scan_result['scan'][host]['tcp'])
+
+
 
 service_scanner.scan(hosts=scanRange, ports='22-2222', arguments='', callback=callback_result)
 while service_scanner.still_scanning():
