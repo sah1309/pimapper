@@ -130,11 +130,12 @@ print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 
 #Scan here!
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
+    print i.hostIP
     lt = []
     lt.append(i.hostIP)
 live_targets = ','.join(lt)
 
-print 'targets' + live_targets
+print 'targets = ' + live_targets
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
 
