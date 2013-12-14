@@ -1,52 +1,49 @@
 import peewee
-from peewee import *
+from peewee import Model, MySQLDatabase
 
 db = MySQLDatabase('pimapper', user='root',passwd='pa55word')
 
-def write_mac_db(mac, datetime):
-    from settings import bcolors
-    current.create(
-        macAddress=mac,
-        scanTime=datetime,
-    )
-    print bcolors.OKGREEN + 'MAC address stored ' + bcolors.ENDC + '( ' + mac + ' )'
-
-def write_hostip_db(mac, ip):
-    from settings import bcolors
-    hostid = current.get(current.macAddress == mac)
-    for address in ipaddress.select():
-        if address.ipaddress == ip and address.id == hostid.id:
-            return False
-        else:
-            ipaddress.create(
-                hostid=hostid.id,
-                ipaddress=ip,
-            )
-            print bcolors.OKGREEN + 'IP address stored for host:' + str(hostid.id) + bcolors.ENDC
-            return True
-
-class current(peewee.Model):
-    id = peewee.IntegerField()
-    macAddress = peewee.CharField()
-    scanTime = peewee.DateTimeField()
+class ports(peewee.Model):
+    service = peewee.CharField()
+    port = peewee.CharField()
+    protocol = peewee.CharField()
+    description = peewee.CharField()
 
     class Meta:
         database = db
 
-class ipaddress(peewee.Model):
-    id = peewee.IntegerField()
-    hostid = peewee.IntegerField()
+class host_current(peewee.Model):
+    hostname = peewee.CharField()
+    hostIP = peewee.CharField()
+    scanTime = peewee.CharField()
+
+    class Meta:
+        database = db
+
+class host_history(peewee.Model):
+    hostname = peewee.CharField()
+    hostIP = peewee.CharField()
+    scanTime = peewee.CharField()
+
+    class Meta:
+        database = db
+
+class live_ip(peewee.Model):
     ipaddress = peewee.CharField()
+    scanTime = peewee.CharField()
 
     class Meta:
         database = db
 
 try:
-    current.create_table()
+        host_current.create_table()
 except:
-    pass
-
+        pass
 try:
-    ipaddress.create_table()
+        host_history.create_table()
 except:
-    pass
+        pass
+try:
+        live_ip.create_table()
+except:
+        pass

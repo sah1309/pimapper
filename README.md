@@ -5,6 +5,7 @@ Raspberry Pi Network Mapper
 
 Requirements:
 
+python-ipy
 nmap
 python 2.X
 python-nmap
