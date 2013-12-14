@@ -132,7 +132,7 @@ print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 lt = []
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
     lt.append(i.hostIP)
-live_targets = ', '.join(lt)
+live_targets = ' '.join(lt)
 
 portresults = []
 service_scanner = nmap.PortScannerAsync()
