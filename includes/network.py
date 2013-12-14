@@ -35,14 +35,12 @@ class network():
         def nmapScan(self, host, option):
 
             try:
-                    if option == 'lan':
-                            scanv = subprocess.Popen(["nmap", "-PR", "-O", str(host)],stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
-                    else:
+                    #if option == 'lan':
+                       #     scanv = subprocess.Popen(["nmap", "-PR", "-O", str(host)],stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
+                 #   else:
                             scanv = subprocess.Popen(["nmap", "-PE","-PP","-PS21,22,23,25,80,443,3306,3389,8080","-O", str(host)],stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
             except OSError:
                 print "Install nmap: sudo apt-get install nmap"
-
-            print scanv
 
             if "down" in scanv:
                     print '|___ ' +'it\'s down.'

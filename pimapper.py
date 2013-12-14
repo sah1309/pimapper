@@ -102,7 +102,7 @@ def discovery_scan(host, scan_result):
 
 print bcolors.HEADER + 'Starting pimapper discovery scan' + bcolors.ENDC
 
-discover.scan(hosts='172.16.10.4', arguments='-sP', callback=discovery_scan)
+discover.scan(hosts='172.16.10.101', arguments='-sP', callback=discovery_scan)
 
 while discover.still_scanning():
         time.sleep(0.5)
