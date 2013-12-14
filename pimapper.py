@@ -128,12 +128,22 @@ while discover.still_scanning():
 
 print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 
+service_scan = nmap.PortScannerAsync()
+def callback_result(host, scan_result):
+    print '------------------'
+    print host, scan_result
+
+service_scan.scan(hosts='192.168.1.0/30', arguments='-sP', callback=callback_result)
+while service_scan.still_scanning():
+    print("Waiting ...")
+    service_scan.wait(2)   # you can do whatever you want but I choose to wait after the end of the scan
+
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
 
-    print bcolors.OKBLUE + 'Port Scanning ' + i.hostIP + '....' + bcolors.ENDC
-    port_scan = nmap.PortScanner()
-    port_scan.scan(i.hostIP, '22-443')
+    print bcolors.OKBLUE + 'Checking results for ' + i.hostIP + '....' + bcolors.ENDC
+#    port_scan = nmap.PortScanner()
+#    port_scan.scan(i.hostIP, '22-443')
 
     for service in port_scan[i.hostIP].all_tcp():
         print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
