@@ -68,6 +68,6 @@ try:
 except:
         pass
 try:
-        port_scan.create_table()
+        services.create_table()
 except:
         pass
