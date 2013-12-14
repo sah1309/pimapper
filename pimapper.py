@@ -155,7 +155,7 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
         time.sleep(0.3)
         sys.stdout.write("-")
         sys.stdout.flush()
-
+    print
     print bcolors.HEADER + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
     hostOS = IPChecks.os_match(i.hostIP, 'lan')
     if hostOS[1] == 0:
