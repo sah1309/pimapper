@@ -108,7 +108,7 @@ while discover.still_scanning():
         time.sleep(0.5)
         sys.stdout.write("-")
         sys.stdout.flush()
-print bcolors.OKGREEN + '\nDiscovery scan complete' + bcolors.ENDC
+print bcolors.OKBLUE + '\nDiscovery scan complete' + bcolors.ENDC
 
 print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 
@@ -120,6 +120,6 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
     for service in port_scan[i.hostIP].all_tcp():
             print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
 
-    print bcolors.HEADER + 'Trying to discover OS for' + i.hostname + '....' + bcolors.ENDC
+    print bcolors.HEADER + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
     hostOS = IPChecks.os_match(i.hostIP, 'lan')
     print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1] + bcolors.ENDC
