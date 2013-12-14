@@ -130,9 +130,9 @@ print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
-    port_scan = nmap.PortScanner()
 
     print bcolors.OKBLUE + 'Port Scanning ' + i.hostIP + '....' + bcolors.ENDC
+    port_scan = nmap.PortScanner()
     port_scan.scan(i.hostIP, '22-443')
 
     for service in port_scan[i.hostIP].all_tcp():
