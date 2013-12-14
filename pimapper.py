@@ -139,9 +139,8 @@ def callback_result(host, scan_result):
     if host in scan_result['scan']:
         if 'tcp' in scan_result['scan'][host]:
             portresults = scan_result['scan'][host]['tcp']
-            print portresults
             print scan_result['scan'][host]['tcp']
-            for service, portdata in portresults:
+            for service in portresults:
                 print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
                 port_id = ports.get(ports.port == service).id
                 host_id = host_current.get(host_current.hostIP == host and host_current.scanTime == timestamp).id
