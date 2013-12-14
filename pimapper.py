@@ -10,7 +10,6 @@ from includes.database import *
 from includes.network import network
 import time
 
-global portresults
 primaryIf='eth0'
 IPChecks = network()
 #currentIP = "172.16.10.0"
@@ -119,7 +118,7 @@ def discovery_scan(host, scan_result):
 print bcolors.HEADER + 'Starting pimapper discovery scan' + bcolors.ENDC
 
 discover = nmap.PortScannerAsync()
-discover.scan(hosts=scanRange, arguments='-sP', callback=discovery_scan)
+portresults = discover.scan(hosts=scanRange, arguments='-sP', callback=discovery_scan)
 
 while discover.still_scanning():
         time.sleep(0.5)
@@ -137,12 +136,11 @@ print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 
 service_scanner = nmap.PortScannerAsync()
 def callback_result(host, scan_result):
-    global portresults
     if host in scan_result['scan']:
         if 'tcp' in scan_result['scan'][host]:
             portresults = scan_result['scan'][host]['tcp']
             print scan_result['scan'][host]['tcp']
-
+    return portresults
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
 
