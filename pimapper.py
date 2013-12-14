@@ -133,6 +133,7 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
     print i.hostIP
     lt = []
     lt.append(i.hostIP)
+    print lt
 live_targets = ','.join(lt)
 
 print 'targets = ' + live_targets
