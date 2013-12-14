@@ -10,9 +10,7 @@ from includes.network import network
 import time
 
 primaryIf='eth0'
-
 IPChecks = network()
-
 currentIP = "172.16.10.0"
 currentCIDR = "24"
 #currentIP = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:]
@@ -20,25 +18,40 @@ currentCIDR = "24"
 currentPreRange = currentIP + "/" + str(currentCIDR)
 ip2 = IPNetwork(currentPreRange)
 currentRange = str(ip2.network) + "/" + str(currentCIDR)
-
 timestamp = int(time.time())
 
-discover = nmap.PortScannerAsync()
+print "   _____ _                       __  __              "
+print "  / ____| |                     |  \/  |             "
+print " | (___ | |_ ___  _ __ _ __ ___ | \  / | __ _ _ __   "
+print "  \___ \| __/ _ \| '__| '_ ` _ \| |\/| |/ _` | '_ \  "
+print "  ____) | || (_) | |  | | | | | | |  | | (_| | |_) | "
+print " |_____/ \__\___/|_|  |_| |_| |_|_|  |_|\__,_| .__/  "
+print "                                             | |     "
+print "                                             |_|     "
+
+print ' -- Navigate to http://' + currentIP + '/stormmap.py'
+print ' -- '
+print ' -- A program with various options to map your LAN'
+print ' --'
+print ' -- Optional arguments'
+print ' -h --help               Show this help message'
+print ' -wl --watch-list        List watched targets'
+print ' -wt --watch-host        Set watch host'
+print ' -ws --watch-subnet      Set watch subnet'
+print ' -wr --watch-remove      Remove watched target'
+
 
 useCurrent = raw_input('Your current IP range is ' + currentRange + '. Would you like to map that? [yes/no]: ')
 if useCurrent == 'yes':
         scanRange = currentRange
 else:
-        scanRange = raw_input('Please enter your scan range in CIDR format: ')
+        scanRange = raw_input('Please enter a single host or scan range in CIDR notation: ')
 
 if IPChecks.subnetCheck(currentIP, scanRange) == False:
         print bcolors.WARNING + 'This subnet is outside your own, MAC Address gathering is disabled' + bcolors.ENDC
 else:
         print bcolors.OKGREEN + 'MAC Address gathering enabled!' + bcolors.ENDC
         macEnable = True
-
-#This is here for testing!
-macEnable = False
 
 def discovery_scan(host, scan_result):
         addMac = True
@@ -102,6 +115,7 @@ def discovery_scan(host, scan_result):
 
 print bcolors.HEADER + 'Starting pimapper discovery scan' + bcolors.ENDC
 
+discover = nmap.PortScannerAsync()
 discover.scan(hosts='172.16.10.101', arguments='-sP', callback=discovery_scan)
 
 while discover.still_scanning():
