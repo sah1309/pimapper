@@ -3,7 +3,7 @@ from peewee import Model, MySQLDatabase
 
 db = MySQLDatabase('pimapper', user='root',passwd='pa55word')
 
-class port_scan(peewee.Model):
+class services(peewee.Model):
     hostID = peewee.IntegerField()
     portID = peewee.IntegerField()
     scanTime = peewee.CharField()
