@@ -148,8 +148,6 @@ def callback_result(host, scan_result):
                 print scan_result['scan'][host]['tcp']
                 portresults.append(scan_result['scan'][host]['tcp'])
 
-print portresults
-
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
 
     print bcolors.OKBLUE + 'Scanning ' + i.hostIP + '....' + bcolors.ENDC
@@ -159,7 +157,7 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
         sys.stdout.write("-")
         sys.stdout.flush()
 
-    for service in portresults:
+    for service in portresults[0]:
         print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
         port_id = ports.get(ports.port == service).id
         host_id = host_current.get(host_current.hostIP == i.hostIP and host_current.scanTime == timestamp).id
