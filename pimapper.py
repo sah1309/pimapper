@@ -140,7 +140,7 @@ def callback_result(host, scan_result):
         if 'tcp' in scan_result['scan'][host]:
             portresults = scan_result['scan'][host]['tcp']
             print scan_result['scan'][host]['tcp']
-    return portresults
+            return portresults
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
 
