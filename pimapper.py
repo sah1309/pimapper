@@ -133,7 +133,7 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
     print bcolors.OKBLUE + 'Port Scanning ' + i.hostIP + '....' + bcolors.ENDC
     port_scan.scan(i.hostIP, '22-443')
 
-    for service in port_scan[i.hostIP].all_tcp():
+    for service in port_scan[0].all_tcp():
         print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
         port_id = ports.get(ports.port == service).id
         host_id = host_current.get(host_current.hostIP == i.hostIP and host_current.scanTime == timestamp).id
