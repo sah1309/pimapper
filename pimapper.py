@@ -138,6 +138,7 @@ while service_scan.still_scanning():
     print("Waiting ...")
     service_scan.wait(2)   # you can do whatever you want but I choose to wait after the end of the scan
 
+print service_scan['scan']
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
 
