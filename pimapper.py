@@ -133,7 +133,7 @@ def callback_result(host, scan_result):
     print '------------------'
     print host, scan_result
 
-service_scan.scan(hosts='192.168.1.0/30', arguments='-sP', callback=callback_result)
+service_scan.scan(hosts=scanRange, arguments='-sP', callback=callback_result)
 while service_scan.still_scanning():
     print("Waiting ...")
     service_scan.wait(2)   # you can do whatever you want but I choose to wait after the end of the scan
