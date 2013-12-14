@@ -20,7 +20,7 @@ currentPreRange = currentIP + "/" + str(currentCIDR)
 ip2 = IPNetwork(currentPreRange)
 currentRange = str(ip2.network) + "/" + str(currentCIDR)
 timestamp = int(time.time())
-
+print bcolors.HEADER
 print "   _____ _                       __  __              "
 print "  / ____| |                     |  \/  |             "
 print " | (___ | |_ ___  _ __ _ __ ___ | \  / | __ _ _ __   "
@@ -29,7 +29,7 @@ print "  ____) | || (_) | |  | | | | | | |  | | (_| | |_) | "
 print " |_____/ \__\___/|_|  |_| |_| |_|_|  |_|\__,_| .__/  "
 print "                                             | |     "
 print "                                             |_|     "
-
+print bcolors.ENDC
 print ' -- Navigate to http://' + currentIP + '/stormmap.py'
 print ' -- '
 print ' -- A program with various options to map your LAN'
