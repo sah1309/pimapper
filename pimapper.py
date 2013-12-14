@@ -153,15 +153,13 @@ print portresults
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
 
     print bcolors.OKBLUE + 'Scanning ' + i.hostIP + '....' + bcolors.ENDC
-#    port_scan = nmap.PortScanner()
-#    port_scan.scan(i.hostIP, '22-443')
     service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=callback_result)
     while service_scanner.still_scanning():
         time.sleep(0.5)
         sys.stdout.write("-")
         sys.stdout.flush()
 
-    for service in service_scan[i.hostIP].all_tcp():
+    for service in portresults:
         print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
         port_id = ports.get(ports.port == service).id
         host_id = host_current.get(host_current.hostIP == i.hostIP and host_current.scanTime == timestamp).id
