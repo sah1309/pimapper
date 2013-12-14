@@ -103,7 +103,7 @@ def discovery_scan(host, scan_result):
                                 addMac = False
                                 pass
                         if addMac == True:
-                            mac.create(
+                            mac_address.create(
                                 hostname=hostnameNice,
                                 macAddr=macAddress,
                                 scanTime=timestamp,
