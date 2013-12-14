@@ -128,14 +128,26 @@ while discover.still_scanning():
 
 print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 
-#Scan here!
+#Build target list for port scan
 lt = []
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
-    print i.hostIP
     lt.append(i.hostIP)
 live_targets = ','.join(lt)
 
-print 'targets = ' + live_targets
+service_scaner = nmap.PortScannerAsync()
+def callback_result(host, scan_result):
+       print '------------------'
+       print host
+       print
+       if host in scan_result['scan']:
+                if 'tcp' in scan_result['scan'][host]:
+                        print scan_result['scan'][host]['tcp']
+
+
+service_scaner.scan(hosts=live_targets, ports='22-443', arguments='', callback=callback_result)
+while service_scaner.still_scanning():
+       print("Waiting ...")
+       service_scaner.wait(2)
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
 
