@@ -40,8 +40,7 @@ print ' -wl --watch-list        List watched targets'
 print ' -wt --watch-host        Set watch host'
 print ' -ws --watch-subnet      Set watch subnet'
 print ' -wr --watch-remove      Remove watched target'
-
-
+print
 useCurrent = raw_input('Your current IP range is ' + currentRange + '. Would you like to map that? [yes/no]: ')
 if useCurrent == 'yes':
         scanRange = currentRange
