@@ -20,6 +20,8 @@ currentPreRange = currentIP + "/" + str(currentCIDR)
 ip2 = IPNetwork(currentPreRange)
 currentRange = str(ip2.network) + "/" + str(currentCIDR)
 timestamp = int(time.time())
+macEnable = False
+
 print bcolors.OKGREEN
 print "   _____ _                       __  __              "
 print "  / ____| |                     |  \/  |             "
@@ -133,7 +135,7 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
 
     for service in port_scan[i.hostIP].all_tcp():
         print bcolors.OKGREEN + 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description + bcolors.ENDC
-        port_id = port.get(ports.port == service).id
+        port_id = ports.get(ports.port == service).id
         host_id = host_current.get(host_current.hostIP == i.hostIP and host_current.scanTime == scanTime).id
         port_scan.create(hostID=host_id, portID=port_id, scanTime=timestamp)
 
