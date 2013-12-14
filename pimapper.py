@@ -120,5 +120,5 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
     for service in port_scan[i.hostIP].all_tcp():
             print 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description
 
-    hostOS = IPChecks.os_match(i, 'lan')
+    hostOS = IPChecks.os_match(i.hostIP, 'lan')
     print 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1]

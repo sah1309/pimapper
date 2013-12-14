@@ -42,7 +42,7 @@ class network():
                             scanv = subprocess.Popen(["nmap", "-PE","-PP","-PS21,22,23,25,80,443,3306,3389,8080","-O", str(host)],stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
             except OSError:
                 print "Install nmap: sudo apt-get install nmap"
-
+		
             scanlist=scanv.split()
 
             if 'printer' in scanlist:
