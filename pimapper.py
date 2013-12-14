@@ -72,6 +72,7 @@ def discovery_scan(host, scan_result):
                     except:
                         #Insert data into liveIP tables
                         print bcolors.OKGREEN + 'Found Live IP ' + bcolors.ENDC + '( ' + host + ' )'
+                        print "I got this far"
                         live_ip.create(ipaddress=host, scanTime=timestamp)
                 else:
                     hostnameNice = scan_result['scan'][host]['hostname']
