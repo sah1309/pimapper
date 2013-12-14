@@ -17,6 +17,9 @@ class mac_address(peewee.Model):
     macAddr = peewee.CharField()
     scanTime = peewee.CharField()
 
+    class Meta:
+        database = db
+
 class host_current(peewee.Model):
     hostname = peewee.CharField()
     hostIP = peewee.CharField()
@@ -50,5 +53,9 @@ except:
         pass
 try:
         live_ip.create_table()
+except:
+        pass
+try:
+        mac_address.create_table()
 except:
         pass
