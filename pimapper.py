@@ -128,12 +128,6 @@ while discover.still_scanning():
 print
 print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 
-#Build target list for port scan
-#lt = []
-#
-#    lt.append(i.hostIP)
-#live_targets = ' '.join(lt)
-
 service_scanner = nmap.PortScannerAsync()
 def callback_result(host, scan_result):
     if host in scan_result['scan']:
@@ -150,6 +144,9 @@ def callback_result(host, scan_result):
                 except:
                     services.create(hostID=host_id, portID=port_id, scanTime=timestamp)
 
+
+
+
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
     print
     print bcolors.OKBLUE + 'Scanning ' + i.hostIP + '....' + bcolors.ENDC
@@ -159,11 +156,11 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
         sys.stdout.write("-")
         sys.stdout.flush()
 
-#    print bcolors.HEADER + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
-#    hostOS = IPChecks.os_match(i.hostIP, 'lan')
-#    if hostOS[1] == 0:
-#        print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + bcolors.ENDC
-#    elif hostOS[0] == 'Unknown':
-#        print bcolors.OKGREEN + 'Unable to identify OS for ' + i.hostname + bcolors.ENDC
-#    else:
-#        print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1] + bcolors.ENDC
+    print bcolors.HEADER + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
+    hostOS = IPChecks.os_match(i.hostIP, 'lan')
+    if hostOS[1] == 0:
+        print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + bcolors.ENDC
+    elif hostOS[0] == 'Unknown':
+        print bcolors.OKGREEN + 'Unable to identify OS for ' + i.hostname + bcolors.ENDC
+    else:
+        print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1] + bcolors.ENDC
