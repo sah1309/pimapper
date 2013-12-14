@@ -113,11 +113,12 @@ print bcolors.HEADER + '\nDiscovery scan complete' + bcolors.ENDC
 print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
 
 port_scan = nmap.PortScanner()
-for i in host_current.select(host_current.hostIP).where(host_current.scanTime == timestamp):
+for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
     print bcolors.OKGREEN + 'Scanning: ' + i.hostIP + bcolors.ENDC
     port_scan.scan(i.hostIP, '22-443')
 
     for service in port_scan[i.hostIP].all_tcp():
             print 'Port: ' + str(service) + ' - ' + ports.get(ports.port == service).description
 
-    print IPChecks.nmapScan(i, 'lan')
+    hostOS = IPChecks.os_match(i, 'lan')
+    print 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1]

@@ -32,40 +32,37 @@ class network():
                 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                 return socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x891b, struct.pack('256s',ifname))[20:24])
 
-        def nmapScan(self, host, option):
+
+        def os_match(self, host, option):
 
             try:
-                    #if option == 'lan':
-                       #     scanv = subprocess.Popen(["nmap", "-PR", "-O", str(host)],stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
-                 #   else:
+                    if option == 'lan':
+                            scanv = subprocess.Popen(["nmap", "--osscan-guess", "-PR", "-O", str(host)],stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
+                    else:
                             scanv = subprocess.Popen(["nmap", "-PE","-PP","-PS21,22,23,25,80,443,3306,3389,8080","-O", str(host)],stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
             except OSError:
                 print "Install nmap: sudo apt-get install nmap"
 
-            if "down" in scanv:
-                    print '|___ ' +'it\'s down.'
-                    osres = 'down'
-                    return osres
-
-            print '|___' + ' it\'s up ...',
             scanlist=scanv.split()
 
-            print scanlist
-
             if 'printer' in scanlist:
-                    osres = 'Printer'
+                    osmatch = 'Printer'
             elif 'Fortinet' in scanlist:
-                    osres = 'Fortinet'
+                    osmatch = 'Fortinet'
             elif 'Linux' in scanlist:
-                    osres = 'Linux'
+                    osmatch = 'Linux'
             elif 'Windows' in scanlist:
-                    osres = 'Windows'
+                    osmatch = 'Windows'
             elif 'Apple' in scanlist:
-                    osres = 'Apple'
+                    osmatch = 'Apple'
             elif 'IOS' in scanlist:
-                    osres = 'IOS'
+                    osmatch = 'IOS'
             else:
-                    osres = 'Unknown'
+                    osmatch = 'Unknown'
 
+            percent = [s for s in scanlist if s.endswith('%),')]
 
-            return osres
+            if not percent:
+                percent = '0%'
+
+            return osmatch, percent[0].strip('(),')
