@@ -179,10 +179,8 @@ print 'Creating report..'
 results = dict()
 for i in host_current.select(host_current.id, host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
     os = os_match.get(os_match.hostID == i.id, os_match.scanTime == timestamp)
-
-    results[str(i.hostname)]['ip'] = i.hostIP
-    results[str(i.hostname)]['os']['type'] = os.os
-    results[str(i.hostname)]['os']['confidence'] = os.confidence
+    results = {i.hostname:{'ip' : i.hostIP, 'os' : {'type' : os.os, 'confidence': os.confidence}}}
 
 print results
+
 
