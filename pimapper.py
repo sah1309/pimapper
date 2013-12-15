@@ -176,7 +176,7 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
 
 print 'Creating report..'
 for i in host_current.select(host_current.id, host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
-    os = os_match.get(os_match.hostID == i.id)
+    os = os_match.get(os_match.hostID == i.id, os_match.scanTime == timestamp)
 
     print i.id
     print i.hostname
