@@ -63,19 +63,15 @@ def discovery_scan(host, scan_result):
         except:
                 pass
         else:        
-
+                macsuffix=IPChecks.getMac(host)
                 #Check if hostname has been found
-                if (scan_result['scan'][host]['hostname'] == "") or (scan_result['scan'][host]['hostname'] == "UNKNOWN"):
+                if scan_result['scan'][host]['hostname'] == "":
                     try:
-                        #Try secondary means of getting hostname
-                        hostnameNice = socket.gethostbyaddr(host)
+                        hostnameNice = socket.gethostbyaddr(host) + '-' + macsuffix[12:]
                     except:
-                        #Insert data into liveIP tables
-                        print bcolors.OKGREEN + 'Found Live IP ' + bcolors.ENDC + '( ' + host + ' )'
-                        live_ip.create(ipaddress=host, scanTime=timestamp)
-                        hostnameNice = host
+                        hostnameNice = host + '-' + macsuffix[12:]
                 else:
-                    hostnameNice = scan_result['scan'][host]['hostname']
+                    hostnameNice = scan_result['scan'][host]['hostname'] + '-' + macsuffix[12:]
                     for i in host_current.select().where(host_current.hostname == hostnameNice):
                         #If the hostname is there, but IP has changed...
                         if i.hostname == hostnameNice and i.hostIP != host:
