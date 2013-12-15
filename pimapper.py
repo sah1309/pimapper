@@ -69,7 +69,6 @@ def discovery_scan(host, scan_result):
                     try:
                         #Try secondary means of getting hostname
                         hostnameNice = socket.gethostbyaddr(host)
-                        print 'hostname =' + hostnameNice
                     except:
                         #Insert data into liveIP tables
                         print bcolors.OKGREEN + 'Found Live IP ' + bcolors.ENDC + '( ' + host + ' )'
