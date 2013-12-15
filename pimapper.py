@@ -152,7 +152,7 @@ def callback_result(host, scan_result):
             for service in portresults:
                 print bcolors.OKGREEN + 'Found open port: ' + str(service) + ' (' + ports.get(ports.port == service).description + ')' + bcolors.ENDC
                 port_id = ports.get(ports.port == service).id
-                host_id = host_current.get(host_current.hostIP == host and host_current.scanTime == timestamp).id
+                host_id = host_current.get(host_current.hostIP == host).id
 
                 if services.get(services.hostID == host_id and services.portID == port_id):
                     servicesUpdate = services.update(scanTime=timestamp).where(services.hostID == host_id, services.portID == port_id)
