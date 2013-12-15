@@ -185,7 +185,7 @@ for i in host_current.select(host_current.id, host_current.hostIP, host_current.
     for portresults in services.select(services.hostID, services.portID).where(services.scanTime == timestamp):
         if portresults.hostID == i.id:
             results[i.hostname].update({'scan':{}})
-            results[i.hostname]['scan'].update({ portresults.portID : { 'description' : ports.get(ports.port == portresults.portID).description }})
+            results[i.hostname]['scan'] = { portresults.portID : { 'description' : ports.get(ports.port == portresults.portID).description }}
 
 print json.dumps(results, indent=2)
 
