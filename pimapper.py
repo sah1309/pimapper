@@ -105,11 +105,11 @@ def discovery_scan(host, scan_result):
                         hostUpdate.execute()
                         added = True
                     #If the hostname is not in the list at all
-                    if added == True:
-                        pass
-                    else:
-                        host_current.create(hostname=hostnameNice, hostIP=host, scanTime=timestamp)
-                        print bcolors.WARNING + 'New Host Found' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
+                if added == True:
+                    pass
+                else:
+                    host_current.create(hostname=hostnameNice, hostIP=host, scanTime=timestamp)
+                    print bcolors.WARNING + 'New Host Found' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
 
                 
                 if macEnable == True:
