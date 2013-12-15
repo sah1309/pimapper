@@ -175,9 +175,9 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
         os_match.create(hostID=host_id, os=hostOS[0], confidence=hostOS[1], scanTime=timestamp)
 
 print 'Creating report..'
-    for i in host_current.select(host_current.id, host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
-        os = os_match.get(os_match.hostID == host_current.id)
+for i in host_current.select(host_current.id, host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
+    os = os_match.get(os_match.hostID == host_current.id)
 
-        print os.confidence
-        print os.os
+    print os.confidence
+    print os.os
 
