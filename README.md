@@ -5,6 +5,10 @@ Raspberry Pi Network Mapper
 
 Requirements:
 
+php5-mysql
+php5
+apache2
+libjs-jquery
 python-ipy
 nmap
 python 2.X
