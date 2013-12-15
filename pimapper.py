@@ -65,15 +65,15 @@ def discovery_scan(host, scan_result):
         else:        
 
                 #Check if hostname has been found
-                if scan_result['scan'][host]['hostname'] == "":
+                if (scan_result['scan'][host]['hostname'] == "") or (scan_result['scan'][host]['hostname'] == ""):
                     try:
                         #Try secondary means of getting hostname
                         hostnameNice = socket.gethostbyaddr(host)
                     except:
                         #Insert data into liveIP tables
                         print bcolors.OKGREEN + 'Found Live IP ' + bcolors.ENDC + '( ' + host + ' )'
-                        print "I got this far"
                         live_ip.create(ipaddress=host, scanTime=timestamp)
+                        hostnameNice = host
                 else:
                     hostnameNice = scan_result['scan'][host]['hostname']
                     for i in host_current.select().where(host_current.hostname == hostnameNice):
