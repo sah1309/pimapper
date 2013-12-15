@@ -154,10 +154,11 @@ def callback_result(host, scan_result):
                 port_id = ports.get(ports.port == service).id
                 host_id = host_current.get(host_current.hostIP == host).id
 
-                if services.get(services.hostID == host_id and services.portID == port_id):
+                try:
+                    services.get(services.hostID == host_id and services.portID == port_id)
                     servicesUpdate = services.update(scanTime=timestamp).where(services.hostID == host_id, services.portID == port_id)
                     servicesUpdate.execute()
-                else:
+                except:
                     services.create(hostID=host_id, portID=port_id, scanTime=timestamp)
 
 
