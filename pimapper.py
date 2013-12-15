@@ -182,8 +182,8 @@ results = dict()
 for i in host_current.select(host_current.id, host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
     os = os_match.get(os_match.hostID == i.id, os_match.scanTime == timestamp)
     results[i.hostname] = {'ip' : i.hostIP, 'os' : {'type' : os.os, 'confidence': os.confidence}}
+    results[i.hostname].update({'scan':{}})
     for portresults in services.select(services.hostID, services.portID).where(services.scanTime == timestamp).where(services.hostID == i.id):
-        results[i.hostname].update({'scan':{}})
         results[i.hostname]['scan'] = { portresults.portID : { 'description' : ports.get(ports.port == portresults.portID).description }}
 
 print json.dumps(results, indent=2)
