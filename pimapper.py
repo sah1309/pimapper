@@ -183,6 +183,7 @@ for i in host_current.select(host_current.id, host_current.hostIP, host_current.
     os = os_match.get(os_match.hostID == i.id, os_match.scanTime == timestamp)
     results[i.hostname] = {'ip' : i.hostIP, 'os' : {'type' : os.os, 'confidence': os.confidence}}
     for portresults in services.select(services.hostID, services.portID).where(services.scanTime == timestamp):
+        print portresults.portID
         if portresults.hostID == i.id:
             results[i.hostname].update({'scan':{}})
             results[i.hostname]['scan'] = { portresults.portID : { 'description' : ports.get(ports.port == portresults.portID).description }}
