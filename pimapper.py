@@ -4,6 +4,7 @@ import nmap
 import socket
 import sys
 import commands
+import json
 from netaddr import IPNetwork
 from includes.settings import bcolors
 from includes.database import *
@@ -181,6 +182,6 @@ for i in host_current.select(host_current.id, host_current.hostIP, host_current.
     os = os_match.get(os_match.hostID == i.id, os_match.scanTime == timestamp)
     results = {i.hostname:{'ip' : i.hostIP, 'os' : {'type' : os.os, 'confidence': os.confidence}}}
 
-print results
+print json.dumps(results, indent=2)
 
 
