@@ -152,17 +152,7 @@ def callback_result(host, scan_result):
             for service in portresults:
                 print bcolors.OKGREEN + 'Found open port: ' + str(service) + ' (' + ports.get(ports.port == service).description + ')' + bcolors.ENDC
                 host_id = host_current.get(host_current.hostIP == host).id
-
-                try:
-                    services.get(services.hostID == host_id and services.portID == service)
-                    servicesUpdate = services.update(scanTime=timestamp).where(services.hostID == host_id, services.portID == service)
-                    servicesUpdate.execute()
-                    print 'updated'
-                except:
-                    services.create(hostID=host_id, portID=service, scanTime=timestamp)
-                    print 'inserted'
-
-
+                services.create(hostID=host_id, portID=service, scanTime=timestamp)
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
     print
