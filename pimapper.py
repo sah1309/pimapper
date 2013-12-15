@@ -155,7 +155,6 @@ def callback_result(host, scan_result):
                 services.create(hostID=host_id, portID=service, scanTime=timestamp)
 
 for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
-    print
     print bcolors.OKBLUE + 'Scanning ' + i.hostIP + '....' + bcolors.ENDC
     service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=callback_result)
     while service_scanner.still_scanning():
@@ -164,8 +163,7 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
         sys.stdout.flush()
 
     host_id = host_current.get(host_current.hostIP == i.hostIP).id
-    print
-    print bcolors.HEADER + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
+    print bcolors.OKBLUE + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
     hostOS = IPChecks.os_match(i.hostIP, 'lan')
     if hostOS[1] == '0':
         print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + bcolors.ENDC
