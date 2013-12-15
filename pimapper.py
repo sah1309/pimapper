@@ -62,35 +62,49 @@ def discovery_scan(host, scan_result):
                 scan_result['scan'][host]['status']['state'] == 'up'
         except:
                 pass
-        else:        
-                try:
-                    ms=IPChecks.getMac(host)
-                    macsuffix=ms[12:]
-                except:
-                    macsuffix=''
-
-                #Check if hostname has been found
-                if scan_result['scan'][host]['hostname'] == "":
+        else:
+                if IPChecks.subnetCheck(host, currentRange) == True:
                     try:
-                        hostnameNice = socket.gethostbyaddr(host) + '-' + macsuffix
+                        ms=IPChecks.getMac(host)
+                        macsuffix='-' + ms[12:]
                     except:
-                        hostnameNice = host + '-' + macsuffix
+                        macsuffix=''
+
+                    #Check if hostname has been found
+                    hostnametemp = scan_result['scan'][host]['hostname']
+                    if hostnametemp == "":
+                        try:
+                            hostnameNice = socket.gethostbyaddr(host) + macsuffix
+                        except:
+                            hostnameNice = host + macsuffix
+                    else:
+                        hostnameNice = scan_result['scan'][host]['hostname'] + macsuffix
                 else:
-                    hostnameNice = scan_result['scan'][host]['hostname'] + '-' + macsuffix
-                    for i in host_current.select().where(host_current.hostname == hostnameNice):
-                        #If the hostname is there, but IP has changed...
-                        if i.hostname == hostnameNice and i.hostIP != host:
-                            hostUpdate = host_current.update(hostIP=host, scanTime=timestamp).where(host_current.hostname == hostnameNice)
-                            hostUpdate.execute()
-                            print bcolors.OKBLUE + 'Existing Host Updated' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
-                            added = True
-                        #If the hostname and IP address match
-                        elif i.hostname == hostnameNice and i.hostIP == host:
-                            print bcolors.OKGREEN + 'Existing Host Found' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
-                            hostUpdate = host_current.update(scanTime=timestamp).where(host_current.hostname == hostnameNice)
-                            hostUpdate.execute()
-                            added = True
-                        #If the hostname is not in the list at all
+                    #Check if hostname has been found
+                    macEnable = False
+                    hostnametemp = scan_result['scan'][host]['hostname']
+                    if hostnametemp == "":
+                        try:
+                            hostnameNice = socket.gethostbyaddr(host) + '- remote'
+                        except:
+                            hostnameNice = host + '- remote'
+                    else:
+                        hostnameNice = scan_result['scan'][host]['hostname'] + '- remote'
+
+                for i in host_current.select().where(host_current.hostname == hostnameNice):
+                    #If the hostname is there, but IP has changed...
+                    if i.hostname == hostnameNice and i.hostIP != host:
+                        hostUpdate = host_current.update(hostIP=host, scanTime=timestamp).where(host_current.hostname == hostnameNice)
+                        hostUpdate.execute()
+                        print bcolors.OKBLUE + 'Existing Host Updated' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
+                        added = True
+                    #If the hostname and IP address match
+                    elif i.hostname == hostnameNice and i.hostIP == host:
+                        print bcolors.OKGREEN + 'Existing Host Found' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
+                        hostUpdate = host_current.update(scanTime=timestamp).where(host_current.hostname == hostnameNice)
+                        hostUpdate.execute()
+                        added = True
+                    #If the hostname is not in the list at all
                     if added == True:
                         pass
                     else:
