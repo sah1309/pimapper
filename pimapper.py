@@ -151,16 +151,15 @@ def callback_result(host, scan_result):
             portresults = scan_result['scan'][host]['tcp']
             for service in portresults:
                 print bcolors.OKGREEN + 'Found open port: ' + str(service) + ' (' + ports.get(ports.port == service).description + ')' + bcolors.ENDC
-                port_id = ports.get(ports.port == service).id
                 host_id = host_current.get(host_current.hostIP == host).id
 
                 try:
-                    services.get(services.hostID == host_id and services.portID == port_id).id
-                    servicesUpdate = services.update(scanTime=timestamp).where(services.hostID == host_id, services.portID == port_id)
+                    services.get(services.hostID == host_id and services.portID == service)
+                    servicesUpdate = services.update(scanTime=timestamp).where(services.hostID == host_id, services.portID == service)
                     servicesUpdate.execute()
                     print 'updated'
                 except:
-                    services.create(hostID=host_id, portID=port_id, scanTime=timestamp)
+                    services.create(hostID=host_id, portID=service, scanTime=timestamp)
                     print 'inserted'
 
 
