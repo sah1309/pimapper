@@ -9,6 +9,9 @@ class os_match(peewee.Model):
     confidence = peewee.IntegerField()
     scanTime = peewee.IntegerField()
 
+    class Meta:
+        database = db
+
 class services(peewee.Model):
     hostID = peewee.IntegerField()
     portID = peewee.IntegerField()
@@ -42,20 +45,8 @@ class host_current(peewee.Model):
     class Meta:
         database = db
 
-class host_history(peewee.Model):
-    hostname = peewee.CharField()
-    hostIP = peewee.CharField()
-    scanTime = peewee.CharField()
-
-    class Meta:
-        database = db
-
 try:
         host_current.create_table()
-except:
-        pass
-try:
-        host_history.create_table()
 except:
         pass
 try:
