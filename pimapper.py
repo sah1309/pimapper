@@ -63,15 +63,20 @@ def discovery_scan(host, scan_result):
         except:
                 pass
         else:        
-                macsuffix=IPChecks.getMac(host)
+                try:
+                    ms=IPChecks.getMac(host)
+                    macsuffix=ms[12:]
+                except:
+                    macsuffix=''
+
                 #Check if hostname has been found
                 if scan_result['scan'][host]['hostname'] == "":
                     try:
-                        hostnameNice = socket.gethostbyaddr(host) + '-' + macsuffix[12:]
+                        hostnameNice = socket.gethostbyaddr(host) + '-' + macsuffix
                     except:
-                        hostnameNice = host + '-' + macsuffix[12:]
+                        hostnameNice = host + '-' + macsuffix
                 else:
-                    hostnameNice = scan_result['scan'][host]['hostname'] + '-' + macsuffix[12:]
+                    hostnameNice = scan_result['scan'][host]['hostname'] + '-' + macsuffix
                     for i in host_current.select().where(host_current.hostname == hostnameNice):
                         #If the hostname is there, but IP has changed...
                         if i.hostname == hostnameNice and i.hostIP != host:
