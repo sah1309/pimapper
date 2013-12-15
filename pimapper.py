@@ -186,9 +186,11 @@ for i in host_current.select(host_current.id, host_current.hostIP, host_current.
     for portresults in services.select(services.hostID, services.portID).where(services.scanTime == timestamp).where(services.hostID == i.id):
         results[i.hostname]['scan'].update({ portresults.portID : { 'description' : ports.get(ports.port == portresults.portID).description }})
 
-outputJSON = raw_input('Type "yes" to output the report JSON to screen')
+print bcolors.HEADER + 'Scan complete!' + bcolors.ENDC
+outputJSON = raw_input(bcolors.OKBLUE + 'Type "yes" to output the report JSON to screen: ' + bcolors.ENDC)
 if outputJSON == 'yes':
     print json.dumps(results, indent=2)
 else:
-    print 'Scan complete!'
+    print 'Quitting'
+    quit()
 
