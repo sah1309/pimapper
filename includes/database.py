@@ -3,6 +3,12 @@ from peewee import Model, MySQLDatabase
 
 db = MySQLDatabase('pimapper', user='root',passwd='pa55word')
 
+class os_match(peewee.Model):
+    hostID = peewee.IntegerField()
+    os = peewee.CharField()
+    confidence = peewee.IntegerField()
+    scanTime = peewee.IntegerField()
+
 class services(peewee.Model):
     hostID = peewee.IntegerField()
     portID = peewee.IntegerField()
@@ -58,5 +64,9 @@ except:
         pass
 try:
         services.create_table()
+except:
+        pass
+try:
+        os_match.create_table()
 except:
         pass

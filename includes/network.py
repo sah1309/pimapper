@@ -65,4 +65,4 @@ class network():
             if not percent:
                 percent = '0%'
 
-            return osmatch, percent[0].strip('(),')
+            return osmatch, percent[0].strip('%(),')

@@ -162,12 +162,16 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
         time.sleep(0.3)
         sys.stdout.write("-")
         sys.stdout.flush()
+
+    host_id = host_current.get(host_current.hostIP == i.hostIP).id
     print
     print bcolors.HEADER + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
     hostOS = IPChecks.os_match(i.hostIP, 'lan')
     if hostOS[1] == '0':
         print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + bcolors.ENDC
+        os_match.create(hostID=host_id, os=hostOS[0], scanTime=timestamp)
     elif hostOS[0] == 'Unknown':
         print bcolors.OKGREEN + 'Unable to identify OS for ' + i.hostname + bcolors.ENDC
     else:
-        print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1] + bcolors.ENDC
+        print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1] + '%' + bcolors.ENDC
+        os_match.create(hostID=host_id, os=hostOS[0], confidence=hostOS[1], scanTime=timestamp)
