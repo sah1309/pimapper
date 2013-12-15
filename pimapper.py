@@ -169,7 +169,7 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
     hostOS = IPChecks.os_match(i.hostIP, 'lan')
     if hostOS[1] == '0':
         print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + bcolors.ENDC
-        os_match.create(hostID=host_id, os=hostOS[0], confident='100', scanTime=timestamp)
+        os_match.create(hostID=host_id, os=hostOS[0], confidence='100', scanTime=timestamp)
     elif hostOS[0] == 'Unknown':
         print bcolors.OKGREEN + 'Unable to identify OS for ' + i.hostname + bcolors.ENDC
     else:
