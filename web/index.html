@@ -64,7 +64,7 @@
 
 <div id="instructions" class="login-popup">
 <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window" alt="Close" /></a>
-StormMapper - The Network Mapper
+<h1>StormMapper - The Network Mapper</h1>
 <p>
 To start a scan, run 'python /usr/bin/stormmapper/stormmapper.py' as root<p>
 Configuration details are at the following location:<p>
@@ -142,14 +142,16 @@ return false;
 jQuery("#list2").jqGrid({
    	url:'includes/grid.php',
 	datatype: "json",
-   	colNames:['ID', 'Hostname','IP Address', 'Last Seen'],
+   	colNames:['ID', 'Hostname','IP Address', 'Operating System', 'Conf %', 'Last Seen'],
    	colModel:[
 		{name:'id',index:'id',width:50},
    		{name:'hostname',index:'hostname', width:300},
    		{name:'hostip',index:'hostip', width:150},
+		{name:'os',index:'os', width:120},
+		{name:'confidence',index:'confidence', width:50},
    		{name:'lastseen',index:'lastseen', width:150},
    	],
-   	rowNum:12,
+   	rowNum:20,
    	rowList:[10,20,30],
    	pager: '#pager2',
    	sortname: 'id',
@@ -161,7 +163,7 @@ jQuery("#list2").jqGrid({
     	subGridModel: [{ name  : ['Port','Service','Description','ScanTime'], 
                     width : [90,200,200,150] } 
     ],
-	caption:"StormMap"
+	caption:"Detected Hosts"
 });
 jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 </script>
