@@ -173,3 +173,11 @@ for i in host_current.select(host_current.hostIP, host_current.hostname).where(h
     else:
         print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1] + '%' + bcolors.ENDC
         os_match.create(hostID=host_id, os=hostOS[0], confidence=hostOS[1], scanTime=timestamp)
+
+print 'Creating report..'
+    for i in host_current.select(host_current.id, host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
+        os = os_match.get(os_match.hostID == host_current.id)
+
+        print os.confidence
+        print os.os
+
