@@ -20,7 +20,6 @@ currentPreRange = currentIP + "/" + str(currentCIDR)
 ip2 = IPNetwork(currentPreRange)
 currentRange = str(ip2.network) + "/" + str(currentCIDR)
 timestamp = int(time.time())
-macEnable = False
 
 print bcolors.OKGREEN
 print "   _____ _                       __  __              "
@@ -64,6 +63,7 @@ def discovery_scan(host, scan_result):
                 pass
         else:
                 if IPChecks.subnetCheck(host, currentRange) == True:
+                    macEnable = True
                     try:
                         ms=IPChecks.getMac(host)
                         macsuffix='-' + ms[12:]
