@@ -1,13 +1,5 @@
 #!/usr/bin/python
 
-import commands
-import json
-from includes.settings import bcolors
-from netaddr import IPNetwork
-from includes.database import *
-from includes.network import network
-from includes.scanners import *
-
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("-t", "--target", nargs='?', help="Perform Full Scan. SCAN = Single IP address or Range in CIDR notation")
@@ -15,6 +7,16 @@ parser.add_argument("-o", "--os", help="Perform OS Matching", action="store_true
 parser.add_argument("-p", "--port", help="Perform Port-Scan", action="store_true")
 parser.add_argument("-q", "--quiet", help="Hide scan output", action="store_true")
 args = parser.parse_args()
+
+
+
+import commands
+import json
+from includes.settings import bcolors
+from netaddr import IPNetwork
+from includes.database import *
+from includes.network import network
+from includes.scanners import *
 
 
 def create_json_report():
@@ -46,6 +48,7 @@ print "                                             |_|     "
 print bcolors.ENDC
 
 if not (args.target or args.port or args.os):
+    print "Type stormmapper.py --help for options"
     print "No options selected - Exiting.."
     quit()
 
