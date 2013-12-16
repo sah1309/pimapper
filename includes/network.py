@@ -47,6 +47,8 @@ class network():
 
             if 'printer' in scanlist:
                     osmatch = 'Printer'
+            if 'Cisco' in scanlist:
+                    osmatch = 'Cisco'
             elif 'Fortinet' in scanlist:
                     osmatch = 'Fortinet'
             elif 'Linux' in scanlist:

@@ -40,9 +40,9 @@ class scanners():
 
                         #Check if hostname has been found
                         hostnametemp = scan_result['scan'][host]['hostname']
-                        if hostnametemp == "":
+                        if (hostnametemp == "" or hostnametemp == "UNKNOWN"):
                             try:
-                                hostnameNice = socket.gethostbyaddr(host) + macsuffix
+                                hostnameNice = socket.gethostbyaddr(host)[0] + macsuffix
                             except:
                                 hostnameNice = host + macsuffix
                         else:
@@ -53,7 +53,7 @@ class scanners():
                         hostnametemp = scan_result['scan'][host]['hostname']
                         if hostnametemp == "":
                             try:
-                                hostnameNice = socket.gethostbyaddr(host) + '- remote'
+                                hostnameNice = socket.gethostbyaddr(host)[0] + '- remote'
                             except:
                                 hostnameNice = host + '- remote'
                         else:
