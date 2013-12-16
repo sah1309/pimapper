@@ -116,7 +116,7 @@ class scanners():
         for i in host_current.select(host_current.hostIP, host_current.hostname, host_current.scanTime).where(host_current.scanTime == host_current.max(host_current.scanTime)):
             print bcolors.OKBLUE + 'Scanning ' + i.hostname + ' - ' + i.hostIP + '....' + bcolors.ENDC
             # Start service port scan
-            service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=self.port_scan)
+            service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=self.port_scan())
             # Whilst scanning, output - to screen
             while service_scanner.still_scanning():
                 time.sleep(0.3)
