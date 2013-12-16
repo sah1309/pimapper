@@ -1,15 +1,25 @@
 #!/usr/bin/python
 
-import nmap
-import socket
-import sys
+
 import commands
 import json
-from netaddr import IPNetwork
 from includes.settings import bcolors
+from netaddr import IPNetwork
 from includes.database import *
 from includes.network import network
-import time
+from includes.scanners import *
+
+
+def create_json_report():
+    print 'Creating report..'
+    results = dict()
+    for i in host_current.select(host_current.id, host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
+        os = os_match.get(os_match.hostID == i.id, os_match.scanTime == timestamp)
+        results[i.hostname] = {'ip' : i.hostIP, 'os' : {'type' : os.os, 'confidence': os.confidence}}
+        results[i.hostname].update({'scan':{}})
+        for portresults in services.select(services.hostID, services.portID).where(services.scanTime == timestamp).where(services.hostID == i.id):
+            results[i.hostname]['scan'].update({ portresults.portID : { 'description' : ports.get(ports.port == portresults.portID).description }})
+    return json.dumps(results, indent=2)
 
 primaryIf='eth0'
 IPChecks = network()
@@ -55,141 +65,17 @@ else:
         print bcolors.OKGREEN + 'MAC Address gathering enabled!' + bcolors.ENDC
         macEnable = True
 
-def discovery_scan(host, scan_result):
-        addMac = True
-        added = False
-        try:
-                scan_result['scan'][host]['status']['state'] == 'up'
-        except:
-                pass
-        else:
-                if IPChecks.subnetCheck(host, currentRange) == True:
-                    macEnable = True
-                    try:
-                        ms=IPChecks.getMac(host)
-                        macsuffix='-' + ms[12:]
-                    except:
-                        macsuffix=''
+current_scan = scanners()
 
-                    #Check if hostname has been found
-                    hostnametemp = scan_result['scan'][host]['hostname']
-                    if hostnametemp == "":
-                        try:
-                            hostnameNice = socket.gethostbyaddr(host) + macsuffix
-                        except:
-                            hostnameNice = host + macsuffix
-                    else:
-                        hostnameNice = scan_result['scan'][host]['hostname'] + macsuffix
-                else:
-                    #Check if hostname has been found
-                    macEnable = False
-                    hostnametemp = scan_result['scan'][host]['hostname']
-                    if hostnametemp == "":
-                        try:
-                            hostnameNice = socket.gethostbyaddr(host) + '- remote'
-                        except:
-                            hostnameNice = host + '- remote'
-                    else:
-                        hostnameNice = scan_result['scan'][host]['hostname'] + '- remote'
+current_scan.discovery_scan()
+current_scan.port_scan()
+current_scan.os_fingerprint()
 
-                for i in host_current.select().where(host_current.hostname == hostnameNice):
-                    #If the hostname is there, but IP has changed...
-                    if i.hostname == hostnameNice and i.hostIP != host:
-                        hostUpdate = host_current.update(hostIP=host, scanTime=timestamp).where(host_current.hostname == hostnameNice)
-                        hostUpdate.execute()
-                        print bcolors.OKBLUE + 'Existing Host Updated' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
-                        added = True
-                    #If the hostname and IP address match
-                    elif i.hostname == hostnameNice and i.hostIP == host:
-                        print bcolors.OKGREEN + 'Existing Host Found' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
-                        hostUpdate = host_current.update(scanTime=timestamp).where(host_current.hostname == hostnameNice)
-                        hostUpdate.execute()
-                        added = True
-                    #If the hostname is not in the list at all
-                if added == True:
-                    pass
-                else:
-                    host_current.create(hostname=hostnameNice, hostIP=host, scanTime=timestamp)
-                    print bcolors.WARNING + 'New Host Found' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
-
-                
-                if macEnable == True:
-                    macAddress=IPChecks.getMac(host)
-                    if macAddress:
-                        for m in mac_address.select().where(mac_address.hostname == hostnameNice):
-                            if m.macAddr == macAddress:
-                                addMac = False
-                                pass
-                        if addMac == True:
-                            mac_address.create(
-                                hostname=hostnameNice,
-                                macAddr=macAddress,
-                                scanTime=timestamp,
-                            )
-                            print bcolors.OKGREEN + 'MAC address stored ' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + macAddress + ' )'
-
-
-
-
-
-print bcolors.HEADER + 'Starting pimapper discovery scan' + bcolors.ENDC
-
-discover = nmap.PortScannerAsync()
-discover.scan(hosts=scanRange, arguments='-sP', callback=discovery_scan)
-
-while discover.still_scanning():
-        time.sleep(0.5)
-        sys.stdout.write("-")
-        sys.stdout.flush()
-
-print
-print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
-
-service_scanner = nmap.PortScannerAsync()
-def callback_result(host, scan_result):
-    if host in scan_result['scan']:
-        if 'tcp' in scan_result['scan'][host]:
-            portresults = scan_result['scan'][host]['tcp']
-            for service in portresults:
-                print bcolors.OKGREEN + 'Found open port: ' + str(service) + ' (' + ports.get(ports.port == service).description + ')' + bcolors.ENDC
-                host_id = host_current.get(host_current.hostIP == host).id
-                services.create(hostID=host_id, portID=service, scanTime=timestamp)
-
-for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
-    print bcolors.OKBLUE + 'Scanning ' + i.hostname + ' - ' + i.hostIP + '....' + bcolors.ENDC
-    service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=callback_result)
-    while service_scanner.still_scanning():
-        time.sleep(0.3)
-        sys.stdout.write("-")
-        sys.stdout.flush()
-
-    host_id = host_current.get(host_current.hostname == i.hostname).id
-    print bcolors.OKBLUE + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
-    hostOS = IPChecks.os_match(i.hostIP, 'lan')
-    if hostOS[1] == '0':
-        print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + bcolors.ENDC
-        os_match.create(hostID=host_id, os=hostOS[0], confidence='100', scanTime=timestamp)
-    elif hostOS[0] == 'Unknown':
-        print bcolors.OKGREEN + 'Unable to identify OS for ' + i.hostname + bcolors.ENDC
-    else:
-        print bcolors.OKGREEN + 'Identified ' + i.hostname + ' as ' + hostOS[0] + ' with a confidence of ' + hostOS[1] + '%' + bcolors.ENDC
-        os_match.create(hostID=host_id, os=hostOS[0], confidence=hostOS[1], scanTime=timestamp)
-
-
-print 'Creating report..'
-results = dict()
-
-for i in host_current.select(host_current.id, host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
-    os = os_match.get(os_match.hostID == i.id, os_match.scanTime == timestamp)
-    results[i.hostname] = {'ip' : i.hostIP, 'os' : {'type' : os.os, 'confidence': os.confidence}}
-    results[i.hostname].update({'scan':{}})
-    for portresults in services.select(services.hostID, services.portID).where(services.scanTime == timestamp).where(services.hostID == i.id):
-        results[i.hostname]['scan'].update({ portresults.portID : { 'description' : ports.get(ports.port == portresults.portID).description }})
 
 print bcolors.HEADER + 'Scan complete!' + bcolors.ENDC
 outputJSON = raw_input(bcolors.OKBLUE + 'Type "yes" to output the report JSON to screen: ' + bcolors.ENDC)
 if outputJSON == 'yes':
-    print json.dumps(results, indent=2)
+    print create_json_report()
 else:
     print 'Quitting'
     quit()
