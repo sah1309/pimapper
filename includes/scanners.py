@@ -17,96 +17,96 @@ class scanners():
         # Instantiate discovery scanner object
         discover = nmap.PortScannerAsync()
         # Start discovery scan, outputting to discovery_scan
-        discover.scan(hosts=scanRange, arguments='-sP', callback=self.discovery_scanner)
+        discover.scan(hosts=scanRange, arguments='-sP', callback=discovery_scanner)
         # Whilst scanning, output - to screen
         while discover.still_scanning():
                 time.sleep(0.5)
                 sys.stdout.write("-")
                 sys.stdout.flush()
 
-    def discovery_scanner(self, host, scan_result):
-        IPChecks = network()
+        def discovery_scanner(host, scan_result):
+            IPChecks = network()
 
-        primaryIf='eth0'
-        currentIP = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:]
-        currentCIDR = IPChecks.getBits(IPChecks.get_netmask(primaryIf))
-        currentPreRange = currentIP + "/" + str(currentCIDR)
-        ip2 = IPNetwork(currentPreRange)
-        currentRange = str(ip2.network) + "/" + str(currentCIDR)
-        timestamp = int(time.time())
+            primaryIf='eth0'
+            currentIP = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:]
+            currentCIDR = IPChecks.getBits(IPChecks.get_netmask(primaryIf))
+            currentPreRange = currentIP + "/" + str(currentCIDR)
+            ip2 = IPNetwork(currentPreRange)
+            currentRange = str(ip2.network) + "/" + str(currentCIDR)
+            timestamp = int(time.time())
 
 
-        addMac = True
-        added = False
-        try:
-                scan_result['scan'][host]['status']['state'] == 'up'
-        except:
-                pass
-        else:
-                if IPChecks.subnetCheck(host, currentRange) == True:
-                    macEnable = True
-                    try:
-                        ms=IPChecks.getMac(host)
-                        macsuffix='-' + ms[12:]
-                    except:
-                        macsuffix=''
-
-                    #Check if hostname has been found
-                    hostnametemp = scan_result['scan'][host]['hostname']
-                    if hostnametemp == "":
-                        try:
-                            hostnameNice = socket.gethostbyaddr(host) + macsuffix
-                        except:
-                            hostnameNice = host + macsuffix
-                    else:
-                        hostnameNice = scan_result['scan'][host]['hostname'] + macsuffix
-                else:
-                    #Check if hostname has been found
-                    macEnable = False
-                    hostnametemp = scan_result['scan'][host]['hostname']
-                    if hostnametemp == "":
-                        try:
-                            hostnameNice = socket.gethostbyaddr(host) + '- remote'
-                        except:
-                            hostnameNice = host + '- remote'
-                    else:
-                        hostnameNice = scan_result['scan'][host]['hostname'] + '- remote'
-
-                for i in host_current.select().where(host_current.hostname == hostnameNice):
-                    #If the hostname is there, but IP has changed...
-                    if i.hostname == hostnameNice and i.hostIP != host:
-                        hostUpdate = host_current.update(hostIP=host, scanTime=timestamp).where(host_current.hostname == hostnameNice)
-                        hostUpdate.execute()
-                        print bcolors.OKBLUE + 'Existing Host Updated' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
-                        added = True
-                    #If the hostname and IP address match
-                    elif i.hostname == hostnameNice and i.hostIP == host:
-                        print bcolors.OKGREEN + 'Existing Host Found' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
-                        hostUpdate = host_current.update(scanTime=timestamp).where(host_current.hostname == hostnameNice)
-                        hostUpdate.execute()
-                        added = True
-                    #If the hostname is not in the list at all
-                if added == True:
+            addMac = True
+            added = False
+            try:
+                    scan_result['scan'][host]['status']['state'] == 'up'
+            except:
                     pass
-                else:
-                    host_current.create(hostname=hostnameNice, hostIP=host, scanTime=timestamp)
-                    print bcolors.WARNING + 'New Host Found' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
+            else:
+                    if IPChecks.subnetCheck(host, currentRange) == True:
+                        macEnable = True
+                        try:
+                            ms=IPChecks.getMac(host)
+                            macsuffix='-' + ms[12:]
+                        except:
+                            macsuffix=''
+
+                        #Check if hostname has been found
+                        hostnametemp = scan_result['scan'][host]['hostname']
+                        if hostnametemp == "":
+                            try:
+                                hostnameNice = socket.gethostbyaddr(host) + macsuffix
+                            except:
+                                hostnameNice = host + macsuffix
+                        else:
+                            hostnameNice = scan_result['scan'][host]['hostname'] + macsuffix
+                    else:
+                        #Check if hostname has been found
+                        macEnable = False
+                        hostnametemp = scan_result['scan'][host]['hostname']
+                        if hostnametemp == "":
+                            try:
+                                hostnameNice = socket.gethostbyaddr(host) + '- remote'
+                            except:
+                                hostnameNice = host + '- remote'
+                        else:
+                            hostnameNice = scan_result['scan'][host]['hostname'] + '- remote'
+
+                    for i in host_current.select().where(host_current.hostname == hostnameNice):
+                        #If the hostname is there, but IP has changed...
+                        if i.hostname == hostnameNice and i.hostIP != host:
+                            hostUpdate = host_current.update(hostIP=host, scanTime=timestamp).where(host_current.hostname == hostnameNice)
+                            hostUpdate.execute()
+                            print bcolors.OKBLUE + 'Existing Host Updated' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
+                            added = True
+                        #If the hostname and IP address match
+                        elif i.hostname == hostnameNice and i.hostIP == host:
+                            print bcolors.OKGREEN + 'Existing Host Found' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
+                            hostUpdate = host_current.update(scanTime=timestamp).where(host_current.hostname == hostnameNice)
+                            hostUpdate.execute()
+                            added = True
+                        #If the hostname is not in the list at all
+                    if added == True:
+                        pass
+                    else:
+                        host_current.create(hostname=hostnameNice, hostIP=host, scanTime=timestamp)
+                        print bcolors.WARNING + 'New Host Found' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + host + ' )'
 
 
-                if macEnable == True:
-                    macAddress=IPChecks.getMac(host)
-                    if macAddress:
-                        for m in mac_address.select().where(mac_address.hostname == hostnameNice):
-                            if m.macAddr == macAddress:
-                                addMac = False
-                                pass
-                        if addMac == True:
-                            mac_address.create(
-                                hostname=hostnameNice,
-                                macAddr=macAddress,
-                                scanTime=timestamp,
-                            )
-                            print bcolors.OKGREEN + 'MAC address stored ' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + macAddress + ' )'
+                    if macEnable == True:
+                        macAddress=IPChecks.getMac(host)
+                        if macAddress:
+                            for m in mac_address.select().where(mac_address.hostname == hostnameNice):
+                                if m.macAddr == macAddress:
+                                    addMac = False
+                                    pass
+                            if addMac == True:
+                                mac_address.create(
+                                    hostname=hostnameNice,
+                                    macAddr=macAddress,
+                                    scanTime=timestamp,
+                                )
+                                print bcolors.OKGREEN + 'MAC address stored ' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + macAddress + ' )'
 
     def port_scan(self):
         print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
@@ -116,7 +116,7 @@ class scanners():
         for i in host_current.select(host_current.hostIP, host_current.hostname, host_current.scanTime).where(host_current.scanTime == host_current.max(host_current.scanTime)):
             print bcolors.OKBLUE + 'Scanning ' + i.hostname + ' - ' + i.hostIP + '....' + bcolors.ENDC
             # Start service port scan
-            service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=self.port_scan())
+            service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=self.port_scan)
             # Whilst scanning, output - to screen
             while service_scanner.still_scanning():
                 time.sleep(0.3)
