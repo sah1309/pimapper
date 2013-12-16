@@ -41,8 +41,8 @@ print " | (___ | |_ ___  _ __ _ __ ___ | \  / | __ _ _ __   "
 print "  \___ \| __/ _ \| '__| '_ ` _ \| |\/| |/ _` | '_ \  "
 print "  ____) | || (_) | |  | | | | | | |  | | (_| | |_) | "
 print " |_____/ \__\___/|_|  |_| |_| |_|_|  |_|\__,_| .__/  "
-print "                                             | |     "
-print "                                             |_|     "
+print "  Network Mapping and Discovery              | |     "
+print "  Simon Beattie // @Si_Bt // 2013            |_|     "
 print bcolors.ENDC
 
 if not (args.target or args.port or args.os):
