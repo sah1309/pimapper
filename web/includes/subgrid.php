@@ -1,6 +1,6 @@
 <?php
 
-include_once(__DIR__ . '../conf/stormmapper.conf.php');
+include_once(__DIR__ . '../../conf/stormmapper.conf.php');
 
 $examp = $_GET["q"]; //query number
 
