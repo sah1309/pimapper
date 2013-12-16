@@ -51,7 +51,7 @@ class scanners():
                         #Check if hostname has been found
                         macEnable = False
                         hostnametemp = scan_result['scan'][host]['hostname']
-                        if hostnametemp == "":
+                        if (hostnametemp == "" or hostnametemp == "UNKNOWN"):
                             try:
                                 hostnameNice = socket.gethostbyaddr(host)[0] + '- remote'
                             except:
