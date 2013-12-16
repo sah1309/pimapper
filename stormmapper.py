@@ -9,6 +9,8 @@ parser.add_argument("-q", "--quiet", help="Hide scan output", action="store_true
 parser.add_argument("--output", help="output JSON after scan", action="store_true")
 args = parser.parse_args()
 
+import logging
+logging.basicConfig()
 import commands
 import json
 from includes.settings import bcolors
@@ -47,7 +49,7 @@ print bcolors.ENDC
 
 if not (args.target or args.port or args.os):
     print "Type stormmapper.py --help for options"
-    print "No options selected - Exiting.."
+    print
     quit()
 
 current_scan = scanners()
