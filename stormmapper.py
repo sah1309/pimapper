@@ -16,6 +16,8 @@ from netaddr import IPNetwork
 from includes.database import *
 from includes.network import network
 from includes.scanners import *
+import logging
+logging.basicConfig()
 
 
 def create_json_report():
