@@ -23,12 +23,10 @@ def create_json_report():
 
 primaryIf='eth0'
 IPChecks = network()
-#currentIP = "172.16.10.0"
-#currentCIDR = "24"
+
 currentIP = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:]
 currentCIDR = IPChecks.getBits(IPChecks.get_netmask(primaryIf))
-currentPreRange = currentIP + "/" + str(currentCIDR)
-ip2 = IPNetwork(currentPreRange)
+ip2 = IPNetwork(currentIP + "/" + str(currentCIDR))
 currentRange = str(ip2.network) + "/" + str(currentCIDR)
 timestamp = int(time.time())
 
