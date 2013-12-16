@@ -1,5 +1,5 @@
 import peewee
-from peewee import Model, MySQLDatabase
+from peewee import *
 
 db = MySQLDatabase('pimapper', user='root',passwd='pa55word')
 
