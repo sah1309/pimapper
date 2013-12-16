@@ -45,6 +45,10 @@ print "                                             | |     "
 print "                                             |_|     "
 print bcolors.ENDC
 
+if not (args.target or args.port or args.os):
+    print "No options selected - Exiting.."
+    quit()
+
 current_scan = scanners()
 
 if args.target:
