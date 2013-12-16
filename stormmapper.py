@@ -67,9 +67,9 @@ else:
 
 current_scan = scanners()
 
-current_scan.discovery_scan(scanRange)
-current_scan.port_scan()
-current_scan.os_fingerprint()
+current_scan.discovery_scan(scanRange,timestamp)
+current_scan.port_scan(timestamp)
+current_scan.os_fingerprint(timestamp)
 
 
 print bcolors.HEADER + 'Scan complete!' + bcolors.ENDC

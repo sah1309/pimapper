@@ -12,7 +12,7 @@ from includes.database import *
 
 class scanners():
 
-    def discovery_scan(self, scanRange):
+    def discovery_scan(self, scanRange, timestamp):
         def discovery_scanner(host, scan_result):
             IPChecks = network()
 
@@ -22,8 +22,6 @@ class scanners():
             currentPreRange = currentIP + "/" + str(currentCIDR)
             ip2 = IPNetwork(currentPreRange)
             currentRange = str(ip2.network) + "/" + str(currentCIDR)
-            timestamp = int(time.time())
-
 
             addMac = True
             added = False
@@ -108,11 +106,8 @@ class scanners():
                 sys.stdout.write("-")
                 sys.stdout.flush()
 
-    def port_scan(self):
-        def port_scanner(host, scan_result, timestamp):
-            query = host_current.select(fn.Max(host_current.scanTime).alias('count'))
-            for i in query:
-                timestamp = i.count
+    def port_scan(self, timestamp):
+        def port_scanner(host, scan_result):
             if host in scan_result['scan']:
                 if 'tcp' in scan_result['scan'][host]:
                     portresults = scan_result['scan'][host]['tcp']
@@ -137,11 +132,8 @@ class scanners():
 
 
 
-    def os_fingerprint(self):
+    def os_fingerprint(self, timestamp):
         IPChecks = network()
-        query = host_current.select(fn.Max(host_current.scanTime).alias('count'))
-        for i in query:
-            timestamp = i.count
         for i in host_current.select(host_current.hostIP, host_current.hostname).where(host_current.scanTime == timestamp):
             host_id = host_current.get(host_current.hostname == i.hostname).id
             print bcolors.OKBLUE + 'Trying to discover OS for ' + i.hostname + '....' + bcolors.ENDC
