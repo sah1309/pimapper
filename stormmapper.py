@@ -56,6 +56,7 @@ current_scan = scanners()
 
 if args.target:
     scanRange = args.target[0]
+    print scanRange
     current_scan.discovery_scan(scanRange,timestamp)
 
 maxTime = []
