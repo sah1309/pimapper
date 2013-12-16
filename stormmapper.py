@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-
 import commands
 import json
 from includes.settings import bcolors
@@ -8,7 +7,17 @@ from netaddr import IPNetwork
 from includes.database import *
 from includes.network import network
 from includes.scanners import *
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument("s", help="Enter a single host or scan range in CIDR notation")
+parser.add_argument("-d", "--discover", help="Perform Host Discovery Scan", action="store_true")
+parser.add_argument("-o", "--os", help="Perform OS Matching", action="store_true")
+parser.add_argument("-p", "--port", help="Perform Port-Scan", action="store_true")
+parser.add_argument("-q", "--quiet", help="Hide scan output", action="store_true")
+args = parser.parse_args()
+
+scanRange = args.s
 
 def create_json_report():
     print 'Creating report..'
@@ -23,14 +32,8 @@ def create_json_report():
 
 primaryIf='eth0'
 IPChecks = network()
-
 currentIP = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:]
-#currentCIDR = IPChecks.getBits(IPChecks.get_netmask(primaryIf))
-
 currentRange = str(IPNetwork(currentIP + "/" + str(IPChecks.getBits(IPChecks.get_netmask(primaryIf)))).network) + "/" + str(IPChecks.getBits(IPChecks.get_netmask(primaryIf)))
-
-#ip2 = IPNetwork(currentIP + "/" + str(currentCIDR))
-#currentRange = str(ip2.network) + "/" + str(currentCIDR)
 timestamp = int(time.time())
 
 print bcolors.OKGREEN
@@ -43,22 +46,6 @@ print " |_____/ \__\___/|_|  |_| |_| |_|_|  |_|\__,_| .__/  "
 print "                                             | |     "
 print "                                             |_|     "
 print bcolors.ENDC
-print ' -- Navigate to http://' + currentIP + '/stormmap.py'
-print ' -- '
-print ' -- A program with various options to map your LAN'
-print ' --'
-print ' -- Optional arguments'
-print ' -h --help               Show this help message'
-print ' -wl --watch-list        List watched targets'
-print ' -wt --watch-host        Set watch host'
-print ' -ws --watch-subnet      Set watch subnet'
-print ' -wr --watch-remove      Remove watched target'
-print
-useCurrent = raw_input('Your current IP range is ' + currentRange + '. Would you like to map that? [yes/no]: ')
-if useCurrent == 'yes':
-        scanRange = currentRange
-else:
-        scanRange = raw_input('Please enter a single host or scan range in CIDR notation: ')
 
 if IPChecks.subnetCheck(currentIP, scanRange) == False:
         print bcolors.WARNING + 'This subnet is outside your own, MAC Address gathering is disabled' + bcolors.ENDC
@@ -68,9 +55,19 @@ else:
 
 current_scan = scanners()
 
-current_scan.discovery_scan(scanRange,timestamp)
-current_scan.port_scan(timestamp)
-current_scan.os_fingerprint(timestamp)
+for i in host_current.select(host_current.scanTime):
+    print i.scanTime
+
+
+
+if args.discover:
+    current_scan.discovery_scan(scanRange,timestamp)
+
+if args.port:
+    current_scan.port_scan(timestamp)
+
+if args.os:
+    current_scan.os_fingerprint(timestamp)
 
 
 print bcolors.HEADER + 'Scan complete!' + bcolors.ENDC
