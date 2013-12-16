@@ -54,6 +54,7 @@ current_scan = scanners()
 
 if args.target:
     current_scan.discovery_scan(args.target,timestamp)
+    print bcolors.OKGREEN + "Scan Completed!" + bcolors.ENDC
 
 maxTime = []
 for i in host_current.select(host_current.scanTime):
@@ -62,9 +63,11 @@ lastScan = max(maxTime)
 
 if args.port:
     current_scan.port_scan(lastScan)
+    print bcolors.OKGREEN + "Scan Completed!" + bcolors.ENDC
 
 if args.os:
     current_scan.os_fingerprint(lastScan)
+    print bcolors.OKGREEN + "Scan Completed!" + bcolors.ENDC
 
 if args.output:
     print create_json_report()
