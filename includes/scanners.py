@@ -120,7 +120,7 @@ class scanners():
         # Instantiate service port scanner object
         service_scanner = nmap.PortScannerAsync()
         # Grab list of hosts discovered during most recent scan
-        for i in host_current.select(host_current.hostIP, host_current.hostname, host_current.scanTime).where(host_current.scanTime == host_current.max(host_current.scanTime)):
+        for i in host_current.select(host_current.hostIP, host_current.hostname, host_current.scanTime).where(host_current.scanTime == timestamp):
             print bcolors.OKBLUE + 'Scanning ' + i.hostname + ' - ' + i.hostIP + '....' + bcolors.ENDC
             # Start service port scan
             service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=port_scanner)
