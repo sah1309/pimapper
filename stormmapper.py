@@ -17,8 +17,7 @@ from includes.database import *
 from includes.network import network
 from includes.scanners import *
 import logging
-logging.basicConfig()
-
+logging.getLogger('peewee').addHandler(logging.NullHandler())
 
 def create_json_report():
     print 'Creating report..'
