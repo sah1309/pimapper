@@ -7,11 +7,10 @@ from netaddr import IPNetwork
 from includes.database import *
 from includes.network import network
 from includes.scanners import *
-import argparse
 
+import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("s", help="Enter a single host or scan range in CIDR notation")
-parser.add_argument("-d", "--discover", help="Perform Host Discovery Scan", action="store_true")
+parser.add_argument("-t", "--target", nargs=1, help="Perform Discovery Scan. Single IP address or Range in CIDR notation")
 parser.add_argument("-o", "--os", help="Perform OS Matching", action="store_true")
 parser.add_argument("-p", "--port", help="Perform Port-Scan", action="store_true")
 parser.add_argument("-q", "--quiet", help="Hide scan output", action="store_true")
@@ -47,29 +46,21 @@ print "                                             | |     "
 print "                                             |_|     "
 print bcolors.ENDC
 
-if IPChecks.subnetCheck(currentIP, scanRange) == False:
-        print bcolors.WARNING + 'This subnet is outside your own, MAC Address gathering is disabled' + bcolors.ENDC
-else:
-        print bcolors.OKGREEN + 'MAC Address gathering enabled!' + bcolors.ENDC
-        macEnable = True
-
 current_scan = scanners()
+
+if args.target:
+    current_scan.discovery_scan(scanRange,timestamp)
 
 maxTime = []
 for i in host_current.select(host_current.scanTime):
     maxTime.append(i.scanTime)
-print max(maxTime)
-
-
-
-if args.discover:
-    current_scan.discovery_scan(scanRange,timestamp)
+lastScan = max(maxTime)
 
 if args.port:
-    current_scan.port_scan(timestamp)
+    current_scan.port_scan(lastScan)
 
 if args.os:
-    current_scan.os_fingerprint(timestamp)
+    current_scan.os_fingerprint(lastScan)
 
 
 print bcolors.HEADER + 'Scan complete!' + bcolors.ENDC
