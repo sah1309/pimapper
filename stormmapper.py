@@ -6,9 +6,8 @@ parser.add_argument("-t", "--target", nargs='?', help="Perform Full Scan. SCAN =
 parser.add_argument("-o", "--os", help="Perform OS Matching", action="store_true")
 parser.add_argument("-p", "--port", help="Perform Port-Scan", action="store_true")
 parser.add_argument("-q", "--quiet", help="Hide scan output", action="store_true")
+parser.add_argument("--output", help="output JSON after scan", action="store_true")
 args = parser.parse_args()
-
-
 
 import commands
 import json
@@ -68,12 +67,5 @@ if args.port:
 if args.os:
     current_scan.os_fingerprint(lastScan)
 
-
-print bcolors.HEADER + 'Scan complete!' + bcolors.ENDC
-outputJSON = raw_input(bcolors.OKBLUE + 'Type "yes" to output the report JSON to screen: ' + bcolors.ENDC)
-if outputJSON == 'yes':
+if args.output:
     print create_json_report()
-else:
-    print 'Quitting'
-    quit()
-
