@@ -13,17 +13,6 @@ from includes.database import *
 class scanners():
 
     def discovery_scan(self, scanRange):
-        print bcolors.HEADER + 'Starting pimapper discovery scan' + bcolors.ENDC
-        # Instantiate discovery scanner object
-        discover = nmap.PortScannerAsync()
-        # Start discovery scan, outputting to discovery_scan
-        discover.scan(hosts=scanRange, arguments='-sP', callback=discovery_scanner)
-        # Whilst scanning, output - to screen
-        while discover.still_scanning():
-                time.sleep(0.5)
-                sys.stdout.write("-")
-                sys.stdout.flush()
-
         def discovery_scanner(host, scan_result):
             IPChecks = network()
 
@@ -108,7 +97,30 @@ class scanners():
                                 )
                                 print bcolors.OKGREEN + 'MAC address stored ' + bcolors.ENDC + '( ' + hostnameNice + ' - ' + macAddress + ' )'
 
+        print bcolors.HEADER + 'Starting StormMapper discovery scan' + bcolors.ENDC
+        # Instantiate discovery scanner object
+        discover = nmap.PortScannerAsync()
+        # Start discovery scan, outputting to discovery_scan
+        discover.scan(hosts=scanRange, arguments='-sP', callback=discovery_scanner)
+        # Whilst scanning, output - to screen
+        while discover.still_scanning():
+                time.sleep(0.5)
+                sys.stdout.write("-")
+                sys.stdout.flush()
+
     def port_scan(self):
+        def port_scanner(host, scan_result, timestamp):
+            query = host_current.select(fn.Max(host_current.scanTime).alias('count'))
+            for i in query:
+                timestamp = i.count
+            if host in scan_result['scan']:
+                if 'tcp' in scan_result['scan'][host]:
+                    portresults = scan_result['scan'][host]['tcp']
+                    for service in portresults:
+                        print bcolors.OKGREEN + 'Found open port: ' + str(service) + ' (' + ports.get(ports.port == service).description + ')' + bcolors.ENDC
+                        host_id = host_current.get(host_current.hostIP == host).id
+                        services.create(hostID=host_id, portID=service, scanTime=timestamp)
+
         print bcolors.HEADER + 'Starting basic services scan' + bcolors.ENDC
         # Instantiate service port scanner object
         service_scanner = nmap.PortScannerAsync()
@@ -116,24 +128,14 @@ class scanners():
         for i in host_current.select(host_current.hostIP, host_current.hostname, host_current.scanTime).where(host_current.scanTime == host_current.max(host_current.scanTime)):
             print bcolors.OKBLUE + 'Scanning ' + i.hostname + ' - ' + i.hostIP + '....' + bcolors.ENDC
             # Start service port scan
-            service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=self.port_scan)
+            service_scanner.scan(hosts=i.hostIP, ports='22-2222', arguments='', callback=port_scanner)
             # Whilst scanning, output - to screen
             while service_scanner.still_scanning():
                 time.sleep(0.3)
                 sys.stdout.write("-")
                 sys.stdout.flush()
 
-    def port_scanner(self, host, scan_result, timestamp):
-        query = host_current.select(fn.Max(host_current.scanTime).alias('count'))
-        for i in query:
-            timestamp = i.count
-        if host in scan_result['scan']:
-            if 'tcp' in scan_result['scan'][host]:
-                portresults = scan_result['scan'][host]['tcp']
-                for service in portresults:
-                    print bcolors.OKGREEN + 'Found open port: ' + str(service) + ' (' + ports.get(ports.port == service).description + ')' + bcolors.ENDC
-                    host_id = host_current.get(host_current.hostIP == host).id
-                    services.create(hostID=host_id, portID=service, scanTime=timestamp)
+
 
     def os_fingerprint(self):
         IPChecks = network()
