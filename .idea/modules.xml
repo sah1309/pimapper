@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/pimapper.iml" filepath="$PROJECT_DIR$/.idea/pimapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/stormmapper.iml" filepath="$PROJECT_DIR$/.idea/stormmapper.iml" />
     </modules>
   </component>
 </project>
