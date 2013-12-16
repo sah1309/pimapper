@@ -41,8 +41,8 @@ print " | (___ | |_ ___  _ __ _ __ ___ | \  / | __ _ _ __   "
 print "  \___ \| __/ _ \| '__| '_ ` _ \| |\/| |/ _` | '_ \  "
 print "  ____) | || (_) | |  | | | | | | |  | | (_| | |_) | "
 print " |_____/ \__\___/|_|  |_| |_| |_|_|  |_|\__,_| .__/  "
-print bcolors.ENDC + "  Network Mapping and Discovery       " + bcolors.OKGREEN + "       | |     "
-print bcolors.ENDC + "  Simon Beattie // @Si_Bt // 2013     " + bcolors.OKGREEN + "       |_|     "
+print bcolors.OKBLUE + "  Network Mapping and Discovery       " + bcolors.OKGREEN + "       | |     "
+print bcolors.OKBLUE + "  Simon Beattie // @Si_Bt // 2013     " + bcolors.OKGREEN + "       |_|     "
 print bcolors.ENDC
 
 if not (args.target or args.port or args.os):
