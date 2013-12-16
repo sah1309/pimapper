@@ -58,7 +58,7 @@ current_scan = scanners()
 maxTime = []
 for i in host_current.select(host_current.scanTime):
     maxTime.append(i.scanTime)
-print maxTime
+print max(maxTime)
 
 
 
