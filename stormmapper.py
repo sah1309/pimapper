@@ -25,9 +25,12 @@ primaryIf='eth0'
 IPChecks = network()
 
 currentIP = commands.getoutput("/sbin/ifconfig").split("\n")[1].split()[1][5:]
-currentCIDR = IPChecks.getBits(IPChecks.get_netmask(primaryIf))
-ip2 = IPNetwork(currentIP + "/" + str(currentCIDR))
-currentRange = str(ip2.network) + "/" + str(currentCIDR)
+#currentCIDR = IPChecks.getBits(IPChecks.get_netmask(primaryIf))
+
+currentRange = str(IPNetwork(currentIP + "/" + str(IPChecks.getBits(IPChecks.get_netmask(primaryIf)))).network) + "/" + str(IPChecks.getBits(IPChecks.get_netmask(primaryIf)))
+
+#ip2 = IPNetwork(currentIP + "/" + str(currentCIDR))
+#currentRange = str(ip2.network) + "/" + str(currentCIDR)
 timestamp = int(time.time())
 
 print bcolors.OKGREEN
