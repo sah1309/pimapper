@@ -1,3 +1,5 @@
+import logging
+logging.basicConfig()
 import peewee
 from peewee import *
 
@@ -45,19 +47,19 @@ class host_current(peewee.Model):
     class Meta:
         database = db
 
-try:
-        host_current.create_table()
-except:
-        pass
-try:
-        mac_address.create_table()
-except:
-        pass
-try:
-        services.create_table()
-except:
-        pass
-try:
-        os_match.create_table()
-except:
-        pass
+#try:
+#        host_current.create_table()
+#except:
+#        pass
+#try:
+#       mac_address.create_table()
+#except:
+#        pass
+#try:
+#        services.create_table()
+#except:
+#        pass
+#try:
+#        os_match.create_table()
+#except:
+#        pass
