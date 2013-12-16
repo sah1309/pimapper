@@ -1,9 +1,8 @@
 <?php
-//database setting
-$dbhost = 'localhost';
-$dbuser = 'root';
-$dbpassword = 'pa55word';
-$database = 'pimapper';
+
+include_once(__DIR__ . '../conf/stormmapper.conf.php');
+
+
 $page = $_GET['page'];
 // get the requested page
 $limit = $_GET['rows'];
