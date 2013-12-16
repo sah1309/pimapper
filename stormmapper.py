@@ -55,8 +55,10 @@ else:
 
 current_scan = scanners()
 
+maxTime = []
 for i in host_current.select(host_current.scanTime):
-    print i.scanTime
+    maxTime.append(i.scanTime)
+print maxTime
 
 
 
