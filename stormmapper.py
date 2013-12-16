@@ -67,7 +67,7 @@ else:
 
 current_scan = scanners()
 
-current_scan.discovery_scan()
+current_scan.discovery_scan(scanRange)
 current_scan.port_scan()
 current_scan.os_fingerprint()
 
