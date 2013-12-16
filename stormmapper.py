@@ -53,6 +53,7 @@ if not (args.target or args.port or args.os):
     quit()
 
 current_scan = scanners()
+print args.target
 
 if args.target:
     scanRange = args.target[0]
