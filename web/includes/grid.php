@@ -37,10 +37,15 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
     $SQL2 = "SELECT os, confidence FROM os_match WHERE hostID=" . $row['id'] . " AND scantime = (SELECT max(scantime) FROM os_match WHERE hostID=" . $row['id'] . ")";;
     $result2 = mysql_query($SQL2) or die('Couldn\'t execute query. ' . mysql_error());
+
     while ($row2 = mysql_fetch_array($result2, MYSQL_ASSOC)) {
-        $response->rows[$i]['id'] = $row['id'];
-        $response->rows[$i]['cell'] = array($row['id'], $row['hostname'], $row['hostIP'], $row2['os'], $row2['confidence'], date('H:i:s Y-m-d', $row['scanTime']));
+        $os = $row2['os'];
+        $conf = $row2['confidence'];
     }
+
+    $response->rows[$i]['id'] = $row['id'];
+    $response->rows[$i]['cell'] = array($row['id'], $row['hostname'], $row['hostIP'], $os, $conf, date('H:i:s Y-m-d', $row['scanTime']));
+
     $i++;
 }
 echo json_encode($response);
