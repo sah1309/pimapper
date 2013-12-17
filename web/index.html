@@ -41,19 +41,13 @@
     <style type="text/css">
         .running
         {
-            color: #cd0a0a;
-        }
-
-        .notRunning
-        {
-            color:#0186BA;
-        }
-
-        .box
-        {
-            padding:20px;
-            border:1px solid #003147;
-            background-color: #FFFFFF;
+            color:#424242 !important;
+            padding:10px 6px 10px 6px;
+            font-size:12px;
+            font-style:normal;
+            font-family:helvetica;
+            font-weight: normal;
+            text-shadow: 2px 2px 3px #FFFFFF;
         }
     </style>
 
@@ -64,14 +58,7 @@
                 if(data.isRunning)
                 {
                     $('.box').addClass('running');
-                    $('.box').removeClass('notRunning');
-                    $('.box').html('The scanner is running');
-                }
-                else
-                {
-                    $('.box').addClass('notRunning');
-                    $('.box').removeClass('running');
-                    $('.box').html('The scanner NOT running');
+                    $('.box').html('Scanning <img src="images/spin.gif"/>');
                 }
             });
 
@@ -90,8 +77,6 @@
 
     <p>
 
-
-
     <ul id="menu-bar">
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#">StormMapper</a>
@@ -102,11 +87,12 @@
         </li>
         <li><a hfef="#">Scan Now</a>
             <ul>
-                <li><a href="#status-check" class="login-window">Check Scanner Status</a></li>
-                <li><a href="#" class="login-window">Start Host Discovery Scan</a></li>
-                <li><a href="#" class="login-window">Start OS Fingerprint Scan</a></li>
-                <li><a href="#" class="login-window">Start Port Scan</a></li>
-                <li><a href="#" class="login-window">Start Full Scan</a></li>
+                <div onclick="isRunning()" class="box">
+                    <li><a href="#" class="login-window">Start Host Discovery Scan</a></li>
+                    <li><a href="#" class="login-window">Start OS Fingerprint Scan</a></li>
+                    <li><a href="#" class="login-window">Start Port Scan</a></li>
+                    <li><a href="#" class="login-window">Start Full Scan</a></li>
+                </div>
             </ul>
         </li>
     <li><a hfef="#">Administration</a>
