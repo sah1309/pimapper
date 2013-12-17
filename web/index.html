@@ -46,7 +46,7 @@
             $("button").click(function(){
                 $.post("/includes/startScan.php",
                         {
-                            request:"-o"
+                            opt:"-o"
                         },
                         function(data){
                             alert(data);
