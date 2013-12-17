@@ -42,16 +42,18 @@
     </script>
 
     <script type="text/javascript">
-        button = document.getElementById('startOS');
-        $(button).click(function(){
 
-
-            $.post( "/includes/startScan.php", { type: "scan", opt: "-o" })
-                .done(function ( data )
-                    {
-                    alert(data);
-                    });
-
+        $(document).ready(function(){
+            $("button").click(function(){
+                $.post("/includes/startScan.php",
+                        {
+                            name:"Do",
+                            city:"Duckburg"
+                        },
+                        function(data){
+                            alert(data);
+                        });
+            });
         });
     </script>
 
@@ -60,7 +62,7 @@
 
 <body>
 
-<button id="startOS">Start OS</button>
+<button>Start OS</button>
 
 <br>
 
