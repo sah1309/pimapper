@@ -1,18 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="js/jquery-1.9.1.js"></script>
 <script>
 function isRunning()
 {
-var json = '{"running":true}',
-    obj = JSON.parse(json);
+    $.get( "/includes/stormmapper.php", function( data ) {
+        if(data.isRunning)
+        {
+            $('.box').addClass('running');
+            $('.box').removeClass('notRunning');
+            $('.box').html('The scanner is running');
+        }
+        else
+        {
+            $('.box').addClass('notRunning');
+            $('.box').removeClass('running');
+            $('.box').html('The scanner NOT running');
+        }
+    });
 
-alert(obj.running);
 }
 </script>
+    <style type="text/css">
+        .running
+        {
+            color: #cd0a0a;
+        }
+
+        .notRunning
+        {
+            color:#0186BA;
+        }
+
+        .box
+        {
+            padding:20px;
+            border:1px solid #003147;
+            background-color: #FFFFFF;
+        }
+    </style>
 </head>
 
 <body>
 <button onclick="isRunning()">Is it running?</button>
+
+<div class="box">
+    Loading..
+</div>
 </body>
 </html>
