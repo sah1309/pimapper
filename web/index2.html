@@ -10,15 +10,8 @@ function isRunning()
         if(data.isRunning)
         {
             $('.box').addClass('running');
-            $('.box').removeClass('notRunning');
             $('.box').html('Scanning <img src="images/spin.gif"/>');
         }
-//        else	
-//        {
-//            $('.box').addClass('notRunning');
-//            $('.box').removeClass('running');
-//            $('.box').html('The scanner NOT running <img src="images/spin.gif"/>');
-//        }
     });
 
 }
@@ -26,13 +19,15 @@ function isRunning()
     <style type="text/css">
         .running
         {
-            color: #cd0a0a;
+            color:#424242 !important;
+            padding:10px 6px 10px 6px;
+            font-size:12px;
+            font-style:normal;
+            font-family:helvetica;
+            font-weight: normal;
+            text-shadow: 2px 2px 3px #FFFFFF;
         }
 
-        .notRunning
-        {
-            color:#0186BA;
-        }
 
     </style>
 </head>
