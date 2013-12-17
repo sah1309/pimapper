@@ -1,4 +1,4 @@
-.scan-list { display: none; }
+.hidden { display: none; }
 
 .center .ui-jqgrid {
     margin-left: auto;
