@@ -6,20 +6,17 @@
  * Time: 15:01
  */
 
-var_dump($_POST);
 
-
-die();
-
-$type = $_POST['type'];
 $options = $_POST['opt'];
 
-$command = '/usr/bin/sucks/dick.py ';
+$command = '/usr/bin/stormmapper.py';
 
-$line = $command . ' ' . $options;
+$line = $command . ' ' . $options . '&';
 
 exec($line, $returnedOutput, $returnCode);
 
+
+/**
 var_dump($returnedOutput);
 
 var_dump($returnCode);
@@ -49,3 +46,5 @@ if (is_resource($process)) {
         echo fread($pipes[1], 1024);
     }
 }
+
+ **/
