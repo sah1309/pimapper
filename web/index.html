@@ -18,6 +18,26 @@
     <script src="js/jquery.contextmenu.js" type="text/javascript"></script>
     <script src="js/grid.subgrid.js" type="text/javascript"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#startOS").click(function(){
+                $.post("/includes/startScan.php",
+                        {
+                            opt:"-o"
+                        });
+            });
+        });
+        $(document).ready(function(){
+            $("#startPort").click(function(){
+                $.post("/includes/startScan.php",
+                        {
+                            opt:"-p"
+                        });
+            });
+        });
+
+    </script>
+
 
     <script language="javascript">
         var timeout,
@@ -44,25 +64,6 @@
         isRunning();
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("#startOS").click(function(){
-                $.post("/includes/startScan.php",
-                        {
-                            opt:"-o"
-                        });
-            });
-        });
-        $(document).ready(function(){
-            $("#startPort").click(function(){
-                $.post("/includes/startScan.php",
-                        {
-                            opt:"-p"
-                        });
-            });
-        });
-
-    </script>
 
 </head>
 
