@@ -11,7 +11,7 @@
 $options = $_POST['opt'];
 
 
-exec( "sudo /usr/bin/stormmapper/stormmapper.py " . $options . " >  &");
+exec( "sudo /usr/bin/stormmapper/stormmapper.py " . $options . " > /var/log/stormmapper_scan.log &");
 
 
 /**
