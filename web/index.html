@@ -38,6 +38,25 @@
         }
     </style>
 
+    <style type="text/css">
+        .running
+        {
+            color: #cd0a0a;
+        }
+
+        .notRunning
+        {
+            color:#0186BA;
+        }
+
+        .box
+        {
+            padding:20px;
+            border:1px solid #003147;
+            background-color: #FFFFFF;
+        }
+    </style>
+
 </head>
 
 
@@ -45,6 +64,9 @@
 
 <br>
 <center>
+<div class="box">
+    Loading..
+</div>
     <img src="images/network.gif" width="100" height="100"/>
     <img src="images/title.png"/>
 
@@ -60,7 +82,7 @@
                 <li><a href="#how-it-works" class="login-window">How it Works</a></li>
             </ul>
         </li>
-        <li><a hfef="#">Scan Now</a>
+        <li><a onclick="IsRunning()" hfef="#">Scan Now</a>
             <ul>
                 <li><a href="#" class="login-window">Start Host Discovery Scan</a></li>
                 <li><a href="#" class="login-window">Start OS Fingerprint Scan</a></li>
@@ -136,6 +158,27 @@
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
         THE SOFTWARE.
 </div>
+
+<script>
+function isRunning()
+{
+    $.get( "/includes/stormmapper.php", function( data ) {
+        if(data.isRunning)
+        {
+            $('.box').addClass('running');
+            $('.box').removeClass('notRunning');
+            $('.box').html('The scanner is running');
+        }
+        else
+        {
+            $('.box').addClass('notRunning');
+            $('.box').removeClass('running');
+            $('.box').html('The scanner NOT running');
+        }
+    });
+
+}
+</script>
 
 <script language="javascript">
     $(document).ready(function () {
