@@ -17,6 +17,7 @@ echo $line;
 
 exec($line, $returnedOutput, $returnCode);
 
+var_dump($returnedOutput);
 
 /**
 var_dump($returnedOutput);
