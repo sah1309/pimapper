@@ -41,12 +41,12 @@
         isRunning();
     </script>
 
-    <script startOS="javascript">
+    <script type="text/javascript">
         button = document.getElementById('startOS');
         $("button").click(function(){
 
 
-            $.post( "/includes/stormmapper.php", { type: "scan", opt: "-o" })
+            $.post( "/includes/startScan.php", { type: "scan", opt: "-o" })
                 .done(function ( data )
                     {
                     alert(data);
