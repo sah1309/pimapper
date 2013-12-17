@@ -47,12 +47,18 @@
                         $.get( "/includes/stormmapper.php", function( data ) {
                             if(data.isRunning)
                             {
-                                $('#list').addClass('hidden');
-                                $('.scan-list').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/>');
+                                $('#startHost').addClass('hidden');
+                                $('#startOS').addClass('hidden');
+                                $('#startPort').addClass('hidden');
+                                $('#startFull').addClass('hidden');
+                                $('.scan-list').html('<li><div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/></li>');
                             }
                             else
                             {
-                                $('#list').removeClass('scan-list');
+                                $('#startHost').removeClass('hidden');
+                                $('#startOS').removeClass('hidden');
+                                $('#startPort').removeClass('hidden');
+                                $('#startFull').removeClass('hidden');
                             }
                         });
 
@@ -87,10 +93,10 @@
     <li><a hfef="#" class="scan-list">Scan Now</a>
         <ul>
             <div class="scan-list">
-                <li><a href="#" id="startHost" class="hidden">Start Host Discovery Scan</a></li>
-                <li><a href="#" id="startOS" class="hidden">Start OS Fingerprint Scan</a></li>
-                <li><a href="#" id="startPort" class="hidden">Start Port Scan</a></li>
-                <li><a href="#" id="startFull" class="hidden">Start Full Scan</a></li>
+                <li><a href="#" id="startHost">Start Host Discovery Scan</a></li>
+                <li><a href="#" id="startOS">Start OS Fingerprint Scan</a></li>
+                <li><a href="#" id="startPort">Start Port Scan</a></li>
+                <li><a href="#" id="startFull">Start Full Scan</a></li>
             </div>
         </ul>
     </li>
