@@ -25,10 +25,10 @@
             var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
             if(inputText.value.match(ipformat))
             {
-                return ("Valid IP")
+                alert("Valid IP")
             }
 
-                return ("You have entered an invalid IP address!")
+                alert("You have entered an invalid IP address!")
 
         }
 
@@ -37,7 +37,15 @@
 
             var name_element = document.getElementById('txt_name');
 
-            alert(ValidateIPaddress(name_element.value));
+		var win = ValidateIPaddress(name_element.value);
+		alert(win);
+
+		if(ValidateIPaddress(name_element.value))
+		{
+		alert("Valid IP");
+		}else{
+		alert("Invalid IP");
+		}
 
         }
 
