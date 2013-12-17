@@ -25,10 +25,10 @@
             var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
             if(inputText.value.match(ipformat))
             {
-                alert("Valid IP")
+                return true;
             }
 
-                alert("You have entered an invalid IP address!")
+                return true;
 
         }
 
@@ -37,15 +37,20 @@
 
             var name_element = document.getElementById('txt_name');
 
-		var win = ValidateIPaddress(name_element.value);
-		alert(win);
+		    var win = ValidateIPaddress(name_element.value);
+            alert(win);
 
-		if(ValidateIPaddress(name_element.value))
-		{
-		alert("Valid IP");
-		}else{
-		alert("Invalid IP");
-		}
+            if(ValidateIPaddress(name_element.value))
+            {
+                $.post("/includes/startScan.php",
+                        {
+                            opt:"-o" + name_element.value
+                        });
+            }
+            else
+            {
+                alert("Invalid IP");
+            }
 
         }
 
