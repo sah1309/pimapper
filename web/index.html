@@ -51,7 +51,8 @@
                                 $('#startOS').addClass('hidden');
                                 $('#startPort').addClass('hidden');
                                 $('#startFull').addClass('hidden');
-                                $('.scan-list').html('<li><div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/></li>');
+                                $('.scan-list').addClass('running');
+                                $('.scan-list').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/>');
                             }
                             else
                             {
