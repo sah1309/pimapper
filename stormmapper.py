@@ -66,6 +66,7 @@ def main():
         if not (args.target or args.port or args.os):
             print "Type stormmapper.py --help for options"
             print
+            os.unlink(pidfile)
             quit()
 
         current_scan = scanners()
