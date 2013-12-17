@@ -4,8 +4,12 @@
 
 if (file_exists("/var/run/stormmapper.pid"))
 {
-    echo " It's running!";
-} else {
-
-    echo " It's not running";
+	$is_running['isrunning'] = true;
 }
+ else {
+
+        $is_running['isrunning'] = false;
+
+}
+
+echo json_encode($is_running);

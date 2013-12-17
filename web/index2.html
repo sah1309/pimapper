@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function isRunning()
+{
+var json = '{"running":true}',
+    obj = JSON.parse(json);
+
+alert(obj.running);
+}
+</script>
+</head>
+
+<body>
+<button onclick="isRunning()">Is it running?</button>
+</body>
+</html>
