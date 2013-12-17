@@ -20,31 +20,47 @@
 
 
     <script language="javascript">
-    var timeout,
-            running = true,
-                isRunning = function () {
+        var timeout,
+                running = true,
+                    isRunning = function () {
 
-                    console.log("I've been Called");
+                        console.log("I've been Called");
 
-                    $.get( "/includes/stormmapper.php", function( data ) {
-                        if(data.isRunning)
-                        {
-                            $('.box').addClass('running');
-                            $('.box').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/>');
+                        $.get( "/includes/stormmapper.php", function( data ) {
+                            if(data.isRunning)
+                            {
+                                $('.box').addClass('running');
+                                $('.box').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/>');
+                            }
+                        });
+
+                        if (running) {
+                            timeout = setTimeout(isRunning, 10000);
                         }
+                    }
+        isRunning();
+    </script>
+
+    <script startOS="javascript">
+        button = document.getElementById('startOS');
+        $("button").click(function(){
+
+
+            $.post( "/includes/stormmapper.php", { type: "scan", opt: "-o" })
+                .done(function ( data )
+                    {
+                    alert(data);
                     });
 
-                    if (running) {
-                        timeout = setTimeout(isRunning, 10000);
-                    }
-                }
-    isRunning();
+        });
     </script>
 
 </head>
 
 
 <body>
+
+<button id="startOS">Start OS</button>
 
 <br>
 
