@@ -48,9 +48,9 @@
             font-family:helvetica;
             font-weight: normal;
             text-shadow: 2px 2px 3px #FFFFFF;
-            float: left;
         }
     </style>
+
 
     <script language="javascript">
 
@@ -64,7 +64,7 @@
                         if(data.isRunning)
                         {
                             $('.box').addClass('running');
-                            $('.box').html('Scanning <br><img src="images/spin.gif"/>');
+                            $('.box').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif" style="float:left"/>');
                         }
                     });
 
