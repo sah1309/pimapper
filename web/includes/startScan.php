@@ -9,7 +9,7 @@
 
 $options = $_POST['opt'];
 
-$command = '/usr/bin/stormmapper.py';
+$command = '/usr/bin/stormmapper/stormmapper.py';
 
 $line = $command . ' ' . $options . ' &';
 
