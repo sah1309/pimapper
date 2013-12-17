@@ -1,4 +1,5 @@
 <?php
+
 /**
  * web -- startScan.php
  * User: Simon Beattie
@@ -9,15 +10,9 @@
 
 $options = $_POST['opt'];
 
-$command = '/usr/bin/stormmapper/stormmapper.py';
 
-$line = $command . ' ' . $options;
+exec( "sudo /usr/bin/stormmapper/stormmapper.py " . $options . " >  &");
 
-echo $line;
-
-exec($line, $returnedOutput, $returnCode);
-
-var_dump($returnedOutput);
 
 /**
 var_dump($returnedOutput);
