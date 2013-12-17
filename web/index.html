@@ -42,13 +42,11 @@
     </script>
 
     <script type="text/javascript">
-
         $(document).ready(function(){
             $("button").click(function(){
                 $.post("/includes/startScan.php",
                         {
-                            name:"Do",
-                            city:"Duckburg"
+                            request:"-o"
                         },
                         function(data){
                             alert(data);
