@@ -13,6 +13,8 @@ $command = '/usr/bin/stormmapper.py';
 
 $line = $command . ' ' . $options . '&';
 
+echo $line;
+
 exec($line, $returnedOutput, $returnCode);
 
 
