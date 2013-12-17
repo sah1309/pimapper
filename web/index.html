@@ -53,19 +53,28 @@
     </style>
 
     <script language="javascript">
-        function isRunning()
-        {
-            $.get( "/includes/stormmapper.php", function( data ) {
-                if(data.isRunning)
-                {
-                    $('.box').addClass('running');
-                    $('.box').html('Scanning <img src="images/spin.gif"/>');
+
+    var timeout,
+            running = true,
+                isRunning = function () {
+
+                    console.log("I've been Called");
+
+                    $.get( "/includes/stormmapper.php", function( data ) {
+                        if(data.isRunning)
+                        {
+                            $('.box').addClass('running');
+                            $('.box').html('Scanning <img src="images/spin.gif"/>');
+                        }
+                    });
+
+                    if (running) {
+                        timeout = setTimeout(functionToCall, 10000);
+                    }
                 }
-            });
+    isRunning();
 
-        }
     </script>
-
 
 </head>
 
