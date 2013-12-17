@@ -11,14 +11,14 @@ function isRunning()
         {
             $('.box').addClass('running');
             $('.box').removeClass('notRunning');
-            $('.box').html('The scanner is running');
+            $('.box').html('Scanning <img src="images/spin.gif"/>');
         }
-        else
-        {
-            $('.box').addClass('notRunning');
-            $('.box').removeClass('running');
-            $('.box').html('The scanner NOT running');
-        }
+//        else	
+//        {
+//            $('.box').addClass('notRunning');
+//            $('.box').removeClass('running');
+//            $('.box').html('The scanner NOT running <img src="images/spin.gif"/>');
+//        }
     });
 
 }
@@ -40,10 +40,6 @@ function isRunning()
 <body>
 <button onclick="isRunning()">Is it running?</button>
 
-<div class="box">
-    Loading..
-</div>
-
 <ul id="menu-bar">
     <li class="active"><a href="#">Home</a></li>
     <li><a href="#">StormMapper</a>
@@ -54,7 +50,7 @@ function isRunning()
     </li>
     <li><a hfef="#">Scan Now</a>
         <ul>
-            <li><a href="#status-check" class="login-window"><div class="box"></div></a></li>
+           <div class="box"> <li><a href="#status-check" class="login-window">Start Scan</a></li></div>
         </ul>
     </li>
     <li><a hfef="#">Administration</a>
