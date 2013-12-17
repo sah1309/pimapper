@@ -33,7 +33,7 @@
                             else
                             {
                                 $('.box').removeClass('running');
-                                $('.box').html('<li><a href="#" id="startHost">Start Host Discovery Scan</a></li>')
+                                $('.box').html('<li><a href="#" id="startOS">Start OS Fingerprint Scan</a></li>')
                             }
                         });
 
@@ -61,15 +61,6 @@
                         });
             });
         });
-        $(document).ready(function(){
-            $("#startOS").click(function(){
-                $.post("/includes/startScan.php",
-                        {
-                            opt:"-o"
-                        });
-            });
-        });
-
 
     </script>
 
