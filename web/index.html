@@ -43,7 +43,7 @@
 
     <script type="text/javascript">
         button = document.getElementById('startOS');
-        $("button").click(function(){
+        $(button).click(function(){
 
 
             $.post( "/includes/startScan.php", { type: "scan", opt: "-o" })
