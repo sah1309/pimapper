@@ -47,12 +47,13 @@
                         $.get( "/includes/stormmapper.php", function( data ) {
                             if(data.isRunning)
                             {
-                                $('.box').addClass('running');
-                                $('.box').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/>');
+                                $('.scan-list').removeClass('scan-list');
+                                $('.scan-list').addClass('running');
+                                $('.scan-list').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/>');
                             }
                             else
                             {
-                                $('.box').addClass('.box')
+                                $('.scan-list').addClass('scan-list');
                             }
                         });
 
@@ -86,7 +87,7 @@
         </li>
     <li><a hfef="#">Scan Now</a>
         <ul>
-            <div class="box">
+            <div class="scan-list">
                 <li><a href="#" id="startHost">Start Host Discovery Scan</a></li>
                 <li><a href="#" id="startOS">Start OS Fingerprint Scan</a></li>
                 <li><a href="#" id="startPort">Start Port Scan</a></li>
@@ -116,15 +117,6 @@
 
     Simon Beattie<br>
     @Si_Bt 2013
-
-
-
-
-
-
-
-
-
 
 
 <div id="status-check" class="login-popup">
