@@ -47,8 +47,8 @@
                         $.get( "/includes/stormmapper.php", function( data ) {
                             if(data.isRunning)
                             {
-                                $('#list').addClass('scan-list');
-                                $('#scan-list').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/>');
+                                $('#list').addClass('hidden');
+                                $('.scan-list').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/>');
                             }
                             else
                             {
