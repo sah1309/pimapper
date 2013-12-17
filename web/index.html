@@ -41,7 +41,7 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $("button").click(function(){
+            $("#startOS").click(function(){
                 $.post("/includes/startScan.php",
                         {
                             opt:"-o"
@@ -58,7 +58,7 @@
 
 <body>
 
-<button>Start OS</button>
+<button id="startOS">Start OS</button>
 
 <br>
 
