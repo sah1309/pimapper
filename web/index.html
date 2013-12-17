@@ -3,9 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>StormMapper</title>
 
-    <link href="css/dark/jquery-ui-1.10.3.custom.css" rel="stylesheet">
     <link href="css/stormmapper.css" rel="stylesheet">
-
 
     <script src="js/jquery-1.9.1.js"></script>
     <script src="js/jquery-ui-1.10.3.custom.js"></script>
@@ -22,7 +20,6 @@
 
 
     <script language="javascript">
-
     var timeout,
             running = true,
                 isRunning = function () {
@@ -42,24 +39,84 @@
                     }
                 }
     isRunning();
+    </script>
 
+    <script language="javascript">
+        $(document).ready(function () {
+            $('a.login-window').click(function () {
+
+                //Getting the variable's value from a link
+                var loginBox = $(this).attr('href');
+
+                //Fade in the Popup
+                $(loginBox).fadeIn(300);
+
+                //Set the center alignment padding + border see css style
+                var popMargTop = ($(loginBox).height() + 24) / 2;
+                var popMargLeft = ($(loginBox).width() + 24) / 2;
+
+                $(loginBox).css({
+                    'margin-top': -popMargTop,
+                    'margin-left': -popMargLeft
+                });
+
+                // Add the mask to body
+                $('body').append('<div id="mask"></div>');
+                $('#mask').fadeIn(300);
+
+                return false;
+            });
+
+            // When clicking on the button close or the mask layer the popup closed
+            $('a.close, #mask').live('click', function () {
+                $('#mask , .login-popup').fadeOut(300, function () {
+                    $('#mask').remove();
+                });
+                return false;
+            });
+        });
+    </script>
+
+    <script language="javascript">
+        jQuery("#list2").jqGrid({
+            url: 'includes/grid.php',
+            datatype: "json",
+            colNames: ['ID', 'Hostname', 'IP Address', 'Operating System', 'Conf %', 'Last Seen'],
+            colModel: [
+                {name: 'id', index: 'id', width: 50},
+                {name: 'hostname', index: 'hostname', width: 300},
+                {name: 'hostip', index: 'hostip', width: 150},
+                {name: 'os', index: 'os', width: 120},
+                {name: 'confidence', index: 'confidence', width: 50},
+                {name: 'lastseen', index: 'lastseen', width: 150}
+            ],
+            rowNum: 20,
+            rowList: [10, 20, 30],
+            pager: '#pager2',
+            sortname: 'id',
+            viewrecords: true,
+            sortorder: "asc",
+            height: '40%',
+            subGrid: true,
+            subGridUrl: 'includes/subgrid.php?q=2',
+            subGridModel: [
+                { name: ['Port', 'Service', 'Description', 'ScanTime'],
+                    width: [90, 200, 200, 150] }
+            ],
+            caption: "Detected Hosts"
+        });
+        jQuery("#list2").jqGrid('navGrid', '#pager2', {edit: false, add: false, del: false});
     </script>
 
 </head>
 
 
-<body bgcolor=252525>
+<body class="smbody">
 
 <br>
-<center>
     <img src="images/network.gif" width="100" height="100"/>
     <img src="images/title.png"/>
-
-    <button onclick="isRunning()">Is it running?</button>
-
-
     <p>
-
     <ul id="menu-bar">
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#">StormMapper</a>
@@ -153,73 +210,6 @@
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
         THE SOFTWARE.
 </div>
-
-<script language="javascript">
-    $(document).ready(function () {
-        $('a.login-window').click(function () {
-
-            //Getting the variable's value from a link 
-            var loginBox = $(this).attr('href');
-
-            //Fade in the Popup
-            $(loginBox).fadeIn(300);
-
-            //Set the center alignment padding + border see css style
-            var popMargTop = ($(loginBox).height() + 24) / 2;
-            var popMargLeft = ($(loginBox).width() + 24) / 2;
-
-            $(loginBox).css({
-                'margin-top': -popMargTop,
-                'margin-left': -popMargLeft
-            });
-
-            // Add the mask to body
-            $('body').append('<div id="mask"></div>');
-            $('#mask').fadeIn(300);
-
-            return false;
-        });
-
-// When clicking on the button close or the mask layer the popup closed
-        $('a.close, #mask').live('click', function () {
-            $('#mask , .login-popup').fadeOut(300, function () {
-                $('#mask').remove();
-            });
-            return false;
-        });
-    });
-</script>
-
-<script language="javascript">
-    jQuery("#list2").jqGrid({
-        url: 'includes/grid.php',
-        datatype: "json",
-        colNames: ['ID', 'Hostname', 'IP Address', 'Operating System', 'Conf %', 'Last Seen'],
-        colModel: [
-            {name: 'id', index: 'id', width: 50},
-            {name: 'hostname', index: 'hostname', width: 300},
-            {name: 'hostip', index: 'hostip', width: 150},
-            {name: 'os', index: 'os', width: 120},
-            {name: 'confidence', index: 'confidence', width: 50},
-            {name: 'lastseen', index: 'lastseen', width: 150}
-        ],
-        rowNum: 20,
-        rowList: [10, 20, 30],
-        pager: '#pager2',
-        sortname: 'id',
-        viewrecords: true,
-        sortorder: "asc",
-        height: '40%',
-        subGrid: true,
-        subGridUrl: 'includes/subgrid.php?q=2',
-        subGridModel: [
-            { name: ['Port', 'Service', 'Description', 'ScanTime'],
-                width: [90, 200, 200, 150] }
-        ],
-        caption: "Detected Hosts"
-    });
-    jQuery("#list2").jqGrid('navGrid', '#pager2', {edit: false, add: false, del: false});
-</script>
 
 </body>
 
