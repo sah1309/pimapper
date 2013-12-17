@@ -57,6 +57,27 @@
         }
     </style>
 
+    <script language="javascript">
+        function isRunning()
+        {
+            $.get( "/includes/stormmapper.php", function( data ) {
+                if(data.isRunning)
+                {
+                    $('.box').addClass('running');
+                    $('.box').removeClass('notRunning');
+                    $('.box').html('The scanner is running');
+                }
+                else
+                {
+                    $('.box').addClass('notRunning');
+                    $('.box').removeClass('running');
+                    $('.box').html('The scanner NOT running');
+                }
+            });
+
+        }
+    </script>
+
 </head>
 
 
@@ -158,27 +179,6 @@
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
         THE SOFTWARE.
 </div>
-
-<script>
-function isRunning()
-{
-    $.get( "/includes/stormmapper.php", function( data ) {
-        if(data.isRunning)
-        {
-            $('.box').addClass('running');
-            $('.box').removeClass('notRunning');
-            $('.box').html('The scanner is running');
-        }
-        else
-        {
-            $('.box').addClass('notRunning');
-            $('.box').removeClass('running');
-            $('.box').html('The scanner NOT running');
-        }
-    });
-
-}
-</script>
 
 <script language="javascript">
     $(document).ready(function () {
