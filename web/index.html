@@ -47,13 +47,13 @@
                         $.get( "/includes/stormmapper.php", function( data ) {
                             if(data.isRunning)
                             {
-                                $('#list').removeClass('scan-list');
+                                $('#list').addClass('scan-list');
                                 $('#list').addClass('running');
                                 $('#list').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/>');
                             }
                             else
                             {
-                                $('#list').addClass('scan-list');
+                                $('#list').removeClass('scan-list');
                             }
                         });
 
