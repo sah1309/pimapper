@@ -45,7 +45,7 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function(){
+
             $("#startOS").click(function(){
                 $.post("/includes/startScan.php",
                         {
@@ -55,8 +55,8 @@
                             alert(data);
                         });
             });
-        });
-        $(document).ready(function(){
+
+
             $("#startPort").click(function(){
                 $.post("/includes/startScan.php",
                         {
@@ -66,8 +66,8 @@
                             alert(data);
                         });
             });
-        });
-        $(document).ready(function(){
+
+
             $("#startHost").click(function(){
                 $.post("/includes/startScan.php",
                         {
@@ -77,7 +77,7 @@
                             alert(data);
                         });
             });
-        });
+
 
 
     </script>
