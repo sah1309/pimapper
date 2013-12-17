@@ -33,7 +33,7 @@
                             else
                             {
                                 $('.box').removeClass('running');
-                                $('.box').html('<li><a href="#" id="startHost">Start Host Discovery Scan</a></li><li><a href="#" id="startOS">Start OS Fingerprint Scan</a></li><li><a href="#" id="startPort">Start Port Scan</a></li><li><a href="#" id="startFull">Start Full Scan</a></li>');
+                                
                             }
                         });
 
@@ -45,7 +45,7 @@
     </script>
 
     <script type="text/javascript">
-
+        $(document).ready(function(){
             $("#startOS").click(function(){
                 $.post("/includes/startScan.php",
                         {
@@ -55,8 +55,8 @@
                             alert(data);
                         });
             });
-
-
+        });
+        $(document).ready(function(){
             $("#startPort").click(function(){
                 $.post("/includes/startScan.php",
                         {
@@ -66,9 +66,9 @@
                             alert(data);
                         });
             });
-
-
-            $("#startHost").click(function(){
+        });
+        $(document).ready(function(){
+            $("#startOS").click(function(){
                 $.post("/includes/startScan.php",
                         {
                             opt:"-o"
@@ -77,7 +77,7 @@
                             alert(data);
                         });
             });
-
+        });
 
 
     </script>
@@ -104,7 +104,12 @@
         </li>
     <li><a hfef="#">Scan Now</a>
         <ul>
-            <div class="box"></div>
+            <div class="box">
+                <li><a href="#" id="startHost">Start Host Discovery Scan</a></li>
+                <li><a href="#" id="startOS">Start OS Fingerprint Scan</a></li>
+                <li><a href="#" id="startPort">Start Port Scan</a></li>
+                <li><a href="#" id="startFull">Start Full Scan</a></li>
+            </div>
         </ul>
     </li>
     <li><a hfef="#">Administration</a>
@@ -265,3 +270,4 @@
 </body>
 
 </html>
+
