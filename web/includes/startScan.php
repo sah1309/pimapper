@@ -11,7 +11,7 @@ $options = $_POST['opt'];
 
 $command = '/usr/bin/stormmapper.py';
 
-$line = $command . ' ' . $options . '&';
+$line = $command . ' ' . $options . ' &';
 
 echo $line;
 
