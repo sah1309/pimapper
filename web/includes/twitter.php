@@ -40,6 +40,11 @@ if ($option == 'logout')
     logout();
 }
 
+if ($option == 'info')
+{
+    getTwitter();
+}
+
 function getTwitter()
 {
     $access_token = $_SESSION['access_token'];
