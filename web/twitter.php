@@ -8,13 +8,15 @@ require_once(__DIR__ . '/includes/twitteroauth/twitteroauth.php');
 
 $config = require(__DIR__ . '/includes/config.php');
 
-try
-{
-    $pdo = new PDO('mysql:hostname=' . $dbhost . ';dbname=' . $database, $dbuser , $dbpassword);
-}
-catch(PDOException $error)
-{
-    die('Error constructing database, error was: ' . $error->getMessage());
+try {
+    $pdo = new PDO(
+        'mysql:host=' . $config['db']['hostname'] . ';dbname=' . $config['db']['database'],
+        $config['db']['username'],
+        $config['db']['password']
+    );
+} catch (PDOException $pdoError) {
+    $pdoError->getMessage();
+    exit;
 }
 
 $twitterPosts = new TwitterFuncs($pdo, $config);
