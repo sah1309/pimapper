@@ -29,7 +29,4 @@ else
     $isLoggedin['isLoggedin'] = true;
 }
 
-echo "Token = " . $twitterCreds['oauth_token'] . PHP_EOL;
-echo "Secret = " . $twitterCreds['oauth_token_secret'] . PHP_EOL;
-
 echo json_encode($isLoggedin);
