@@ -39,22 +39,3 @@ function processFormData()
 
 }
 
-$(document).ready(function(){
-    $("#startOS").click(function(){
-        $.post("/includes/startScan.php",
-            {
-                opt:"-o"
-            });
-        isRunning();
-    });
-});
-$(document).ready(function(){
-    $("#startPort").click(function(){
-        $.post("/includes/startScan.php",
-            {
-                opt:"-p"
-            });
-        isRunning();
-    });
-});
-
