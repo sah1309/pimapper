@@ -2,8 +2,8 @@
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("-a", "--auto", help="Run full scan against current network")
 parser.add_argument("-t", "--target", nargs='?', help="Perform Full Scan. SCAN = Single IP address or Range in CIDR notation")
+parser.add_argument("-a", "--auto", help="Run full scan against current network", action="store_true")
 parser.add_argument("-o", "--os", help="Perform OS Matching", action="store_true")
 parser.add_argument("-p", "--port", help="Perform Port-Scan", action="store_true")
 parser.add_argument("-q", "--quiet", help="Hide scan output", action="store_true")
