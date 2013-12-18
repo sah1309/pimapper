@@ -28,9 +28,6 @@ $access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
 /* Save the access tokens. Normally these would be saved in a database for future use. */
 $_SESSION['access_token'] = $access_token;
 
-var_dump($_SESSION);
-die();
-
 $tokenInsert = $pdo->prepare('INSERT INTO twitter (user, oauth_token, oauth_token_secret) VALUES(?, ?, ?)');
 $insertedOk = $tokenInsert->execute(array($user, $access_token['oauth_token'], $access_token['oauth_token_secret']));
 

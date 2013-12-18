@@ -22,7 +22,6 @@ if (!$twitterCreds){
     }
     else
     {
-        $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitterCreds['oauth_token'], $twitterCreds['oauth_token_secret']);
 
         $isLoggedin['isLoggedin'] = true;
     }
@@ -30,7 +29,8 @@ if (!$twitterCreds){
 }
 else
 {
-    //Get details from DB
+    // create twitter connection
+    $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitterCreds['oauth_token'], $twitterCreds['oauth_token_secret']);
     $isLoggedin['isLoggedin'] = true;
 }
 
