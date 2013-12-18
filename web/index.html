@@ -42,6 +42,22 @@
                 };
         isRunning();
 
+        var twittersignin,
+                twitterSignin = function () {
+                    $.get( "/includes/twitter.php", function( data ) {
+                        if(data.isRunning) {
+                            $('#scanNav').hide();
+                            $('.runningScan').show();
+                            timeout = setTimeout(isRunning, 5000);
+
+                        } else {
+                            $('#scanNav').show();
+                            $('.runningScan').hide();
+
+                        }
+                    });
+                }
+
         $(document).ready(function(){
             $("#startOS").click(function(){
                 $.post("/includes/startScan.php",
@@ -99,6 +115,7 @@
     </li>
     <li><a hfef="#">Administration</a>
         <ul>
+            <li><a href="./twitteroauth/redirect.php"><img src="./images/lighter.png" alt="Sign in with Twitter"/></a></li>
             <li><a href="#" class="login-window">Clean Up</a></li>
             <li><a href="#" class="login-window">Clear All Results</a></li>
         </ul>
