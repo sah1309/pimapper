@@ -7,7 +7,7 @@
  */
 
 return array (
-    'settings' =>
+    'db' =>
     array (
         'hostname' => 'localhost',
         'username' => 'root',
