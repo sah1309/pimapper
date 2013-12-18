@@ -29,7 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
     {
     	$connection = $connected['connectionObj'];
         $status = $twitterPosts->checkConnection($connection);
-        return json_encode($status);
+        if (array_key_exists('screen_name', $status))
+        {
+            $isLoggedin['isLoggedin'] = true;
+            echo json_encode($isLoggedin);
+        }
+        else
+        {
+            $isLoggedin['isLoggedin'] = false;
+            return json_encode($isLoggedin);
+        }
+
     }
 
     if (array_key_exists('isLoggedin', $response))
