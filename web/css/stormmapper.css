@@ -1,9 +1,8 @@
 .hidden { display: none; }
 
-.center .ui-jqgrid {
+.center {
     margin-left: auto;
     margin-right: auto;
-    height: 40%;
 }
 
 body
