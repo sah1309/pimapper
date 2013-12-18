@@ -6,6 +6,8 @@
  * Time: 21:38
  */
 
+require_once(__DIR__ . '/StatusAbstract.php');
+
 class TwitterFuncs extends StatusAbstract{
 
     function checkStatus(){
