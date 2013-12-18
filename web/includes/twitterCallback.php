@@ -45,7 +45,7 @@ unset($_SESSION['oauth_token_secret']);
 if (200 == $connection->http_code) {
     /* The user has been verified and the access tokens can be saved for future use */
     $_SESSION['status'] = 'verified';
-    header('Location: http://stormmapper.local/index.html');
+    header('Location: http://172.16.10.4/index.html');
 } else {
     /* Save HTTP status for error dialog on connnect page.*/
     header('Location: ./twitterConnect.php');
