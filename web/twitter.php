@@ -25,10 +25,10 @@ $twitterPosts = new TwitterFuncs($pdo, $config);
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
     $connected = $twitterPosts->checkStatus($pdo);
-    
 	if (array_key_exists('connectionObj',$connected))
     {
-        $status = $twitterPosts->checkConnection($connected['connectionObj']);
+    	$connection = $connected['connectionObj'];
+        $status = $twitterPosts->checkConnection($connection);
         return json_encode($status);
     }
 
