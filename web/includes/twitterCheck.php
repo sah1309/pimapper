@@ -4,7 +4,7 @@ header('Content-Type:application/json');
 session_start();
 require_once(__DIR__ . '/bootstrap.php');
 
-$checkLogin = $pdo->query("SELECT oauth_token, oauth_token_secret FROM twitter WHERE user = " . $user . ";");
+$checkLogin = $pdo->query("SELECT oauth_token, oauth_token_secret FROM twitter WHERE user=" . $user . ";");
 $twitterCreds = $checkLogin->fetchAll(PDO::FETCH_ASSOC);
 
 if (!$twitterCreds){
