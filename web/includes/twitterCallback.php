@@ -11,6 +11,7 @@ require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
 require_once(__DIR__ . '/twitteroauth/config.php');
 require_once(__DIR__ . '/StatusAbstract.php');
 
+var_dump($_SESSION);
 
 
 /* If the oauth_token is old redirect to the connect page. */
@@ -38,13 +39,3 @@ if(!$insertedOk)
 /* Remove no longer needed request tokens */
 unset($_SESSION['oauth_token']);
 unset($_SESSION['oauth_token_secret']);
-
-/* If HTTP response is 200 continue otherwise send to connect page to retry */
-if (200 == $connection->http_code) {
-    /* The user has been verified and the access tokens can be saved for future use */
-    $_SESSION['status'] = 'verified';
-    header('Location: http://172.16.10.4/index.html');
-} else {
-    /* Save HTTP status for error dialog on connnect page.*/
-    header('Location: ./twitterConnect.php');
-}
