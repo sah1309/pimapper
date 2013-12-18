@@ -9,7 +9,7 @@
 session_start();
 require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
 require_once(__DIR__ . '/twitteroauth/config.php');
-require_once(__DIR__ . '/bootstrap.php');
+require_once(__DIR__ . '/StatusAbstract.php');
 
 
 
@@ -19,8 +19,6 @@ if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['o
     header('Location: ./twitterConnect.php');
 }
 
-/* Create TwitteroAuth object with app key/secret and token key/secret from default phase */
-$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
 
 /* Request access tokens from twitter */
 $access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
