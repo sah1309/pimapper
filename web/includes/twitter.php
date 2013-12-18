@@ -3,6 +3,8 @@ header('Content-Type:application/json');
 
 require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
 
+var_dump($_POST);
+
 if (array_key_exists("option", $_POST))
 {
     $option = $_POST['option'];
