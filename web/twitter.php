@@ -15,15 +15,18 @@ try {
         $config['db']['password']
     );
 } catch (PDOException $pdoError) {
-    $pdoError->getMessage();
-    exit;
+    die('Error constructing database, error was: ' . $error->getMessage());
+	exit;
 }
 
 $twitterPosts = new TwitterFuncs($pdo, $config);
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
     $connected = $twitterPosts->checkStatus($pdo);
+    
+	
 
     if ($connected['isLoggedin'])
     {
