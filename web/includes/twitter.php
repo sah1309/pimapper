@@ -21,9 +21,14 @@ else
     die("You must POST a message");
 }
 
-function sendTweet()
+if ($option == 'tweet')
 {
-    $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $oauth_token, $oauth_token_secret);
+    echo "Tweeeeeeeeeeting";
+}
+
+function sendTweet($tweet)
+{
+    $connection = new TwitterOAuth('PkCCwJcKHXvDgY8W3gjAcQ', 'PkCCwJcKHXvDgY8W3gjAcQ', 'PkCCwJcKHXvDgY8W3gjAcQ', 'cS9NkbLQfnhylG6PSeLT7gfjSI8u5LsANBNPeK8dkk');
     $connection->post('statuses/update', array('status' => $tweet));
 }
 
