@@ -7,8 +7,8 @@
 
 /* Start session and load lib */
 session_start();
-require_once(__DIR__ . 'twitteroauth/twitteroauth.php');
-require_once(__DIR__ . 'twitteroauth/config.php');
+require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
+require_once(__DIR__ . '/twitteroauth/config.php');
 
 /* If the oauth_token is old redirect to the connect page. */
 if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['oauth_token']) {
@@ -33,7 +33,7 @@ unset($_SESSION['oauth_token_secret']);
 if (200 == $connection->http_code) {
     /* The user has been verified and the access tokens can be saved for future use */
     $_SESSION['status'] = 'verified';
-    header('Location: index.html');
+    header('Location: http://stormmapper.local/index.html');
 } else {
     /* Save HTTP status for error dialog on connnect page.*/
     header('Location: ./twitterConnect.php');

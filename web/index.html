@@ -42,17 +42,19 @@
                 };
         isRunning();
 
-        $(document).ready(function(){
-            $.get("/includes/twitterCheck.php", function ( data ) {
-                        if(data.isLoggedin) {
-                            $('#twittersign').hide();
-                            $('#twitterint').show();
-                        } else {
-                            $('#twittersign').show();
-                            $('#twitterint').hide();
-                        }
-                    });
-                });
+        twitterCheck = function () {
+            $.get("/includes/twitterCheck.php", function( data ) {
+                if(data.isLoggedin){
+                    $('#twittersign').hide();
+                    $('#twitter-opts').show();
+                } else {
+                    $('#twittersign').show();
+                    $('#twitter-opts').hide();
+                }
+            });
+        }
+        twitterCheck();
+
 
         $(document).ready(function(){
             $("#startOS").click(function(){
@@ -74,6 +76,8 @@
         });
 
     </script>
+
+
 </head>
 
 
@@ -226,6 +230,8 @@
 </script>
 
 <script language="javascript">
+
+
     jQuery("#list2").jqGrid({
         url: 'includes/grid.php',
         datatype: "json",

@@ -34,15 +34,41 @@ if ($option == 'tweet')
     sendTweet($message);
 }
 
-
-function sendTweet($tweet)
+if ($option == 'logout')
 {
-    $connection = new TwitterOAuth('PkCCwJcKHXvDgY8W3gjAcQ', 'cS9NkbLQfnhylG6PSeLT7gfjSI8u5LsANBNPeK8dkk', '2251891736-0VUDUrgwclVmsOdAFPD5xFFqqxx7DWUWJG3zVKK', 'nFsDPf2347krrwFjS9v2L1RJtcIRdA0GW1YfuJ9vt7hLN');
-    $connection->post('statuses/update', array('status' => $tweet));
+    echo "Logging out";
+    logout();
+}
+
+function getTwitter()
+{
+    $access_token = $_SESSION['access_token'];
+    $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+    $content = $connection->get('account/verify_credentials');
+
+    print_r($content);
+}
+
+function sendTweet($message)
+{
+
+    $access_token = $_SESSION['access_token'];
+    $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+
+    $connection->post('statuses/update', array('status' => $message));
+
 }
 
 function sendDM($oauth_token, $oauth_token_secret, $user, $msg)
 {
     $connection = new TwitterOAuth('3EBL9R4f4H6pHOorcz96Q', '2lXeTHNPGsqXbx3QYj4NGZqFPt6AUmG9dLlQY02Tl6s', $oauth_token, $oauth_token_secret);
     $connection->post('direct_messages/new', array('user_id' => $user->id, 'text' => $msg));
+}
+
+function logout()
+{
+
+session_start();
+session_destroy();
+
 }
