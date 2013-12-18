@@ -8,10 +8,7 @@ require_once(__DIR__ . '/bootstrap.php');
 $statement = $pdo->prepare("SELECT oauth_token, oauth_token_secret FROM twitter WHERE user= :user");
 $statement->execute(array(':user' => "default"));
 
-$row = $statement->fetchAll();
-
-print_r($row);
-die();
+$twitterCreds = $statement->fetch();
 
 
 if (!$twitterCreds){
@@ -32,13 +29,7 @@ else
     $isLoggedin['isLoggedin'] = true;
 }
 
+echo "Token = " . $twitterCreds['oauth_token'] . PHP_EOL;
+echo "Secret = " . $twitterCreds['oauth_token_secret'] . PHP_EOL;
+
 echo json_encode($isLoggedin);
-
-
-
-print_r($twitterCreds);
-
-
-
-
-
