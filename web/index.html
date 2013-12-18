@@ -42,21 +42,17 @@
                 };
         isRunning();
 
-        var twittersignin,
-                twitterSignin = function () {
-                    $.get( "/includes/twitter.php", function( data ) {
-                        if(data.isRunning) {
-                            $('#scanNav').hide();
-                            $('.runningScan').show();
-                            timeout = setTimeout(isRunning, 5000);
-
+        $(document).ready(function(){
+            $.get("/includes/twitter.php", function ( data ) {
+                        if(data.isLoggedin) {
+                            $('#twittersign').hide();
+                            $('#twitterint').show();
                         } else {
-                            $('#scanNav').show();
-                            $('.runningScan').hide();
-
+                            $('#twittersign').show();
+                            $('#twitterint').hide();
                         }
                     });
-                }
+                });
 
         $(document).ready(function(){
             $("#startOS").click(function(){
@@ -115,7 +111,8 @@
     </li>
     <li><a hfef="#">Administration</a>
         <ul>
-            <li><a href="./twitteroauth/redirect.php"><img src="./images/lighter.png" alt="Sign in with Twitter"/></a></li>
+            <div id="twittersign"><li><a href="includes/twitteroauth/redirect.php"><img src="includes/twitteroauth/images/lighter.png" alt="Sign in with Twitter"/></a></li></div>
+            <div id="twitter-opts"><li><a href="#" class="login-window">Twitter Options</a></li></div>
             <li><a href="#" class="login-window">Clean Up</a></li>
             <li><a href="#" class="login-window">Clear All Results</a></li>
         </ul>

@@ -1,15 +1,23 @@
 <?php
 header('Content-Type:application/json');
 
+
+session_start();
+require_once(__DIR__ . '/twitteroauth/config.php');
 require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
 
 
-if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
-    header('Location: ./clearsessions.php');
+if ($_GET){
+
+    if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+        $isLoggedin['isLoggedin'] = false;
+    }
+    else
+    {
+        $isLoggedin['isLoggedin'] = true;
+    }
+    echo json_encode($isLoggedin);
 }
-
-
-var_dump($_POST);
 
 if (array_key_exists("option", $_POST))
 {
@@ -28,6 +36,9 @@ else
 {
     die("You must POST a message");
 }
+
+
+
 
 if ($option == 'tweet')
 {

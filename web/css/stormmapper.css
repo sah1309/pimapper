@@ -1,5 +1,7 @@
 .hidden { display: none; }
 
+.twitter-opts { display: none; }
+
 .center .ui-jqgrid {
     margin-left: auto;
     margin-right: auto;
