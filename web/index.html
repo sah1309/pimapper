@@ -43,7 +43,7 @@
         isRunning();
 
         twitterCheck = function () {
-            $.get("/includes/twitterCheck.php", function( data ) {
+            $.get("/includes/twitter.php", function( data ) {
                 if(data.isLoggedin){
                     $('#twittersign').hide();
                     $('#twitter-opts').show();
