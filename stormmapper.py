@@ -72,19 +72,16 @@ def main():
 
         current_scan = scanners()
 
-        if args.target:
+        if args.auto:
             current_scan.discovery_scan(currentRange,timestamp)
             current_scan.port_scan(timestamp)
             current_scan.os_fingerprint(timestamp)
+            print bcolors.OKGREEN + "Scan Completed!" + bcolors.ENDC
 
         if args.target:
             current_scan.discovery_scan(args.target,timestamp)
             print bcolors.OKGREEN + "Scan Completed!" + bcolors.ENDC
 
-        maxTime = []
-        for i in host_current.select(host_current.scanTime):
-            maxTime.append(i.scanTime)
-        lastScan = max(maxTime)
 
         if args.port:
             current_scan.port_scan(lastScan)
