@@ -64,7 +64,7 @@ def main():
         print bcolors.OKBLUE + "  Simon Beattie // @Si_Bt // 2013     " + bcolors.OKGREEN + "       |_|     "
         print bcolors.ENDC
 
-        if not (args.target or args.port or args.os):
+        if not (args.target or args.port or args.os or args.auto):
             print "Type stormmapper.py --help for options"
             print
             os.unlink(pidfile)
