@@ -43,7 +43,7 @@
         isRunning();
 
         $(document).ready(function(){
-            $.get("/includes/twitter.php", function ( data ) {
+            $.get("/includes/twitterCheck.php", function ( data ) {
                         if(data.isLoggedin) {
                             $('#twittersign').hide();
                             $('#twitterint').show();

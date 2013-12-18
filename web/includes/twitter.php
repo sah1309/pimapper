@@ -7,18 +7,6 @@ require_once(__DIR__ . '/twitteroauth/config.php');
 require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
 
 
-if ($_GET){
-
-    if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
-        $isLoggedin['isLoggedin'] = false;
-    }
-    else
-    {
-        $isLoggedin['isLoggedin'] = true;
-    }
-    echo json_encode($isLoggedin);
-}
-
 if (array_key_exists("option", $_POST))
 {
     $option = $_POST['option'];
