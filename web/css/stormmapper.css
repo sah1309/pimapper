@@ -212,7 +212,7 @@ h1 {
 .login-popup {
     display: none;
     background: #333;
-    padding: 25px;
+    padding: 20px;
     border: 2px solid #ddd;
     float: left;
     position: fixed;
