@@ -26,11 +26,13 @@ else
 if ($option == 'tweet')
 {
     echo "Tweeeeeeeeeeting";
+    sendTweet($message);
 }
+
 
 function sendTweet($tweet)
 {
-    $connection = new TwitterOAuth('PkCCwJcKHXvDgY8W3gjAcQ', 'PkCCwJcKHXvDgY8W3gjAcQ', 'PkCCwJcKHXvDgY8W3gjAcQ', 'cS9NkbLQfnhylG6PSeLT7gfjSI8u5LsANBNPeK8dkk');
+    $connection = new TwitterOAuth('PkCCwJcKHXvDgY8W3gjAcQ', 'cS9NkbLQfnhylG6PSeLT7gfjSI8u5LsANBNPeK8dkk', '2251891736-0VUDUrgwclVmsOdAFPD5xFFqqxx7DWUWJG3zVKK', 'nFsDPf2347krrwFjS9v2L1RJtcIRdA0GW1YfuJ9vt7hLN');
     $connection->post('statuses/update', array('status' => $tweet));
 }
 
