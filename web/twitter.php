@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
     else
     {
         $isLoggedin['isLoggedin'] = false;
+        return json_encode($isLoggedin);
     }
 
 }
