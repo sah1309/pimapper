@@ -5,8 +5,6 @@
 
     <link href="css/stormmapper.css" rel="stylesheet">
 
-    <script> src="js/stormmapper.js"</script>
-
     <script src="js/jquery-1.9.1.js"></script>
     <script src="js/jquery-ui-1.10.3.custom.js"></script>
     <script src="js/i18n/grid.locale-en.js" type="text/javascript"></script>
@@ -14,41 +12,33 @@
         $.jgrid.no_legacy_api = true;
         $.jgrid.useJSON = true;
     </script>
+
+
     <script src="js/ui.multiselect.js" type="text/javascript"></script>
     <script src="js/jquery.jqGrid.js" type="text/javascript"></script>
     <script src="js/jquery.tablednd.js" type="text/javascript"></script>
     <script src="js/jquery.contextmenu.js" type="text/javascript"></script>
     <script src="js/grid.subgrid.js" type="text/javascript"></script>
 
+    <script src="js/stormmapper.js"></script>
 
     <script language="javascript">
         var timeout,
-                running = true,
-                    isRunning = function () {
+                isRunning = function () {
 
-                        $.get( "/includes/stormmapper.php", function( data ) {
-                            if(data.isRunning)
-                            {
-                                $('#startHost').addClass('hidden');
-                                $('#startOS').addClass('hidden');
-                                $('#startPort').addClass('hidden');
-                                $('#startFull').addClass('hidden');
-                                $('.scan-list').addClass('running');
-                                $('.scan-list').html('<div style="line-height: 25px">Scanning</div><img src="images/spin.gif"/>');
-                            }
-                            else
-                            {
-                                $('#startHost').removeClass('hidden');
-                                $('#startOS').removeClass('hidden');
-                                $('#startPort').removeClass('hidden');
-                                $('#startFull').removeClass('hidden');
-                            }
-                        });
-
-                        if (running) {
+                    $.get( "/includes/stormmapper.php", function( data ) {
+                        if(data.isRunning) {
+                            $('#scanNav').hide();
+                            $('.runningScan').show();
                             timeout = setTimeout(isRunning, 5000);
+
+                        } else {
+                            $('#scanNav').show();
+                            $('.runningScan').hide();
+
                         }
-                    }
+                    });
+                };
         isRunning();
 
         $(document).ready(function(){
@@ -71,8 +61,6 @@
         });
 
     </script>
-
-
 </head>
 
 
@@ -82,49 +70,53 @@
 
 <br>
 
-    <img src="images/network.gif" width="100" height="100"/>
-    <img src="images/title.png"/>
-    <p>
-    <ul id="menu-bar">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">StormMapper</a>
-            <ul>
-                <li><a href="#instructions" class="login-window">Instructions</a></li>
-                <li><a href="#how-it-works" class="login-window">How it Works</a></li>
-            </ul>
-        </li>
-        <li><a hfef="#">Scan Now</a>
-            <ul>
-                <div class="scan-list">
-                    <li><a href="#scanwindow" class="login-window">Start Host Discovery Scan</a></li>
-                    <li><a href="#" id="startOS">Start OS Fingerprint Scan</a></li>
-                    <li><a href="#" id="startPort">Start Port Scan</a></li>
-                    <li><a href="#" id="startFull">Start Full Scan</a></li>
-                </div>
-            </ul>
-        </li>
-        <li><a hfef="#">Administration</a>
-            <ul>
-                <li><a href="#" class="login-window">Clean Up</a></li>
-                <li><a href="#" class="login-window">Clear All Results</a></li>
-            </ul>
-        </li>
-        <li><a href="#license" class="login-window">License</a></li>
-        <li><a href="mailto:simon.beattie@randomstorm.com?Subject=StormMapper">Contact me</a></li>
-    </ul>
-    <p>
-        <img src="images/title2.png"/>
-    <p>
+<img src="images/network.gif" width="100" height="100"/>
+<img src="images/title.png"/>
+<p>
+<ul id="menu-bar">
+    <li class="active"><a href="#">Home</a></li>
+    <li><a href="#">StormMapper</a>
+        <ul>
+            <li><a href="#instructions" class="login-window">Instructions</a></li>
+            <li><a href="#how-it-works" class="login-window">How it Works</a></li>
+        </ul>
+    </li>
+    <li><a hfef="#">Scan Now</a>
+        <ul>
+            <div class="scan-list" id="scanNav">
+                <li><a href="#scanwindow" class="login-window">Start Host Discovery Scan</a></li>
+                <li><a href="#" id="startOS">Start OS Fingerprint Scan</a></li>
+                <li><a href="#" id="startPort">Start Port Scan</a></li>
+                <li><a href="#" id="startFull">Start Full Scan</a></li>
+            </div>
+            <div class="scan-list runningScan">
+                <div style="line-height: 25px">Scanning</div>
+                <img src="images/spin.gif"/>
+            </div>
+        </ul>
+    </li>
+    <li><a hfef="#">Administration</a>
+        <ul>
+            <li><a href="#" class="login-window">Clean Up</a></li>
+            <li><a href="#" class="login-window">Clear All Results</a></li>
+        </ul>
+    </li>
+    <li><a href="#license" class="login-window">License</a></li>
+    <li><a href="mailto:simon.beattie@randomstorm.com?Subject=StormMapper">Contact me</a></li>
+</ul>
+<p>
+    <img src="images/title2.png"/>
+<p>
 
-    <div class="center">
+<div class="center">
 
-        <table id="list2"></table>
-        <div id="pager2"></div>
+    <table id="list2"></table>
+    <div id="pager2"></div>
 
-    </div>
+</div>
 
-    Simon Beattie<br>
-    @Si_Bt 2013
+Simon Beattie<br>
+@Si_Bt 2013
 
 
 <div id="scanwindow" class="login-popup">
@@ -251,4 +243,3 @@
 </body>
 
 </html>
-
