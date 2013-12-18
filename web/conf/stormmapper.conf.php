@@ -10,3 +10,5 @@ $dbhost = 'localhost';
 $dbuser = 'root';
 $dbpassword = 'pa55word';
 $database = 'pimapper';
+
+$user = 'default';
