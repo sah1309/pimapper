@@ -8,7 +8,7 @@ require_once(__DIR__ . '/bootstrap.php');
 $statement = $pdo->prepare("SELECT oauth_token, oauth_token_secret FROM twitter WHERE user= :user");
 $statement->execute(array(':user' => "default"));
 
-$row = $statement->fetch();
+$row = $statement->fetchAll();
 
 print_r($row);
 die();
