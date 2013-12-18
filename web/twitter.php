@@ -26,9 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
     $connected = $twitterPosts->checkStatus($pdo);
     
-	
+	if (array_key_exists('connectionObj',$connected))
+    {
+        $status = $twitterPosts->checkConnection($connected['connectionObj']);
+        return json_encode($status);
+    }
 
-    if ($connected['isLoggedin'])
+    if (array_key_exists('isLoggedin', $response))
     {
         if ($connected['method'] == 'db')
         {
