@@ -36,7 +36,7 @@ class TwitterFuncs extends StatusAbstract{
         {
             // create twitter connection
             $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitterCreds['oauth_token'], $twitterCreds['oauth_token_secret']);
-	    $isLoggedin['isLoggedin'] = true;
+	        $isLoggedin['isLoggedin'] = true;
             $isLoggedin['method'] = 'db';
             $isLoggedin['connectionObj'] = $connection;
 	    return $isLoggedin;

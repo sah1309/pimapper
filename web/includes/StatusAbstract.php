@@ -6,8 +6,9 @@
  * Time: 16:51
  */
 
+require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
 
-class StatusAbstract
+class StatusAbstract extends TwitterOAuth
 {
 
     /**

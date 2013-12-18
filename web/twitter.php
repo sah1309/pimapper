@@ -16,7 +16,7 @@ try {
     );
 } catch (PDOException $pdoError) {
     die('Error constructing database, error was: ' . $error->getMessage());
-	exit;
+
 }
 
 $twitterPosts = new TwitterFuncs($pdo, $config);
