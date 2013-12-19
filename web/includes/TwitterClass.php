@@ -17,7 +17,7 @@ class TwitterFuncs extends StatusAbstract{
 
         if(!$insertedOk)
         {
-            die('Sorry, we couldn\'t insert the token details: ' . $insertedOk->errorInfo()[2]);
+            die('Sorry, we couldn\'t insert the token details: ' . $statement->errorInfo()[2]);
         }
     }
 
