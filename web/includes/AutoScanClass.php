@@ -12,7 +12,7 @@ class AutoScanClass extends ScanAbstract{
 
     function checkStatus()
     {
-        $statement = $this->getPdo()->prepare("SELECT status FROM auto_scan WHERE name = :name");
+        $statement = $this->getPdo()->prepare("SELECT * FROM auto_scan WHERE name = :name");
         $response = $statement->execute(array(':name' => "default"));
 
         if(!$response)
