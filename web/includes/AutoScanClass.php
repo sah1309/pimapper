@@ -18,11 +18,26 @@ class AutoScanClass extends ScanAbstract{
 
         if(!$response)
         {
-            die('Database Error: ' . $statement->errorInfo()[2]);
+            return $statement->errorInfo()[2];
         }
 
         return $response;
 
+    }
+
+    function setStatus($status)
+    {
+        $setStatus = $this->pdo->prepare('UPDATE auto_scan SET status=? WHERE name = ?');
+        $statusOK = $setStatus->execute(array($status, 'default'));
+
+        if(!$statusOK)
+        {
+            return $setStatus->errorInfo()[2];
+        }
+        else
+        {
+            return true;
+        }
     }
 
 }

@@ -42,3 +42,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+
+    if (array_key_exists("option", $_POST))
+    {
+        $option = $_POST['option'];
+    }
+    else
+    {
+        die("You must POST an option");
+    }
+
+    if ($option == 'setstatus')
+    {
+        if($_POST['message'] == 0 | $_POST['message'] == 1)
+        {
+            $setStatus = $autoScan->setStatus($_POST['message']);
+            return $setStatus;
+        }
+
+    }
+
+}
