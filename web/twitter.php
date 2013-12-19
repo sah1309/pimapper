@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
         die();
     }
 }
-
+ggf;
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 

@@ -26,6 +26,8 @@ class TwitterFuncs extends StatusAbstract{
         $statement->execute(array(':user' => $user));
         $response = $statement->fetch();
 
+        print_r($response);
+
         return $response;
     }
 
