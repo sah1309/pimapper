@@ -1,7 +1,5 @@
-- record historical IP addresses when hostname changes IP
-- Move scan code into own class
-- Config file for DB passwords
-- Email Alerts
-- Warnings (MAC change etc) & Dismiss Warnings
-- Subnet Watch (New hosts)
-
+- Create new MAC address report
+- Write scanner health check
+- Add search function to interface
+- Add another grid on the interface with the open ports and services
+- Add facebook integration
