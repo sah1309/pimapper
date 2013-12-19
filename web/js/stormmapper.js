@@ -34,7 +34,7 @@ function processFormDataSN()
 {
     var name_element = document.getElementById('screen_name');
 
-        $.post("/twitter.php",
+        $.post("/autoScan.php",
             {
                 option:"setname",
                 message: name_element.value
