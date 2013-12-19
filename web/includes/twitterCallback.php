@@ -37,6 +37,9 @@ $twitterCallback = new TwitterFuncs($pdo, $config, $connection);
 
 $twitterCallback->saveAuth($access_token);
 
+var_dump($access_token);
+die();
+
 /* Remove no longer needed request tokens */
 unset($_SESSION['oauth_token']);
 unset($_SESSION['oauth_token_secret']);
