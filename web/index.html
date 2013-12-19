@@ -132,6 +132,7 @@
                     { option: "getname", message: "getname" })
                     .done(function ( data ) {
                         console.log(data);
+                        $.('#screennameout').html(data.screenName);
                    });
         }
     </script>
