@@ -36,8 +36,6 @@ $_SESSION['access_token'] = $access_token;
 $twitterCallback = new TwitterFuncs($pdo, $config, $connection);
 
 $status = $twitterCallback->getStatus();
-print_r($status);
-die();
 
 //$twitterCallback->saveAuth($access_token);
 

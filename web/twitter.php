@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
-    $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+    $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['access_token']['oauth_token'], $_SESSION['access_token']['oauth_token_secret']);
 
     $twitterOptions = new TwitterFuncs($pdo, $config, $connection);
 
