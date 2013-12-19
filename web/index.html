@@ -26,7 +26,6 @@
     <script language="javascript">
         var timeout,
                 isRunning = function () {
-                    console.log('inRunning started');
                     $.get( "/includes/stormmapper.php", function( data ) {
                         if(data.isRunning) {
                             $('#scanNav').hide();
@@ -80,6 +79,7 @@
                             option:"setstatus",
                             message:"1"
                         });
+                setTimeout(autoScanCheck, 250);
             });
         });
         $(document).ready(function(){
@@ -89,7 +89,7 @@
                             option:"setstatus",
                             message:"0"
                         });
-                setTimeout(autoScanCheck, 1000);
+                setTimeout(autoScanCheck, 250);
             });
         });
 
