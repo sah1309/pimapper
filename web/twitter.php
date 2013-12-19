@@ -25,12 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
     if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
 
         $isLoggedin['isLoggedin'] = false;
-        return $isLoggedin;
+        echo $isLoggedin;
     }
     else
     {
         $isLoggedin['isLoggedin'] = true;
-        return $isLoggedin;
+        echo $isLoggedin;
     }
 }
 
