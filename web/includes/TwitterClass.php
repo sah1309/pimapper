@@ -15,7 +15,7 @@ class TwitterFuncs extends StatusAbstract{
         $oauth_token = base64_encode($accessToken['oauth_token']);
         $oauth_token_secret = base64_encode($accessToken['oauth_token_secret']);
 
-        $statement = $this->getPdo()->prepare("INSERT INTO twitter oauth_token, oauth_token_secret, user_id, screen_name VALUES( ?, ?, ?, ? )");
+        $statement = $this->getPdo()->prepare("INSERT INTO twitter ()oauth_token, oauth_token_secret, user_id, screen_name) VALUES( ?, ?, ?, ? )");
         $insertedOk = $statement->execute(array($oauth_token, $oauth_token_secret, $accessToken['user_id'], $accessToken['screen_name']));
 
         if(!$insertedOk)
