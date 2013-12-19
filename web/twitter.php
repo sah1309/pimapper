@@ -19,13 +19,19 @@ try {
 
 }
 
-$twitterPosts = new TwitterFuncs($pdo, $config);
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
-    $check = $twitterPosts->checkStatus();
-    echo json_encode($check);
+    if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+
+        $isLoggedin['isLoggedin'] = false;
+        return $isLoggedin;
+    }
+    else
+    {
+        $isLoggedin['isLoggedin'] = true;
+        return $isLoggedin;
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')

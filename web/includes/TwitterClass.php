@@ -10,21 +10,6 @@ require_once(__DIR__ . '/StatusAbstract.php');
 
 class TwitterFuncs extends StatusAbstract{
 
-    function checkStatus(){
-
-            if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
-
-                $isLoggedin['isLoggedin'] = false;
-		        return $isLoggedin;
-            }
-            else
-            {
-                $isLoggedin['isLoggedin'] = true;
-                $isLoggedin['method'] = 'cookie';
-		        return $isLoggedin;
-            }
-    }
-
     function saveAuth($accessToken)
     {
         $statement = $this->getPdo()->prepare("INSERT oauth_token, oauth_token_secret, user_id, screen_name, INTO twitter VALUES(?, ?, ?, ?)");
