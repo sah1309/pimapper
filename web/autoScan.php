@@ -93,6 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     if($option == 'getname')
     {
         $response = $autoScan->getScreenName();
-        echo json_encode($response['screen_name'][1]);
+        echo json_encode($response['screen_name']);
     }
 }
