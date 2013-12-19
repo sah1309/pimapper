@@ -25,21 +25,21 @@
 
     <script language="javascript">
         var timeout,
-                isRunning = function () {
+        isRunning = function () {
 
-                    $.get( "/includes/stormmapper.php", function( data ) {
-                        if(data.isRunning) {
-                            $('#scanNav').hide();
-                            $('.runningScan').show();
-                            timeout = setTimeout(isRunning, 2000);
+            $.get( "/includes/stormmapper.php", function( data ) {
+                if(data.isRunning) {
+                    $('#scanNav').hide();
+                    $('.runningScan').show();
+                    timeout = setTimeout(isRunning, 500);
 
-                        } else {
-                            $('#scanNav').show();
-                            $('.runningScan').hide();
+                } else {
+                    $('#scanNav').show();
+                    $('.runningScan').hide();
 
-                        }
-                    });
-                };
+                }
+            });
+        };
         isRunning();
 
         twitterCheck = function () {
