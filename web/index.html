@@ -142,8 +142,8 @@
     <li class="active"><a href="#">Home</a></li>
     <li><a href="#">StormMapper</a>
         <ul>
-            <li><a href="#instructions" class="login-window">Instructions</a></li>
             <li><a href="#how-it-works" class="login-window">How it Works</a></li>
+            <li><a href="#future" class="login-window">Future Development</a></li>
         </ul>
     </li>
     <li><a hfef="#">Scan Now</a>
@@ -209,8 +209,7 @@
 
 <div id="screennamewin" class=login-popup>
     <form name="subscribe" id="screenname_frm" action="#">
-        <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window"
-                                                alt="Close"/></a>
+        <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window" alt="Close"/></a>
 
         <div>
             <p>Please enter the Twitter screen name you wish alerts to be sent to via Direct Message</p>
@@ -225,8 +224,7 @@
 
 <div id="scanwindow" class="login-popup">
     <form name="subscribe" id="subscribe_frm" action="#">
-        <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window"
-                                                alt="Close"/></a>
+        <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window" alt="Close"/></a>
 
         <div>
             <p>Please enter the IP address or range (in CIDR format) that you would like to scan:</p>
@@ -239,27 +237,25 @@
     </form>
 </div>
 
-<div id="instructions" class="login-popup">
-    <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window"
-                                            alt="Close"/></a>
-
-
-    <h1>StormMapper - The Network Mapper</h1>
-
-    <p>
-        To start a scan, run 'python /usr/bin/stormmapper/stormmapper.py' as root
-
-    <p>
-        Configuration details are at the following location:
-
-    <p>
-        /usr/bin/stormmapper/conf/mapper.conf
+<div id="future" class="login-popup">
+    <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window" alt="Close"/></a>
+    <h1>StormMapper - Future Development</h1>
+        <br>- Add Wireless functionality to scan for Access Points and Clients
+        <br>- Connect to Active Directory Domains
+        <br>- Search Functionality
+        <br>- Basic vulnerability scanning
+        <br>- Watch specific servers for up-time
+        <br>- Graphical network representation <br><br>
 </div>
 
 <div id="how-it-works" class="login-popup">
     <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window"
                                             alt="Close"/></a>
-    It scans and stuff
+    <h1>Network Discovery and Mapping</h1>
+    <br>Powered by nMap
+    <p>StormMapper scans your network, discovers all hosts, open service ports and operating systems. You can schedule your scans to run
+    on a regular basis and have alerts sent to your Twitter account for any new devices found on your network</p>
+    <p>Designed for the Raspberry Pi</p>
 </div>
 
 
