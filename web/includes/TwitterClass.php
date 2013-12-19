@@ -13,26 +13,26 @@ class TwitterFuncs extends StatusAbstract{
     function checkTwitterAuth()
     {
 
-            $statement = $this->getPdo()->prepare("SELECT id FROM twitter WHERE user = :user");
+            $statement = $this->getPdo()->prepare("SELECT oauth_token FROM twitter WHERE user = :user");
             $statement->execute(array(':user' => "default"));
             $response = $statement->fetch();
 
             return $response;
     }
 
-    function TwitterAuthFromDB($id)
+    function TwitterAuthFromDB($user)
     {
-        $statement = $this->getPdo()->prepare("SELECT oauth_token, oauth_token_secret, user_id, screen_name FROM twitter WHERE id = :id");
+        $statement = $this->getPdo()->prepare("SELECT oauth_token, oauth_token_secret, user_id, screen_name FROM twitter WHERE user = :user");
         $statement->execute(array(':id' => $id));
         $response = $statement->fetch();
 
         return $response;
     }
 
-    function DeleteTwitterAuth($id)
+    function DeleteTwitterAuth($user)
     {
-        $statement = $this->getPdo()->prepare("DELETE FROM twitter WHERE id = :id");
-        $statement->execute(array(':id' => $id));
+        $statement = $this->getPdo()->prepare("DELETE FROM twitter WHERE user = :user");
+        $statement->execute(array(':user' => $user));
         $response = $statement->fetch();
 
         return $response;
