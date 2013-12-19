@@ -38,9 +38,9 @@ class TwitterFuncs extends StatusAbstract{
         return true;
     }
 
-    function DeleteTwitterAuth($user)
+    function deleteTwitterAuth($user)
     {
-        $statement = $this->getPdo()->prepare("DELETE FROM twitter WHERE user = :user");
+        $statement = $this->getPdo()->prepare("UPDATE twitter SET oauth_token=NULL, oauth_token_secret=NULL WHERE user = ?");
         $statement->execute(array(':user' => $user));
         $response = $statement->fetch();
 

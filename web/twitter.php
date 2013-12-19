@@ -85,9 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $status = $twitterOptions->sendDM($_POST['user'], $_POST['message']);
         var_dump($status);
     }
+    elseif ($option == 'deleteauth')
+    {
+        $status = $twitterOptions->deleteTwitterAuth('default');
+        var_dump($status);
+    }
     elseif ($option == 'logout')
     {
-        session_start();
         session_destroy();
         echo "Logged out";
     }
