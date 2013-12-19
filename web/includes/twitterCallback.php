@@ -9,6 +9,7 @@
 session_start();
 require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
 require_once(__DIR__ . '/twitteroauth/config.php');
+require_once(__DIR__ . '/TwitterClass.php');
 
 $config = require(__DIR__ . '/config.php');
 
