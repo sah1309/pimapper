@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         if($_POST['message'] == 0 | $_POST['message'] == 1)
         {
             $setStatus = $autoScan->setStatus($_POST['message']);
-            return $setStatus;
+            echo $setStatus;
         }
         else
         {
