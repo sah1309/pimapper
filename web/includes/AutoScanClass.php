@@ -20,7 +20,7 @@ class AutoScanClass extends ScanAbstract{
             die('Sorry, we couldn\'t insert the token details: ' . $response->errorInfo()[2]);
         }
 
-        print_r($response);
+        return $response;
 
     }
 

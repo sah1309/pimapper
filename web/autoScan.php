@@ -15,18 +15,12 @@ try {
 
 }
 
+$autoScan = new AutoScanClass($pdo, $config);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
-    if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
 
-        $isLoggedin['isLoggedin'] = false;
-        echo json_encode($isLoggedin);
-    }
-    else
-    {
-        $isLoggedin['isLoggedin'] = true;
+    $checkStatus = $autoScan->checkStatus();
+    print_r($checkStatus);
 
-        echo json_encode($isLoggedin);
-    }
 }
