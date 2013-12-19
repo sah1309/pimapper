@@ -25,12 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
     if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
 
         $isLoggedin['isLoggedin'] = false;
-        echo $isLoggedin;
+        echo json_encode($isLoggedin);
     }
     else
     {
         $isLoggedin['isLoggedin'] = true;
-        echo $isLoggedin;
+        echo json_encode($isLoggedin);
     }
 }
 
