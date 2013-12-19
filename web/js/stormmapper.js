@@ -30,6 +30,17 @@ function processFormData()
     }
 }
 
+function getCurrentScreen()
+{
+    $.post("/autoScan.php",
+        {
+            option: "getname"
+        },
+        function ( data ){
+            $.('#screennameout').html(data);
+        });
+}
+
 function processFormDataSN()
 {
     var name_element = document.getElementById('screen_name');
