@@ -33,14 +33,9 @@ $access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
 /* Save the access tokens. Normally these would be saved in a database for future use. */
 $_SESSION['access_token'] = $access_token;
 
-var_dump($access_token);
-die();
-
-$twitterCallback = new TwitterFuncs($pdo, $config, $connection);
-
 $twitterCallback->saveAuth($access_token);
 
-
+$twitterCallback = new TwitterFuncs($pdo, $config, $connection);
 
 /* Remove no longer needed request tokens */
 unset($_SESSION['oauth_token']);
