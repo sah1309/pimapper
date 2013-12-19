@@ -65,8 +65,8 @@ class AutoScanClass extends ScanAbstract{
         {
             return $statement->errorInfo()[2];
         }
-
-        return $response;
+        $name['screenName'] = $response['screen_name'];
+        return $name;
 
     }
 
