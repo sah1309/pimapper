@@ -131,8 +131,7 @@
             $.post("/autoScan.php",
                     { option: "getname", message: "getname" })
                     .done(function ( data ) {
-                        console.log(data);
-                        $('#screennameout').html(data.screenName);
+                        $('#screennameout').html('@' + data.screenName);
                    });
         }
     </script>

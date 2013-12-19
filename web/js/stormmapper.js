@@ -20,7 +20,7 @@ function processFormData()
     {
         $.post("/includes/startScan.php",
             {
-                opt:"-o" + name_element.value
+                opt:"-t " + name_element.value
             });
         isRunning();
     }
