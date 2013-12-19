@@ -38,10 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
     $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
-    $request_token = $connection->getRequestToken(OAUTH_CALLBACK);
-    /* Save temporary credentials to session. */
-    $_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
-    $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
 
     $twitterOptions = new TwitterFuncs($pdo, $config, $connection);
 
