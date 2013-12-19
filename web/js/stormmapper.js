@@ -36,7 +36,6 @@ function getCurrentScreen()
         {
             option: "getname"
         }).done(function ( data ) {
-            console.log(data);
             $.('#screennameout').html(data.message);
         });
 }
