@@ -30,8 +30,8 @@ class TwitterFuncs extends StatusAbstract{
 
     function sendTweet($tweet)
     {
-        $this->getOauth()->post('statuses/update', array('status' => $tweet));
-        return true;
+        $tweetSend = $this->getOauth()->post('statuses/update', array('status' => $tweet));
+        return $tweetSend;
     }
 
     function sendDM($user, $message)
