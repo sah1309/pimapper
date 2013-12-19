@@ -4,6 +4,7 @@ session_start();
 
 require_once(__DIR__ . '/includes/TwitterClass.php');
 require_once(__DIR__ . '/includes/twitteroauth/twitteroauth.php');
+require_once(__DIR__ . '/includes/twitteroauth/config.php');
 
 
 $config = require(__DIR__ . '/includes/config.php');
