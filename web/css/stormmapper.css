@@ -2,6 +2,8 @@
 
 .twitter-opts { display: none; }
 
+.autoScanDi { display: none;}
+
 .center .ui-jqgrid {
     margin-left: auto;
     margin-right: auto;

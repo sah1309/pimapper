@@ -55,6 +55,19 @@
         }
         twitterCheck();
 
+        autoScanCheck = function () {
+            $.get("/autoScan.php", function( data ) {
+                if(data.autoScan){
+                    $('#autoScanEn').hide();
+                    $('#autoScanDi').show();
+                } else {
+                    $('#autoScanEn').show();
+                    $('#autoScanDi').hide();
+                }
+
+            })
+        }
+
 
         $(document).ready(function(){
             $("#startOS").click(function(){
@@ -102,6 +115,8 @@
     <li><a hfef="#">Scan Now</a>
         <ul>
             <div class="scan-list" id="scanNav">
+                <div id="autoScanEn"><li><a href="#">Enable Automatic Scanning</a></li></div>
+                <div id="autoScanDi"><li><a href="#">Disable Automatic Scanning</a></li></div>
                 <li><a href="#scanwindow" class="login-window">Start Host Discovery Scan</a></li>
                 <li><a href="#" id="startOS">Start OS Fingerprint Scan</a></li>
                 <li><a href="#" id="startPort">Start Port Scan</a></li>
@@ -116,7 +131,7 @@
     <li><a hfef="#">Administration</a>
         <ul>
             <div id="twittersign"><li><a href="includes/twitterConnect.php"><img src="https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png" alt="Sign in with Twitter"/></a></li></div>
-            <div id="twitter-opts"><li><a href="#" class="login-window">Twitter Options</a></li></div>
+            <div id="twitter-opts"><li><a href="#twitter" class="login-window">Twitter Options</a></li></div>
             <li><a href="#" class="login-window">Clean Up</a></li>
             <li><a href="#" class="login-window">Clear All Results</a></li>
         </ul>
@@ -138,6 +153,9 @@
 <p></p><a href="https://twitter.com/si_bt" class="twitter-follow-button" data-show-count="false">Follow @si_bt</a></p>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
+<div id="twitter" class="login-popup">
+
+</div>
 
 <div id="scanwindow" class="login-popup">
     <form name ="subscribe" id="subscribe_frm" action="#">
