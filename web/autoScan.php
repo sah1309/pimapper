@@ -23,6 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
 
     $checkStatus = $autoScan->checkStatus();
-    print_r($checkStatus);
+    var_dump($checkStatus);
 
 }
