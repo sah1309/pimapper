@@ -74,6 +74,7 @@
 
         $(document).ready(function(){
             $("autoScanOn").click(function(){
+                console.log("I'm here!");
                 $.post("/autoScan.php",
                         {
                             option:"setstatus",
