@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 
     if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret']))
     {
-        echo "lol";
         $dbcheck = new TwitterFuncs($pdo, $config, $tempcon);
         $haveAuth = $dbcheck->checkTwitterAuth();
+        echo $haveAuth;
         if($haveAuth)
         {
             $dbcheck->twitterAuthFromDB();
