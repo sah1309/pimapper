@@ -16,7 +16,7 @@ try {
         $config['db']['password']
     );
 } catch (PDOException $pdoError) {
-    die('Error constructing database, error was: ' . $error->getMessage());
+    die('Error constructing database, error was: ' . $pdoError->getMessage());
 
 }
 
