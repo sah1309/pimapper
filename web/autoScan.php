@@ -76,5 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         }
 
     }
-
+    if ($option == 'setname')
+    {
+        $setStatus = $autoScan->setScreenName($_POST['message']);
+        echo $setStatus;
+    }
 }

@@ -31,7 +31,7 @@
                         if(data.isRunning) {
                             $('#scanNav').hide();
                             $('.runningScan').show();
-                            timeout = setTimeout(isRunning, 5000);
+                            timeout = setTimeout(isRunning, 2000);
 
                         } else {
                             $('#scanNav').show();
@@ -140,8 +140,6 @@
     <li><a hfef="#">Scan Now</a>
         <ul>
             <div class="scan-list" id="scanNav">
-                <div id="autoScanEn"><li><a href="#" id="autoScanOn">Enable Automatic Scanning</a></li></div>
-                <div id="autoScanDi"><li><a href="#" id="autoScanOff">Disable Automatic Scanning</a></li></div>
                 <li><a href="#scanwindow" class="login-window">Start Host Discovery Scan</a></li>
                 <li><a href="#" id="startOS">Start OS Fingerprint Scan</a></li>
                 <li><a href="#" id="startPort">Start Port Scan</a></li>
@@ -157,6 +155,8 @@
         <ul>
             <div id="twittersign"><li><a href="includes/twitterConnect.php"><img src="https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png" alt="Sign in with Twitter"/></a></li></div>
             <div id="twitter-opts"><li><a href="#twitter" class="login-window">Twitter Options</a></li></div>
+            <div id="autoScanEn"><li><a href="#" id="autoScanOn">Enable Automatic Scanning</a></li></div>
+            <div id="autoScanDi"><li><a href="#" id="autoScanOff">Disable Automatic Scanning</a></li></div>
             <li><a href="#" class="login-window">Clean Up</a></li>
             <li><a href="#" class="login-window">Clear All Results</a></li>
         </ul>

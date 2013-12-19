@@ -40,4 +40,19 @@ class AutoScanClass extends ScanAbstract{
         }
     }
 
+    function setScreenName($name)
+    {
+        $setStatus = $this->pdo->prepare('UPDATE auto_scan SET screen_name=? WHERE name = ?');
+        $statusOK = $setStatus->execute(array($name, 'default'));
+
+        if(!$statusOK)
+        {
+            return $setStatus->errorInfo()[2];
+        }
+        else
+        {
+            return "Name Updated Successfully";
+        }
+    }
+
 }
