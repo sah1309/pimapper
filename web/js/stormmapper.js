@@ -16,9 +16,6 @@ function processFormData()
 
     var name_element = document.getElementById('txt_name');
 
-    var win = ValidateIPaddress(name_element.value);
-    alert(win);
-
     if(ValidateIPaddress(name_element.value))
     {
         $.post("/includes/startScan.php",
@@ -31,5 +28,16 @@ function processFormData()
     {
         alert("Invalid IP");
     }
+}
+
+function processFormDataSN()
+{
+    var name_element = document.getElementById('screen_name');
+
+        $.post("/twitter.php",
+            {
+                option:"setname",
+                message: name_element.value
+            });
 
 }

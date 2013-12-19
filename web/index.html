@@ -47,9 +47,12 @@
                 if(data.isLoggedin){
                     $('#twittersign').hide();
                     $('#twitter-delauth').show();
+                    $('#setScreenName').show();
+
                 } else {
                     $('#twittersign').show();
                     $('#twitter-delauth').hide();
+                    $('#setScreenName').hide();
                 }
             });
         }
@@ -155,10 +158,10 @@
         <ul>
             <div id="twittersign"><li><a href="includes/twitterConnect.php"><img src="https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png" alt="Sign in with Twitter"/></a></li></div>
             <div id="twitter-delauth"><li><a href="#" id="deleteAuth">Remove Twitter Auth</a></li></div>
+            <div id="setScreenName"><li><a href="#" class="login-window">Setup Twitter Alerts</a></li></div>
             <div id="autoScanEn"><li><a href="#" id="autoScanOn">Enable Automatic Scanning</a></li></div>
             <div id="autoScanDi"><li><a href="#" id="autoScanOff">Disable Automatic Scanning</a></li></div>
-            <li><a href="#" class="login-window">Clean Up</a></li>
-            <li><a href="#" class="login-window">Clear All Results</a></li>
+            <li><a href="#" id="cleanScans">Clean Up</a></li>
         </ul>
     </li>
     <li><a href="#license" class="login-window">License</a></li>
@@ -169,14 +172,23 @@
 <p>
 
 <div class="center">
-
     <table id="list2"></table>
     <div id="pager2"></div>
-
 </div>
 
 <p></p><a href="https://twitter.com/si_bt" class="twitter-follow-button" data-show-count="false">Follow @si_bt</a></p>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<div i="screennamewin" class=login-popup>
+    <form name ="subscribe" id="screenname_frm" action="#">
+        <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window" alt="Close"/></a>
+        <div>
+            <p>Please enter the Twitter screen name you wish alerts to be sent to via Direct Message(with the @)</p>
+            <p><input type="text" name="name" id="screen_name"></p>
+            <p><input type="button" value="Submit" name="submit2" onclick="processFormDataSN();" ></p>
+        </div>
+    </form>
+</div>
 
 <div id="scanwindow" class="login-popup">
     <form name ="subscribe" id="subscribe_frm" action="#">
