@@ -28,13 +28,13 @@ class TwitterFuncs extends StatusAbstract{
         return $status;
     }
 
-    function sendTweet($connection, $tweet)
+    function sendTweet($tweet)
     {
         $this->getOauth()->post('statuses/update', array('status' => $tweet));
         return true;
     }
 
-    function sendDM($connection, $user, $message)
+    function sendDM($user, $message)
     {
         $dm = $this->getOauth()->post('direct_messages/new', array('user_id' => $user, 'text' => $message));
         return $dm;
