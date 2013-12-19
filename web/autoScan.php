@@ -54,6 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         die("You must POST an option");
     }
 
+    if (array_key_exists("message", $_POST))
+    {
+        $message = $_POST['message'];
+    }
+    else
+    {
+        die("You must POST a message");
+    }
+
     if ($option == 'setstatus')
     {
         if($_POST['message'] == 0 | $_POST['message'] == 1)
