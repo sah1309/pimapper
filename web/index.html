@@ -67,7 +67,6 @@
                     $('#autoScanEn').show();
                     $('#autoScanDi').hide();
                 }
-
             });
         };
         autoScanCheck();
@@ -82,7 +81,7 @@
                             option:"setstatus",
                             message:"1"
                         });
-                autoScanCheck();
+                setTimeout(autoScanCheck, 1000);
             });
         });
         $(document).ready(function(){
@@ -92,7 +91,7 @@
                             option:"setstatus",
                             message:"0"
                         });
-                autoScanCheck();
+                setTimeout(autoScanCheck, 1000);
             });
         });
 
@@ -103,7 +102,7 @@
                         {
                             opt:"-o"
                         });
-                isRunning();
+                setTimeout(isRunning, 1000);
             });
         });
         $(document).ready(function(){
@@ -112,7 +111,7 @@
                         {
                             opt:"-p"
                         });
-                isRunning();
+                setTimeout(isRunning, 1000);
             });
         });
         $(document).ready(function(){
@@ -121,7 +120,7 @@
                         {
                             option:"deleteauth"
                         });
-                twitterCheck();
+                setTimeout(twitterCheck, 1000);
             });
 
         });
@@ -206,7 +205,7 @@
         <div>
             <p>Please enter the IP address or range (in CIDR format) that you would like to scan:</p>
             <p><input type="text" name="name" id="txt_name"></p>
-            <p><input type="button" value="Start Scan" name="submit1" onclick="processFormData();" ></p>
+            <p><input type="button" value="Start Scan" name="submit1" onclick="processFormData();"></p>
         </div>
     </form>
 </div>
