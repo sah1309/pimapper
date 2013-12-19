@@ -36,7 +36,7 @@ class AutoScanClass extends ScanAbstract{
         }
         else
         {
-            return true;
+            return "Status Updated Successfully";
         }
     }
 
