@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
     {
         $dbcheck = new TwitterFuncs($pdo, $config, $tempcon);
         $haveAuth = $dbcheck->checkTwitterAuth();
-        echo $haveAuth;
+        var_dump($haveAuth);
         if($haveAuth)
         {
             $dbcheck->twitterAuthFromDB();
