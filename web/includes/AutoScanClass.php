@@ -18,7 +18,7 @@ class AutoScanClass extends ScanAbstract{
 
         if(!$response)
         {
-            die('Sorry, we couldn\'t insert the token details: ' . $statement->errorInfo()[2]);
+            die('Database Error: ' . $statement->errorInfo()[2]);
         }
 
         return $response;
