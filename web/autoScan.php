@@ -21,8 +21,24 @@ $autoScan = new AutoScanClass($pdo, $config);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
-
     $checkStatus = $autoScan->checkStatus();
-    var_dump($checkStatus);
-
+    if(array_key_exists('status', $checkStatus))
+    {
+        if($checkStatus['status'] == '1')
+        {
+            $response['autoScan'] = true;
+            echo json_encode($response);
+        }
+        else
+        {
+            $response['autoScan'] = false;
+            echo json_encode($response);
+        }
+    }
+    else
+    {
+        $response['autoScan'] = false;
+        echo json_encode($response);
+    }
 }
+
