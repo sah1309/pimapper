@@ -34,8 +34,7 @@ class ScanAbstract
      */
     public function setConfig($config)
     {
-        if (empty($config))
-        {
+        if (empty($config)) {
             throw new \InvalidArgumentException(__METHOD__ . ' cannot accept an empty config');
         }
         $this->config = $config;
@@ -61,8 +60,7 @@ class ScanAbstract
      */
     public function setPdo($pdo)
     {
-        if (empty($pdo))
-        {
+        if (empty($pdo)) {
             throw new \InvalidArgumentException(__METHOD__ . ' cannot accept an empty pdo');
         }
         $this->pdo = $pdo;

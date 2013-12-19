@@ -8,11 +8,12 @@
 
 require_once(__DIR__ . '/ScanAbstract.php');
 
-class RunScanClass extends ScanAbstract {
+class RunScanClass extends ScanAbstract
+{
 
     function startScan($options)
     {
-        exec( "sudo /usr/bin/stormmapper/stormmapper.py " . $options . " > /var/log/stormmapper_scan.log &");
+        exec("sudo /usr/bin/stormmapper/stormmapper.py " . $options . " > /var/log/stormmapper_scan.log &");
     }
 
     function scanActive()

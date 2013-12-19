@@ -26,8 +26,8 @@
     <script language="javascript">
         var timeout,
                 isRunning = function () {
-                    $.get( "/includes/stormmapper.php", function( data ) {
-                        if(data.isRunning) {
+                    $.get("/includes/stormmapper.php", function (data) {
+                        if (data.isRunning) {
                             $('#scanNav').hide();
                             $('.runningScan').show();
                             timeout = setTimeout(isRunning, 2000);
@@ -41,8 +41,8 @@
         isRunning();
 
         twitterCheck = function () {
-            $.get("/twitter.php", function( data ) {
-                if(data.isLoggedin){
+            $.get("/twitter.php", function (data) {
+                if (data.isLoggedin) {
                     $('#twittersign').hide();
                     $('#twitter-delauth').show();
                     $('#setScreenName').show();
@@ -57,8 +57,8 @@
         twitterCheck();
 
         autoScanCheck = function () {
-            $.get("/autoScan.php", function( data ) {
-                if(data.autoScan){
+            $.get("/autoScan.php", function (data) {
+                if (data.autoScan) {
                     $('#autoScanEn').hide();
                     $('#autoScanDi').show();
                 } else {
@@ -69,67 +69,66 @@
         };
         autoScanCheck();
 
-        </script>
-        <script language="javascript">
+    </script>
+    <script language="javascript">
 
-        $(document).ready(function(){
-            $("#autoScanOn").click(function(){
+        $(document).ready(function () {
+            $("#autoScanOn").click(function () {
                 $.post("/autoScan.php",
                         {
-                            option:"setstatus",
-                            message:"1"
+                            option: "setstatus",
+                            message: "1"
                         });
                 setTimeout(autoScanCheck, 250);
             });
         });
-        $(document).ready(function(){
-            $("#autoScanOff").click(function(){
+        $(document).ready(function () {
+            $("#autoScanOff").click(function () {
                 $.post("/autoScan.php",
                         {
-                            option:"setstatus",
-                            message:"0"
+                            option: "setstatus",
+                            message: "0"
                         });
                 setTimeout(autoScanCheck, 250);
             });
         });
 
 
-        $(document).ready(function(){
-            $("#startOS").click(function(){
+        $(document).ready(function () {
+            $("#startOS").click(function () {
                 $.post("/includes/startScan.php",
                         {
-                            opt:"-o"
+                            opt: "-o"
                         });
                 timeout = setTimeout(isRunning, 2000);
             });
         });
-        $(document).ready(function(){
-            $("#startPort").click(function(){
+        $(document).ready(function () {
+            $("#startPort").click(function () {
                 $.post("/includes/startScan.php",
                         {
-                            opt:"-p"
+                            opt: "-p"
                         });
                 timeout = setTimeout(isRunning, 2000);
             });
         });
-        $(document).ready(function(){
-            $("#deleteAuth").click(function(){
+        $(document).ready(function () {
+            $("#deleteAuth").click(function () {
                 $.post("/twitter.php",
                         {
-                            option:"deleteauth"
+                            option: "deleteauth"
                         });
                 setTimeout(twitterCheck, 1000);
             });
 
         });
 
-        function getCurrentScreen()
-        {
+        function getCurrentScreen() {
             $.post("/autoScan.php",
                     { option: "getname", message: "getname" })
-                    .done(function ( data ) {
+                    .done(function (data) {
                         $('#screennameout').html('Currently sending to: @' + data.screenName);
-                   });
+                    });
         }
     </script>
 </head>
@@ -137,6 +136,7 @@
 <br>
 <img src="images/network.gif" width="100" height="100"/>
 <img src="images/title.png"/>
+
 <p>
 <ul id="menu-bar">
     <li class="active"><a href="#">Home</a></li>
@@ -162,11 +162,24 @@
     </li>
     <li><a hfef="#">Administration</a>
         <ul>
-            <div id="twittersign"><li><a href="includes/twitterConnect.php"><img src="https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png" alt="Sign in with Twitter"/></a></li></div>
-            <div id="twitter-delauth"><li><a href="#" id="deleteAuth">Remove Twitter Auth</a></li></div>
-            <div id="setScreenName"><li><a href="#screennamewin" class="login-window" onclick="getCurrentScreen();">Setup Twitter Alerts</a></li></div>
-            <div id="autoScanEn"><li><a href="#" id="autoScanOn">Enable Automatic Scanning</a></li></div>
-            <div id="autoScanDi"><li><a href="#" id="autoScanOff">Disable Automatic Scanning</a></li></div>
+            <div id="twittersign">
+                <li><a href="includes/TwitterConnect.php"><img
+                        src="https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png"
+                        alt="Sign in with Twitter"/></a></li>
+            </div>
+            <div id="twitter-delauth">
+                <li><a href="#" id="deleteAuth">Remove Twitter Auth</a></li>
+            </div>
+            <div id="setScreenName">
+                <li><a href="#screennamewin" class="login-window" onclick="getCurrentScreen();">Setup Twitter Alerts</a>
+                </li>
+            </div>
+            <div id="autoScanEn">
+                <li><a href="#" id="autoScanOn">Enable Automatic Scanning</a></li>
+            </div>
+            <div id="autoScanDi">
+                <li><a href="#" id="autoScanOff">Disable Automatic Scanning</a></li>
+            </div>
             <li><a href="#" id="cleanScans">Clean Up</a></li>
         </ul>
     </li>
@@ -175,6 +188,7 @@
 </ul>
 <p>
     <img src="images/title2.png"/>
+
 <p>
 
 <div class="center">
@@ -183,33 +197,51 @@
 </div>
 
 <p></p><a href="https://twitter.com/si_bt" class="twitter-follow-button" data-show-count="false">Follow @si_bt</a></p>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
 
 <div id="screennamewin" class=login-popup>
-    <form name ="subscribe" id="screenname_frm" action="#">
-        <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window" alt="Close"/></a>
+    <form name="subscribe" id="screenname_frm" action="#">
+        <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window"
+                                                alt="Close"/></a>
+
         <div>
             <p>Please enter the Twitter screen name you wish alerts to be sent to via Direct Message</p>
+
             <div id=screennameout></div>
             <p><input type="text" name="name2" id="screen_name"></p>
+
             <p><input class="button_rs" type="button" value="Submit" name="submit2" onclick="processFormDataSN();"></p>
         </div>
     </form>
 </div>
 
 <div id="scanwindow" class="login-popup">
-    <form name ="subscribe" id="subscribe_frm" action="#">
-        <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window" alt="Close"/></a>
+    <form name="subscribe" id="subscribe_frm" action="#">
+        <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window"
+                                                alt="Close"/></a>
+
         <div>
             <p>Please enter the IP address or range (in CIDR format) that you would like to scan:</p>
+
             <p><input type="text" name="name" id="txt_name"></p>
-            <p><input class="button_rs" type="button" value="Start Scan" name="submit1" onclick="processFormData();"></p>
+
+            <p><input class="button_rs" type="button" value="Start Scan" name="submit1" onclick="processFormData();">
+            </p>
         </div>
     </form>
 </div>
 
 <div id="instructions" class="login-popup">
-    <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window" alt="Close"/></a>
+    <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window"
+                                            alt="Close"/></a>
 
 
     <h1>StormMapper - The Network Mapper</h1>
@@ -231,7 +263,7 @@
 </div>
 
 
-<div id="license" class="login-popup" style="overflow-y:scroll;">
+<div id="license" class="login-popup">
     <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window"
                                             alt="Close"/></a>
 
@@ -244,11 +276,11 @@
     <br>
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
     GNU General Public License for more details.
     <br>
     You should have received a copy of the GNU General Public License
-    along with this program.  If not, see http://www.gnu.org/licenses
+    along with this program. If not, see http://www.gnu.org/licenses
 </div>
 
 <script language="javascript">

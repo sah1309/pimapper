@@ -1,6 +1,6 @@
 <?php
 /**
- * web -- twitterConnect.php
+ * web -- TwitterConnect.php
  * User: Simon Beattie
  * Date: 18/12/2013
  * Time: 13:28
@@ -9,13 +9,14 @@
 /* Start session and load library. */
 session_start();
 require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
-require_once(__DIR__ . '/twitteroauth/config.php');
+
+$config = require(__DIR__ . '/config.php');
 
 /* Build TwitterOAuth object with client credentials. */
-$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+$connection = new TwitterOAuth($config['twitter']['consumer_key'], $config['twitter']['consumer_secret']);
 
 /* Get temporary credentials. */
-$request_token = $connection->getRequestToken(OAUTH_CALLBACK);
+$request_token = $connection->getRequestToken($config['twitter']['oauth_callback']);
 
 /* Save temporary credentials to session. */
 $_SESSION['oauth_token'] = $token = $request_token['oauth_token'];

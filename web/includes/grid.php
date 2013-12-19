@@ -1,7 +1,6 @@
 <?php
 
-include_once(__DIR__ . '../../conf/stormmapper.conf.php');
-
+$config = require(__DIR__ . '/config.php');
 
 $page = $_GET['page'];
 // get the requested page
@@ -12,8 +11,8 @@ $sidx = $_GET['sidx'];
 $sord = $_GET['sord']; // get the direction if(!$sidx)
 $sidx = 1;
 // connect to the database
-$db = mysql_connect($dbhost, $dbuser, $dbpassword) or die("Connection Error: " . mysql_error());
-mysql_select_db($database) or die("Error conecting to db.");
+$db = mysql_connect($config['db']['hostname'], $config['db']['username'], $config['db']['password']) or die("Connection Error: " . mysql_error());
+mysql_select_db($config['db']['database']) or die("Error conecting to db.");
 $result = mysql_query("SELECT COUNT(*) AS count FROM host_current");
 $row = mysql_fetch_array($result, MYSQL_ASSOC);
 $count = $row['count'];

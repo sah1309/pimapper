@@ -5,6 +5,7 @@
  *      setname -> Sets twitter screenname to send alert DMs to
  *      getname -> Returns currently set screen name (JSON)
  *      setstatus -> Sets autoscan status (1 = on, 0 = off)
+ *      cleandata -> Clear all data except last scan
  */
 
 
@@ -28,71 +29,57 @@ try {
 
 $autoScan = new AutoScanClass($pdo, $config);
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET')
-{
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $checkStatus = $autoScan->checkStatus();
-    if(array_key_exists('status', $checkStatus))
-    {
-        if($checkStatus['status'] == '1')
-        {
+    if (array_key_exists('status', $checkStatus)) {
+        if ($checkStatus['status'] == '1') {
             $response['autoScan'] = true;
             echo json_encode($response);
-        }
-        else
-        {
+        } else {
             $response['autoScan'] = false;
             echo json_encode($response);
         }
-    }
-    else
-    {
+    } else {
         $response['autoScan'] = false;
         echo json_encode($response);
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    if (array_key_exists("option", $_POST))
-    {
+    if (array_key_exists("option", $_POST)) {
         $option = $_POST['option'];
-    }
-    else
-    {
+    } else {
         die("You must POST an option");
     }
 
-    if (array_key_exists("message", $_POST))
-    {
+    if (array_key_exists("message", $_POST)) {
         $message = $_POST['message'];
-    }
-    else
-    {
+    } else {
         die("You must POST a message");
     }
 
-    if ($option == 'setstatus')
-    {
-        if($_POST['message'] == 0 | $_POST['message'] == 1)
-        {
+    if ($option == 'setstatus') {
+        if ($_POST['message'] == 0 | $_POST['message'] == 1) {
             $setStatus = $autoScan->setStatus($_POST['message']);
             echo $setStatus;
-        }
-        else
-        {
+        } else {
             die("Invalid message");
         }
 
     }
-    if ($option == 'setname')
-    {
+    if ($option == 'setname') {
         $setStatus = $autoScan->setScreenName($_POST['message']);
         echo $setStatus;
     }
-    if($option == 'getname')
-    {
+    if ($option == 'getname') {
         $response = $autoScan->getScreenName();
         echo json_encode($response);
+    }
+
+    if ($option == 'cleandata') {
+        /*
+         * insert function to clean out old data
+         */
     }
 }

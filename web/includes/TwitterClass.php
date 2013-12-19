@@ -6,18 +6,19 @@
  * Time: 21:38
  */
 
-require_once(__DIR__ . '/StatusAbstract.php');
+require_once(__DIR__ . '/TwitterAbstract.php');
 
-class TwitterFuncs extends StatusAbstract{
+class TwitterFuncs extends StatusAbstract
+{
 
     function checkTwitterAuth()
     {
 
-            $statement = $this->getPdo()->prepare("SELECT oauth_token FROM twitter WHERE user = :user");
-            $statement->execute(array(':user' => "default"));
-            $response = $statement->fetch();
+        $statement = $this->getPdo()->prepare("SELECT oauth_token FROM twitter WHERE user = :user");
+        $statement->execute(array(':user' => "default"));
+        $response = $statement->fetch();
 
-            return $response;
+        return $response;
     }
 
     function TwitterAuthFromDB($user)
@@ -26,11 +27,11 @@ class TwitterFuncs extends StatusAbstract{
         $statement->execute(array(':user' => $user));
         $response = $statement->fetch();
 
-        $access_token = array (
-            'oauth_token' => $response['oauth_token'],
+        $access_token = array(
+            'oauth_token'        => $response['oauth_token'],
             'oauth_token_secret' => $response['oauth_token_secret'],
-            'user_id' => $response['oauth_token_secret'],
-            'screen_name' => $response['screen_name']
+            'user_id'            => $response['oauth_token_secret'],
+            'screen_name'        => $response['screen_name']
         );
 
         $_SESSION['access_token'] = $access_token;
@@ -53,8 +54,7 @@ class TwitterFuncs extends StatusAbstract{
         $statement = $this->getPdo()->prepare("UPDATE twitter SET oauth_token = ?, oauth_token_secret = ?, user_id = ?, screen_name = ? WHERE user = ?");
         $insertedOk = $statement->execute(array($accessToken['oauth_token'], $accessToken['oauth_token_secret'], $accessToken['user_id'], $accessToken['screen_name'], 'default'));
 
-        if(!$insertedOk)
-        {
+        if (!$insertedOk) {
             die('Sorry, we couldn\'t insert the token details: ' . $statement->errorInfo()[2]);
         }
     }

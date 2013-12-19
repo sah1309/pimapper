@@ -8,7 +8,8 @@
 
 require_once(__DIR__ . '/ScanAbstract.php');
 
-class AutoScanClass extends ScanAbstract{
+class AutoScanClass extends ScanAbstract
+{
 
     function checkStatus()
     {
@@ -16,8 +17,7 @@ class AutoScanClass extends ScanAbstract{
         $statement->execute(array(':name' => "default"));
         $response = $statement->fetch();
 
-        if(!$response)
-        {
+        if (!$response) {
             return $statement->errorInfo()[2];
         }
 
@@ -30,12 +30,9 @@ class AutoScanClass extends ScanAbstract{
         $setStatus = $this->pdo->prepare('UPDATE auto_scan SET status=? WHERE name = ?');
         $statusOK = $setStatus->execute(array($status, 'default'));
 
-        if(!$statusOK)
-        {
+        if (!$statusOK) {
             return $setStatus->errorInfo()[2];
-        }
-        else
-        {
+        } else {
             return "Status Updated Successfully";
         }
     }
@@ -46,12 +43,9 @@ class AutoScanClass extends ScanAbstract{
         $setStatus = $this->pdo->prepare('UPDATE auto_scan SET screen_name=? WHERE name = ?');
         $statusOK = $setStatus->execute(array($name, 'default'));
 
-        if(!$statusOK)
-        {
+        if (!$statusOK) {
             return $setStatus->errorInfo()[2];
-        }
-        else
-        {
+        } else {
             return "Name Updated Successfully";
         }
     }
@@ -62,8 +56,7 @@ class AutoScanClass extends ScanAbstract{
         $statement->execute(array(':name' => "default"));
         $response = $statement->fetch();
 
-        if(!$response)
-        {
+        if (!$response) {
             return $statement->errorInfo()[2];
         }
         $name['screenName'] = $response['screen_name'];
