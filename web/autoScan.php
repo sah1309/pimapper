@@ -70,6 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             $setStatus = $autoScan->setStatus($_POST['message']);
             return $setStatus;
         }
+        else
+        {
+            die("Invalid message");
+        }
 
     }
 
