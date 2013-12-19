@@ -81,4 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $setStatus = $autoScan->setScreenName($_POST['message']);
         echo $setStatus;
     }
+    if($option == 'getname')
+    {
+        $response = $autoScan->getScreenName();
+        $screenName['screenName'] = $response;
+        echo json_encode($screenName);
+    }
 }

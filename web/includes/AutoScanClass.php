@@ -55,4 +55,19 @@ class AutoScanClass extends ScanAbstract{
         }
     }
 
+    function getScreenName()
+    {
+        $statement = $this->getPdo()->prepare("SELECT screen_name FROM auto_scan WHERE name = :name");
+        $statement->execute(array(':name' => "default"));
+        $response = $statement->fetch();
+
+        if(!$response)
+        {
+            return $statement->errorInfo()[2];
+        }
+
+        return $response;
+
+    }
+
 }
