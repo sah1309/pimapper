@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * POST:
+ *      setname -> Sets twitter screenname to send alert DMs to
+ *      getname -> Returns currently set screen name (JSON)
+ *      setstatus -> Sets autoscan status (1 = on, 0 = off)
+ */
+
+
 header('Content-Type:application/json');
 session_start();
 
@@ -84,7 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     if($option == 'getname')
     {
         $response = $autoScan->getScreenName();
-        $screenName['screenName'] = $response;
-        echo json_encode($screenName);
+        echo json_encode($response['screen_name'][1]);
     }
 }
