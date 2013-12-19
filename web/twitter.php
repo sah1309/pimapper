@@ -32,23 +32,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
         $dbcheck = new TwitterFuncs($pdo, $config, $tempcon);
         $haveAuth = $dbcheck->checkTwitterAuth();
         var_dump($haveAuth);
-        if($haveAuth)
+        if(array_key_exists('id', $haveAuth))
         {
             $dbcheck->twitterAuthFromDB();
             if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret']))
             {
                 $isLoggedin['isLoggedin'] = true;
                 echo json_encode($isLoggedin);
+                die();
             }
         }
 
         $isLoggedin['isLoggedin'] = false;
         echo json_encode($isLoggedin);
+        die();
     }
     else
     {
         $isLoggedin['isLoggedin'] = true;
         echo json_encode($isLoggedin);
+        die();
     }
 }
 

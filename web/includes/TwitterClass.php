@@ -26,6 +26,7 @@ class TwitterFuncs extends StatusAbstract{
         $statement->execute(array(':user' => "default"));
         $response = $statement->fetch();
 
+        return $response;
     }
 
     function saveAuth($accessToken)
