@@ -26,9 +26,16 @@ class TwitterFuncs extends StatusAbstract{
         $statement->execute(array(':user' => $user));
         $response = $statement->fetch();
 
-        print_r($response);
+        $access_token = array (
+            'oauth_token' => $response['oauth_token'],
+            'oauth_token_secret' => $response['oauth_token_secret'],
+            'user_id' => $response['oauth_token_secret'],
+            'screen_name' => $response['screen_name']
+        );
 
-        return $response;
+        $_SESSION['access_token'] = $access_token;
+
+        return true;
     }
 
     function DeleteTwitterAuth($user)
