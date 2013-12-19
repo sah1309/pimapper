@@ -68,6 +68,27 @@
             });
         }
         autoScanCheck();
+        $(document).ready(function(){
+            $("autoScanEn").click(function(){
+                $.post("/autoScan.php",
+                        {
+                            option:"setstatus",
+                            message:"1"
+                        });
+                autoScanCheck();
+            });
+        });
+        $(document).ready(function(){
+            $("autoScanDi").click(function(){
+                $.post("/autoScan.php",
+                        {
+                            option:"setstatus",
+                            message:"0"
+                        });
+                autoScanCheck();
+            });
+        });
+
 
         $(document).ready(function(){
             $("#startOS").click(function(){
