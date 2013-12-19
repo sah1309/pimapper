@@ -13,4 +13,4 @@
 
 define('CONSUMER_KEY', 'PkCCwJcKHXvDgY8W3gjAcQ');
 define('CONSUMER_SECRET', 'cS9NkbLQfnhylG6PSeLT7gfjSI8u5LsANBNPeK8dkk');
-define('OAUTH_CALLBACK', 'http://172.16.10.4/includes/twitterCallback.php');
+define('OAUTH_CALLBACK', 'http://192.168.200.10/includes/twitterCallback.php');
