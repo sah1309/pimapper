@@ -36,9 +36,7 @@ class TwitterFuncs extends StatusAbstract{
 
     function sendDM($user, $message)
     {
-        echo $user;
-        echo $message;
-        $dm = $this->getOauth()->post('direct_messages/new', array('user_id' => $user, 'text' => $message));
+        $dm = $this->getOauth()->post('direct_messages/new', array('screen_name' => $user, 'text' => $message));
         return $dm;
     }
 }
