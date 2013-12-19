@@ -35,6 +35,10 @@ $_SESSION['access_token'] = $access_token;
 
 $twitterCallback = new TwitterFuncs($pdo, $config, $connection);
 
+$status = $this->getOauth()->get('account/verify_credentials');
+print_r($status);
+die();
+
 //$twitterCallback->saveAuth($access_token);
 
 /* Remove no longer needed request tokens */
