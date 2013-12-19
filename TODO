@@ -3,3 +3,4 @@
 - Add search function to interface
 - Add another grid on the interface with the open ports and services
 - Add facebook integration
+- Add comments to scanners.py and settings.py
