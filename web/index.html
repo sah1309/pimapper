@@ -129,9 +129,8 @@
         function getCurrentScreen()
         {
             $.post("/autoScan.php",
-                    {
-                        option: "getname"
-                    }).done(function ( data ) {
+                    { option: "getname" })
+                    .done(function ( data ) {
                         console.log(data);
                         $.('#screennameout').html(data);
                    });
