@@ -52,9 +52,8 @@
                     $('#twitter-delauth').hide();
                 }
             });
-            twitterCheck();
         }
-
+        twitterCheck();
 
         autoScanCheck = function () {
             $.get("/autoScan.php", function( data ) {
@@ -67,9 +66,8 @@
                 }
 
             });
-            autoScanCheck();
         }
-
+        autoScanCheck();
 
         </script>
         <script language="javascript">
@@ -120,7 +118,8 @@
                         {
                             option:"deleteauth"
                         });
-            });twitterCheck();
+            });
+            twitterCheck();
         });
     </script>
 
