@@ -25,59 +25,33 @@ class TwitterFuncs extends StatusAbstract{
             }
     }
 
-    function connect($type)
+    function saveAuth($accessToken)
     {
-        if ($type == 'db')
-        {
-            $statement = $this->getPdo()->prepare("SELECT oauth_token, oauth_token_secret FROM twitter WHERE user= :user");
-            $twitterCreds = $statement->execute(array(':user' => "default"));
-            $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitterCreds['oauth_token'], $twitterCreds['oauth_token_secret']);
-            return $connection;
-        }
-        elseif ($type == 'cookie')
-        {
-            /* Create TwitteroAuth object with app key/secret and token key/secret from default phase */
-            $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
-            return $connection;
-        }
-        else
-        {
-            return false;
-        }
+        $statement = $this->getPdo()->prepare("INSERT oauth_token, oauth_token_secret, user_id, screen_name, INTO twitter VALUES(?, ?, ?, ?)");
+        $insertedOk = $statement->execute(array($accessToken['oauth_token'], $accessToken['oauth_token_secret'], $accessToken['user_id'], $accessToken['screen_name']));
 
-    }
-
-    function checkConnection($connection)
-    {
-        $status = $connection->get('account/verify_credentials');
-        if (array_key_exists('screen_name', $status))
+        if(!$insertedOk)
         {
-            $isLoggedin['isLoggedin'] = true;
-            return $isLoggedin;
-        }
-        else
-        {
-            $isLoggedin['isLoggedin'] = false;
-            return $isLoggedin;
+            die('Sorry, we couldn\'t insert the token details: ' . $insertedOk->errorInfo()[2]);
         }
     }
 
     function getStatus($connection)
     {
         // get and return twitter status
-        $status = $connection->get('account/verify_credentials');
+        $status = $this->getOauth()->get('account/verify_credentials');
         return $status;
     }
 
     function sendTweet($connection, $tweet)
     {
-        $connection->post('statuses/update', array('status' => $tweet));
+        $this->getOauth()->post('statuses/update', array('status' => $tweet));
         return true;
     }
 
     function sendDM($connection, $user, $message)
     {
-        $dm = $connection->post('direct_messages/new', array('user_id' => $user, 'text' => $message));
+        $dm = $this->getOauth()->post('direct_messages/new', array('user_id' => $user, 'text' => $message));
         return $dm;
     }
 }

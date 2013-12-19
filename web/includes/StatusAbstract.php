@@ -6,9 +6,7 @@
  * Time: 16:51
  */
 
-require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
-
-class StatusAbstract extends TwitterOAuth
+class StatusAbstract
 {
 
     /**
@@ -21,10 +19,16 @@ class StatusAbstract extends TwitterOAuth
      */
     protected $config;
 
-    public function __construct(PDO $pdo, array $config)
+    /**
+     * @var array $oauth
+     */
+    protected $oauth;
+
+    public function __construct(PDO $pdo, array $config, array $oauth)
     {
         $this->setPdo($pdo);
         $this->setConfig($config);
+        $this->setOauth($oauth);
     }
 
     /**
@@ -81,4 +85,25 @@ class StatusAbstract extends TwitterOAuth
         return $this->pdo;
     }
 
+    /**
+     * setOauth sets the oauth property in object storage
+     *
+     * @param  array $Oath
+     * @throws InvalidArgumentException
+     * @return StatusAbstract
+     */
+    public function setOauth($pdo)
+    {
+        if (empty($oauth))
+        {
+            throw new \InvalidArgumentException(__METHOD__ . ' cannot accept an empty Oauth object');
+        }
+        $this->oauth = $oauth;
+        return $this;
+    }
+
+    public function getOauth()
+    {
+        return $this->oauth;
+    }
 }

@@ -17,7 +17,7 @@ class StatusAbstract
 
     public function __construct(array $oauth)
     {
-        $this->setOauth($oauth);
+
 
     }
 
