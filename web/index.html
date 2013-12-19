@@ -46,14 +46,15 @@
             $.get("/twitter.php", function( data ) {
                 if(data.isLoggedin){
                     $('#twittersign').hide();
-                    $('#twitter-opts').show();
+                    $('#twitter-delauth').show();
                 } else {
                     $('#twittersign').show();
-                    $('#twitter-opts').hide();
+                    $('#twitter-delauth').hide();
                 }
             });
+            twitterCheck();
         }
-        twitterCheck();
+
 
         autoScanCheck = function () {
             $.get("/autoScan.php", function( data ) {
@@ -66,8 +67,9 @@
                 }
 
             });
+            autoScanCheck();
         }
-        autoScanCheck();
+
 
         </script>
         <script language="javascript">
@@ -118,7 +120,7 @@
                         {
                             option:"deleteauth"
                         });
-            });
+            });twitterCheck();
         });
     </script>
 
@@ -161,7 +163,7 @@
     <li><a hfef="#">Administration</a>
         <ul>
             <div id="twittersign"><li><a href="includes/twitterConnect.php"><img src="https://dev.twitter.com/sites/default/files/images_documentation/sign-in-with-twitter-gray.png" alt="Sign in with Twitter"/></a></li></div>
-            <div id="twitter-opts"><li><a href="#twitter" class="login-window">Twitter Options</a></li></div>
+            <div id="twitter-delauth"><li><a href="index.html" id="deleteAuth">Remove Twitter Auth</a></li></div>
             <div id="autoScanEn"><li><a href="#" id="autoScanOn">Enable Automatic Scanning</a></li></div>
             <div id="autoScanDi"><li><a href="#" id="autoScanOff">Disable Automatic Scanning</a></li></div>
             <li><a href="#" class="login-window">Clean Up</a></li>
@@ -184,13 +186,6 @@
 
 <p></p><a href="https://twitter.com/si_bt" class="twitter-follow-button" data-show-count="false">Follow @si_bt</a></p>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-
-<div id="twitter" class="login-popup">
-    <a href="index.html" class="close"><img src="images/close_button.png" class="btn_close" title="Close Window" alt="Close"/></a>
-    <ul>
-        <li><button id=deleteAuth>Delete Twitter Auth</button></li>
-    </ul>
-</div>
 
 <div id="scanwindow" class="login-popup">
     <form name ="subscribe" id="subscribe_frm" action="#">
