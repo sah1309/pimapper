@@ -24,67 +24,8 @@ $twitterPosts = new TwitterFuncs($pdo, $config);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
-    $connected = $twitterPosts->checkStatus($pdo);
-	if (array_key_exists('connectionObj',$connected))
-    {
-    	$connection = $connected['connectionObj'];
-        $status = $twitterPosts->checkConnection($connection);
-        if (array_key_exists('screen_name', $status))
-        {
-            $isLoggedin['isLoggedin'] = true;
-            echo json_encode($isLoggedin);
-        }
-        else
-        {
-            $isLoggedin['isLoggedin'] = false;
-            echo json_encode($isLoggedin);
-        }
-
-    }
-
-    if (array_key_exists('isLoggedin', $response))
-    {
-        if ($connected['method'] == 'db')
-        {
-            // Create twitter connection
-            $connection = $twitterPosts->connect('db');
-            // Test twitter connection
-            $status = $twitterPosts->checkConnection($connection);
-            if ($status['isLoggedin'])
-            {
-                return json_encode($status);
-            }
-            else
-            {
-                $status['isLoggedin'] = false;
-                return json_encode($status);
-            }
-
-
-        }
-        elseif ($connected['method'] == 'cookie')
-        {
-            // Create twitter connection
-            $connection = $twitterPosts->connect('cookie');
-            // Test twitter connection
-            $status = $twitterPosts->checkConnection($connection);
-            if ($status['isLoggedin'])
-            {
-                return json_encode($status);
-            }
-            else
-            {
-                $status['isLoggedin'] = false;
-                return json_encode($status);
-            }
-        }
-    }
-    else
-    {
-        $isLoggedin['isLoggedin'] = false;
-        return json_encode($isLoggedin);
-    }
-
+    $check = $twitterPosts->checkStatus();
+    echo json_encode($check);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')

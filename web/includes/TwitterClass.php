@@ -11,37 +11,18 @@ require_once(__DIR__ . '/StatusAbstract.php');
 class TwitterFuncs extends StatusAbstract{
 
     function checkStatus(){
-        $statement = $this->getPdo()->prepare("SELECT oauth_token, oauth_token_secret FROM twitter WHERE user= :user");
-        $statement->execute(array(':user' => "default"));
-
-        $twitterCreds = $statement->fetch();
-
-        if (!$twitterCreds){
 
             if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
 
                 $isLoggedin['isLoggedin'] = false;
-		return $isLoggedin;
+		        return $isLoggedin;
             }
             else
             {
                 $isLoggedin['isLoggedin'] = true;
                 $isLoggedin['method'] = 'cookie';
-		return $isLoggedin;
+		        return $isLoggedin;
             }
-
-
-        }
-        else
-        {
-            // create twitter connection
-            $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $twitterCreds['oauth_token'], $twitterCreds['oauth_token_secret']);
-	        $isLoggedin['isLoggedin'] = true;
-            $isLoggedin['method'] = 'db';
-            $isLoggedin['connectionObj'] = $connection;
-	    return $isLoggedin;
-        }
-
     }
 
     function connect($type)
