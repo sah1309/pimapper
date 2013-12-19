@@ -23,7 +23,23 @@ try {
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
-    if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret'])) {
+
+    $tempcon = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+
+
+    if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret']))
+    {
+        $dbcheck = new TwitterFuncs($pdo, $config, $tempcon);
+        $haveAuth = $dbcheck->checkTwitterAuth();
+        if($haveAuth)
+        {
+            $dbcheck->twitterAuthFromDB();
+            if (empty($_SESSION['access_token']) || empty($_SESSION['access_token']['oauth_token']) || empty($_SESSION['access_token']['oauth_token_secret']))
+            {
+                $isLoggedin['isLoggedin'] = true;
+                echo json_encode($isLoggedin);
+            }
+        }
 
         $isLoggedin['isLoggedin'] = false;
         echo json_encode($isLoggedin);
@@ -31,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
     else
     {
         $isLoggedin['isLoggedin'] = true;
-
         echo json_encode($isLoggedin);
     }
 }
