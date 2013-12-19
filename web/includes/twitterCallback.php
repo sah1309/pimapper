@@ -11,8 +11,8 @@ require_once(__DIR__ . '/twitteroauth/twitteroauth.php');
 require_once(__DIR__ . '/twitteroauth/config.php');
 require_once(__DIR__ . '/StatusAbstract.php');
 
-var_dump($_SESSION);
-
+var_dump($_SERVER);
+die();
 
 /* If the oauth_token is old redirect to the connect page. */
 if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['oauth_token']) {
