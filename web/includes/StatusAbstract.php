@@ -24,7 +24,7 @@ class StatusAbstract
      */
     protected $oauth;
 
-    public function __construct(PDO $pdo, array $config, array $oauth)
+    public function __construct(PDO $pdo, array $config, $oauth)
     {
         $this->setPdo($pdo);
         $this->setConfig($config);
