@@ -35,9 +35,7 @@ $_SESSION['access_token'] = $access_token;
 
 $twitterCallback = new TwitterFuncs($pdo, $config, $connection);
 
-$status = $twitterCallback->getStatus();
-
-//$twitterCallback->saveAuth($access_token);
+$twitterCallback->saveAuth($access_token);
 
 /* Remove no longer needed request tokens */
 unset($_SESSION['oauth_token']);
