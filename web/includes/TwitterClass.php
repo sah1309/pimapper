@@ -21,7 +21,7 @@ class TwitterFuncs extends StatusAbstract{
         }
     }
 
-    function getStatus($connection)
+    function getStatus()
     {
         // get and return twitter status
         $status = $this->getOauth()->get('account/verify_credentials');

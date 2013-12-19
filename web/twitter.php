@@ -37,6 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
+    $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+    $request_token = $connection->getRequestToken(OAUTH_CALLBACK);
+    /* Save temporary credentials to session. */
+    $_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
+    $_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
+
+    $twitterOptions = new TwitterFuncs($pdo, $config, $connection);
+
     // Check if a post has been sent
     if (array_key_exists("option", $_POST))
     {
@@ -49,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     if ($option == 'info')
     {
-        $status = $twitterPosts->getStatus($connection);
+        $status = $twitterOptions->getStatus();
         var_dump($status);
     }
     elseif ($option == 'tweet')
