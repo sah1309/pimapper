@@ -12,13 +12,13 @@ class AutoScanClass extends ScanAbstract{
 
     function checkStatus()
     {
-        $statement = $this->getPdo()->prepare("SELECT * FROM auto_scan WHERE name = :name");
+        $statement = $this->getPdo()->prepare("SELECT status FROM auto_scan WHERE name = :name");
         $statement->execute(array(':name' => "default"));
         $response = $statement->fetchAll();
 
         if(!$response)
         {
-            die('Sorry, we couldn\'t insert the token details: ' . $response->errorInfo()[2]);
+            die('Sorry, we couldn\'t insert the token details: ' . $statement->errorInfo()[2]);
         }
 
         return $response;
