@@ -35,8 +35,7 @@ function getCurrentScreen()
     $.post("/autoScan.php",
         {
             option: "getname"
-        },
-        function ( data ){
+        }).done(function ( data ) {
             console.log(data);
             $.('#screennameout').html(data.message);
         });
