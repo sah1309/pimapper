@@ -20,6 +20,9 @@ if (isset($_REQUEST['oauth_token']) && $_SESSION['oauth_token'] !== $_REQUEST['o
     header('Location: ./twitterConnect.php');
 }
 
+/* Create TwitteroAuth object with app key/secret and token key/secret from default phase */
+$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+
 
 /* Request access tokens from twitter */
 $access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
@@ -27,15 +30,9 @@ $access_token = $connection->getAccessToken($_REQUEST['oauth_verifier']);
 /* Save the access tokens. Normally these would be saved in a database for future use. */
 $_SESSION['access_token'] = $access_token;
 
-$tokenInsert = $pdo->prepare('INSERT INTO twitter (user, oauth_token, oauth_token_secret) VALUES(?, ?, ?)');
-$insertedOk = $tokenInsert->execute(array($user, $access_token['oauth_token'], $access_token['oauth_token_secret']));
-
-if(!$insertedOk)
-{
-    die('Sorry, we couldn\'t add the Twitter credentials ' . $tokenInsert->errorInfo()[2]);
-}
-
 
 /* Remove no longer needed request tokens */
 unset($_SESSION['oauth_token']);
 unset($_SESSION['oauth_token_secret']);
+
+header('Location: ../index.html');
