@@ -73,8 +73,7 @@
         <script language="javascript">
 
         $(document).ready(function(){
-            $("autoScanOn").click(function(){
-                console.log("I'm here!");
+            $("#autoScanOn").click(function(){
                 $.post("/autoScan.php",
                         {
                             option:"setstatus",
@@ -84,7 +83,7 @@
             });
         });
         $(document).ready(function(){
-            $("autoScanOff").click(function(){
+            $("#autoScanOff").click(function(){
                 $.post("/autoScan.php",
                         {
                             option:"setstatus",
