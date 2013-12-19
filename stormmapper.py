@@ -72,6 +72,11 @@ def main():
 
         current_scan = scanners()
 
+        maxTime = []
+        for i in host_current.select(host_current.scanTime):
+            maxTime.append(i.scanTime)
+        lastScan = max(maxTime)
+
         if args.auto:
             current_scan.discovery_scan(currentRange,timestamp)
             current_scan.port_scan(timestamp)
