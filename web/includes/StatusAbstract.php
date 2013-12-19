@@ -85,14 +85,8 @@ class StatusAbstract
         return $this->pdo;
     }
 
-    /**
-     * setOauth sets the oauth property in object storage
-     *
-     * @param  array $Oath
-     * @throws InvalidArgumentException
-     * @return StatusAbstract
-     */
-    public function setOauth($pdo)
+
+    public function setOauth($oauth)
     {
         if (empty($oauth))
         {
