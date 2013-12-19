@@ -5,6 +5,7 @@ Raspberry Pi Network Mapper
 
 Requirements:
 
+arping
 php5-curl
 php5-mysql
 php5

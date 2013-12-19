@@ -1,20 +1,17 @@
 #!/usr/bin/python
 
 from netaddr import IPNetwork, IPAddress
-import subprocess
-import re
-import socket
-import fcntl
-import struct
-import sys
+import subprocess, re, socket, fcntl, struct, sys
 
 class network():
+
+        # Check to see if IP address (ip) is contained in IP range (cidr)
         def subnetCheck(self, ip, cidr):
                 if IPAddress(ip) in IPNetwork(cidr):
-                            return True
+                        return True
                 else:
                         return False
-
+        # Get mac address for IP address (host)
         def getMac(self, host):
                 cmd = 'arping -c 2 ' + host
                 p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
@@ -24,17 +21,18 @@ class network():
                         if mac:
                                 return mac.group()
 
+        # Get slash notation from subnet mask to build CIDR notations
         def getBits(self, netmask):
                 mask = IPAddress(netmask)
                 return mask.bits().count('1')
 
+        # Get subnet mask of current interface connection
         def get_netmask(self, ifname):
                 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                 return socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x891b, struct.pack('256s',ifname))[20:24])
 
-
+        # Uses Nmap to detect Operating system of host - if option set to 'lan' then run more intensive scan
         def os_match(self, host, option):
-
             try:
                     if option == 'lan':
                             scanv = subprocess.Popen(["nmap", "--osscan-guess", "-PR", "-O", str(host)],stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
