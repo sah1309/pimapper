@@ -31,12 +31,12 @@
                         if(data.isRunning) {
                             $('#scanNav').hide();
                             $('.runningScan').show();
-                            timeout = setTimeout(isRunning, 500);
+                            timeout = setTimeout(isRunning, 2000);
 
                         } else {
                             $('#scanNav').show();
                             $('.runningScan').hide();
-
+                            timeout = setTimeout(isRunning, 1000);
                         }
                     });
                 };
