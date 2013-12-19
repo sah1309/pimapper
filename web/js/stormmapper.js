@@ -22,7 +22,7 @@ function processFormData()
             {
                 opt:"-t " + name_element.value
             });
-        isRunning();
+        timeout = setTimeout(isRunning, 2000);
     }
     else
     {

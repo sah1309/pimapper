@@ -36,7 +36,6 @@
                         } else {
                             $('#scanNav').show();
                             $('.runningScan').hide();
-                            timeout = setTimeout(isRunning, 1000);
                         }
                     });
                 };
@@ -81,7 +80,6 @@
                             option:"setstatus",
                             message:"1"
                         });
-                setTimeout(isRunning, 1000);
             });
         });
         $(document).ready(function(){
@@ -102,7 +100,7 @@
                         {
                             opt:"-o"
                         });
-                setTimeout(isRunning, 1000);
+                timeout = setTimeout(isRunning, 2000);
             });
         });
         $(document).ready(function(){
@@ -111,7 +109,7 @@
                         {
                             opt:"-p"
                         });
-                setTimeout(isRunning, 1000);
+                timeout = setTimeout(isRunning, 2000);
             });
         });
         $(document).ready(function(){
