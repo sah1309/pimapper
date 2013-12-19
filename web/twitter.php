@@ -60,12 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     elseif ($option == 'tweet')
     {
-        $status = $twitterOptions->sendTweet($connection, $_POST['message']);
+        $status = $twitterOptions->sendTweet($_POST['message']);
         var_dump($status);
     }
     elseif ($option == 'dm')
     {
-        $status = $twitterOptions->sendDM($connection, $_POST['user'], $_POST['message']);
+        $status = $twitterOptions->sendDM($_POST['user'], $_POST['message']);
         var_dump($status);
     }
     elseif ($option == 'logout')
